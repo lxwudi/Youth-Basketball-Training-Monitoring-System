@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>API测试</title>
+</head>
+<body>
+    <h1>API测试</h1>
+    <button onclick="testAPI()">测试API</button>
+    <div id="result"></div>
+    
+    <script>
+        async function testAPI() {
+            try {
+                const response = await fetch('http://localhost:5000/api/pose-sequence/734dc0e3-eaed-46d6-9b44-009a576f9bfc');
+                const data = await response.json();
+                document.getElementById('result').innerHTML = '<pre>' + JSON.stringify(data, null, 2) + '</pre>';
+            } catch (error) {
+                document.getElementById('result').innerHTML = '错误: ' + error.message;
+            }
+        }
+    </script>
+</body>
+</html>
