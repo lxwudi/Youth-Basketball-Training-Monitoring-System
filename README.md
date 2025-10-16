@@ -4,12 +4,21 @@
 
 本系统是一个基于3D姿态识别的篮球训练视频分析平台，支持运球、投篮、防守三种训练模式的自动分析。上传后的训练视频将由后端自动识别、绘制骨架、计算多维指标，并通过前端进行回放与实时指标展示。
 
+### 🆕 最新功能
+
+- **DeepSeek AI 智能分析**：集成大模型 API，自动生成专业训练建议和评分
+- **学员报告管理**：支持选择学员并将训练报告发送到家长端
+- **智能训练建议**：针对投篮、运球、防守提供个性化改进建议
+
+详细使用指南请查看 [NEW_FEATURES_GUIDE.md](./NEW_FEATURES_GUIDE.md)
+
 ## 主要功能
 
 ### 1. 运球训练分析
 - 运球频率
 - 重心起伏
 - 腕、肘、肩、膝关节角度
+- 🤖 AI 智能分析：运球节奏、重心控制、技巧提升建议
 
 ### 2. 防守训练分析
 - 重心起伏
@@ -17,6 +26,7 @@
 - 双腿张开程度
 - 膝盖弯曲角度
 - 身体平衡性
+- 🤖 AI 智能分析：防守姿态、移动技巧、持久性训练建议
 
 ### 3. 投篮训练分析
 - 胳膊弯曲角度（肘关节）
@@ -25,6 +35,13 @@
 - 出手点高度
 - 身体垂直度
 - 双手协调性
+- 🤖 AI 智能分析：投篮姿势、发力技巧、协调性改进建议
+
+### 4. 学员报告管理
+- 📊 训练报告生成
+- 👨‍👩‍👧 学员选择功能
+- 📤 报告发送到家长端
+- 📈 训练历史追踪
 
 ## 技术栈
 
@@ -67,12 +84,25 @@ pip install -r requirements_tiaobei.txt
 - `yolov8n.pt` (YOLO目标检测模型)
 - `data/extrinsics.json` (相机外参)
 
-4. 启动Flask API服务器:
+4. **(可选) 配置 DeepSeek API Key**：
+```bash
+# Windows PowerShell
+$env:DEEPSEEK_API_KEY="your-api-key-here"
+
+# Linux/Mac
+export DEEPSEEK_API_KEY="your-api-key-here"
+```
+
+详细配置说明请查看 [DEEPSEEK_API_SETUP.md](./DEEPSEEK_API_SETUP.md)
+
+5. 启动Flask API服务器:
 ```bash
 python api_server.py
 ```
 
 API将在 `http://localhost:5000` 上运行
+
+**注意**：未配置 DeepSeek API Key 时，系统会自动使用模拟数据，不影响核心功能使用。
 
 > 提示：后端会在每次处理完成后自动调用 FFmpeg 将输出视频转码为 H.264 Baseline，并替换 `outputs/{task_id}_output.mp4`，保证浏览器100%可播放。若转码失败，请查看后端控制台日志中的 `FFmpeg 转码失败` 信息。
 
