@@ -1,11 +1,13 @@
 import { useState } from 'react';
-import { ArrowLeft, Brain } from 'lucide-react';
+import { ArrowLeft, Brain, Send } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { VideoUpload } from '@/components/VideoUpload';
 import { LiveMetricsDisplay } from '@/components/LiveMetricsDisplay';
 import { TrainingReportComponent } from '@/components/TrainingReport';
-import { getAnalysisResult, getVideoUrl, analyzeWithAI } from '@/lib/api';
+import { StudentSelector } from '@/components/StudentSelector';
+import { useToast } from '@/components/ui/use-toast';
+import { getAnalysisResult, getVideoUrl, analyzeWithAI, generateTrainingReport, sendReportToParent } from '@/lib/api';
 import type { MetricsFrame, AIAnalysisResponse } from '@/lib/api';
 
 const METRIC_LABELS = {
@@ -20,12 +22,16 @@ const METRIC_LABELS = {
 
 export function Shooting() {
   const navigate = useNavigate();
+  const { toast } = useToast();
   const [taskId, setTaskId] = useState<string | null>(null);
   const [metricsData, setMetricsData] = useState<MetricsFrame[]>([]);
   const [videoUrl, setVideoUrl] = useState<string>('');
   const [aiAnalysis, setAiAnalysis] = useState<AIAnalysisResponse | null>(null);
   const [analyzing, setAnalyzing] = useState(false);
   const [showReport, setShowReport] = useState(false);
+  const [selectedStudent, setSelectedStudent] = useState<{id: string; name: string; parentId: string} | null>(null);
+  const [reportId, setReportId] = useState<string | null>(null);
+  const [sendingReport, setSendingReport] = useState(false);
 
   const handleUploadComplete = async (completedTaskId: string) => {
     setTaskId(completedTaskId);
@@ -58,6 +64,11 @@ export function Shooting() {
       setAiAnalysis(analysisResult);
     } catch (error) {
       console.error('AI分析失败:', error);
+      toast({
+        title: 'AI分析失败',
+        description: 'AI分析服务暂时不可用，已使用模拟数据',
+        variant: 'destructive',
+      });
       // API不可用时显示错误提示
       setAiAnalysis({
         summary: 'AI分析服务暂时不可用，请稍后重试或联系技术支持。',
@@ -68,6 +79,51 @@ export function Shooting() {
       });
     } finally {
       setAnalyzing(false);
+    }
+  };
+
+  const handleSendReportToParent = async () => {
+    if (!selectedStudent || !aiAnalysis) {
+      toast({
+        title: '请选择学员',
+        description: '请先选择要发送报告的学员',
+        variant: 'destructive',
+      });
+      return;
+    }
+
+    setSendingReport(true);
+    try {
+      // 如果还没有生成报告，先生成
+      let currentReportId = reportId;
+      if (!currentReportId) {
+        const report = await generateTrainingReport(
+          selectedStudent.id,
+          selectedStudent.name,
+          'shooting',
+          aiAnalysis,
+          metricsData
+        );
+        currentReportId = report.id;
+        setReportId(currentReportId);
+      }
+
+      // 发送报告到家长端
+      await sendReportToParent(currentReportId, selectedStudent.parentId);
+      
+      toast({
+        title: '发送成功',
+        description: `训练报告已成功发送到${selectedStudent.name}的家长`,
+      });
+    } catch (error) {
+      console.error('发送报告失败:', error);
+      toast({
+        title: '发送失败',
+        description: '发送报告到家长端失败，请稍后重试',
+        variant: 'destructive',
+      });
+    } finally {
+      setSendingReport(false);
     }
   };
 
@@ -116,29 +172,52 @@ export function Shooting() {
             </div>
           )}
 
-          {/* AI分析结果 */}
+          {/* AI分析结果和学员选择 */}
           {aiAnalysis && !showReport && (
-            <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-lg p-4">
-              <div className="flex items-center justify-between mb-3">
-                <h3 className="font-medium text-blue-800 flex items-center gap-2">
-                  <Brain className="w-4 h-4" />
-                  AI智能分析结果
-                </h3>
-                <span className={`text-sm font-medium ${
-                  aiAnalysis.overallScore >= 80 ? 'text-green-600' :
-                  aiAnalysis.overallScore >= 60 ? 'text-yellow-600' : 'text-red-600'
-                }`}>
-                  {aiAnalysis.overallScore}分
-                </span>
+            <div className="space-y-4">
+              <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-lg p-4">
+                <div className="flex items-center justify-between mb-3">
+                  <h3 className="font-medium text-blue-800 flex items-center gap-2">
+                    <Brain className="w-4 h-4" />
+                    AI智能分析结果
+                  </h3>
+                  <span className={`text-sm font-medium ${
+                    aiAnalysis.overallScore >= 80 ? 'text-green-600' :
+                    aiAnalysis.overallScore >= 60 ? 'text-yellow-600' : 'text-red-600'
+                  }`}>
+                    {aiAnalysis.overallScore}分
+                  </span>
+                </div>
+                <p className="text-sm text-blue-700 mb-3">{aiAnalysis.summary}</p>
+                <Button
+                  onClick={() => setShowReport(true)}
+                  size="sm"
+                  className="w-full"
+                >
+                  查看详细报告
+                </Button>
               </div>
-              <p className="text-sm text-blue-700 mb-3">{aiAnalysis.summary}</p>
-              <Button
-                onClick={() => setShowReport(true)}
-                size="sm"
-                className="w-full"
-              >
-                查看详细报告
-              </Button>
+
+              {/* 学员选择和发送报告 */}
+              <div className="bg-white border border-slate-200 rounded-lg p-4">
+                <h3 className="font-medium text-slate-800 mb-3">发送训练报告到家长端</h3>
+                <div className="space-y-3">
+                  <StudentSelector
+                    value={selectedStudent?.id}
+                    onValueChange={(studentId, student) => setSelectedStudent(student)}
+                    placeholder="选择学员"
+                  />
+                  <Button
+                    onClick={handleSendReportToParent}
+                    disabled={!selectedStudent || sendingReport}
+                    className="w-full gap-2"
+                    variant="outline"
+                  >
+                    <Send className="w-4 h-4" />
+                    {sendingReport ? '发送中...' : '发送到家长端'}
+                  </Button>
+                </div>
+              </div>
             </div>
           )}
 

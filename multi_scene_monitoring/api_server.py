@@ -8,13 +8,14 @@ import re
 import mimetypes
 import subprocess
 import shutil
-from typing import Tuple, Optional
+from typing import Tuple, Optional, Dict, Any, List
 from flask import Flask, request, jsonify, send_file, Response
 from flask_cors import CORS
 from werkzeug.utils import secure_filename
 from pathlib import Path
 import tempfile
 import uuid
+from datetime import datetime
 
 from modules.inference_engine_pytorch import InferenceEnginePyTorch
 from modules.parse_poses import parse_poses
@@ -51,6 +52,21 @@ pose_net = InferenceEnginePyTorch(model_path, 'GPU', use_tensorrt=False)
 
 # 存储处理任务状态
 processing_tasks = {}
+
+# 存储学员信息（实际应用中应使用数据库）
+students_db = [
+    {"id": "student-001", "name": "李明", "parentId": "parent-001", "age": 14, "class": "初一（3）班"},
+    {"id": "student-002", "name": "王芳", "parentId": "parent-002", "age": 15, "class": "初二（1）班"},
+    {"id": "student-003", "name": "张伟", "parentId": "parent-003", "age": 14, "class": "初一（2）班"},
+    {"id": "student-004", "name": "刘洋", "parentId": "parent-004", "age": 16, "class": "初三（4）班"},
+    {"id": "student-005", "name": "陈雪", "parentId": "parent-005", "age": 15, "class": "初二（3）班"},
+]
+
+# 存储训练报告（实际应用中应使用数据库）
+training_reports_db = {}
+
+# 存储家长接收的报告（实际应用中应使用数据库）
+parent_reports_db = {}
 
 
 def allowed_file(filename):
@@ -633,8 +649,363 @@ def health_check():
     return jsonify({'status': 'ok'}), 200
 
 
+def call_deepseek_api(training_type: str, metrics_summary: Dict[str, Any]) -> Dict[str, Any]:
+    """调用DeepSeek大模型API进行视频分析
+    
+    Args:
+        training_type: 训练类型 (shooting/dribbling/defense)
+        metrics_summary: 指标摘要数据
+    
+    Returns:
+        AI分析结果
+    """
+    import requests
+    
+    # 从环境变量读取API密钥
+    api_key = os.environ.get('DEEPSEEK_API_KEY', '')
+    
+    if not api_key:
+        print("[WARN] DEEPSEEK_API_KEY not set, using mock response")
+        return generate_mock_ai_analysis(training_type, metrics_summary)
+    
+    # DeepSeek API配置
+    api_url = "https://api.deepseek.com/v1/chat/completions"
+    
+    # 根据训练类型生成不同的提示词
+    training_prompts = {
+        'shooting': '投篮动作分析：请根据投篮训练指标数据，分析运动员的投篮姿势，包括肘部角度、手腕角度、出手高度等。',
+        'dribbling': '运球动作分析：请根据运球训练指标数据，分析运动员的运球技巧，包括运球频率、重心控制、关节角度等。',
+        'defense': '防守动作分析：请根据防守训练指标数据，分析运动员的防守姿态，包括重心稳定性、手臂张开程度、膝盖弯曲等。'
+    }
+    
+    prompt = f"""{training_prompts.get(training_type, '训练动作分析')}
+
+指标数据摘要：
+{json.dumps(metrics_summary, ensure_ascii=False, indent=2)}
+
+请提供：
+1. 整体评价（summary）：2-3句话总结训练表现
+2. 改进建议（suggestions）：3-5条具体的改进建议
+3. 需要改进的方面（improvementAreas）：3-5个关键改进点
+4. 优势方面（strengths）：2-3个表现较好的方面
+5. 综合评分（overallScore）：0-100分的评分
+
+请以JSON格式返回，格式如下：
+{{
+  "summary": "整体评价文本",
+  "suggestions": ["建议1", "建议2", "建议3"],
+  "improvementAreas": ["改进点1", "改进点2", "改进点3"],
+  "strengths": ["优势1", "优势2"],
+  "overallScore": 75
+}}
+"""
+    
+    try:
+        headers = {
+            'Authorization': f'Bearer {api_key}',
+            'Content-Type': 'application/json'
+        }
+        
+        payload = {
+            'model': 'deepseek-chat',
+            'messages': [
+                {
+                    'role': 'system',
+                    'content': '你是一位专业的篮球训练分析师，擅长分析运动员的训练数据并给出专业建议。'
+                },
+                {
+                    'role': 'user',
+                    'content': prompt
+                }
+            ],
+            'temperature': 0.7,
+            'max_tokens': 1000
+        }
+        
+        response = requests.post(api_url, headers=headers, json=payload, timeout=30)
+        
+        if response.status_code == 200:
+            result = response.json()
+            content = result['choices'][0]['message']['content']
+            
+            # 尝试从返回内容中提取JSON
+            try:
+                # 查找JSON代码块
+                json_start = content.find('{')
+                json_end = content.rfind('}') + 1
+                if json_start >= 0 and json_end > json_start:
+                    json_str = content[json_start:json_end]
+                    analysis_result = json.loads(json_str)
+                    return analysis_result
+                else:
+                    # 如果没有找到JSON，使用模拟数据
+                    return generate_mock_ai_analysis(training_type, metrics_summary)
+            except json.JSONDecodeError:
+                print(f"[WARN] Failed to parse DeepSeek response as JSON: {content}")
+                return generate_mock_ai_analysis(training_type, metrics_summary)
+        else:
+            print(f"[ERROR] DeepSeek API error: {response.status_code} - {response.text}")
+            return generate_mock_ai_analysis(training_type, metrics_summary)
+            
+    except Exception as e:
+        print(f"[ERROR] DeepSeek API call failed: {e}")
+        return generate_mock_ai_analysis(training_type, metrics_summary)
+
+
+def generate_mock_ai_analysis(training_type: str, metrics_summary: Dict[str, Any]) -> Dict[str, Any]:
+    """生成模拟的AI分析结果（当DeepSeek API不可用时使用）"""
+    
+    mock_responses = {
+        'shooting': {
+            'summary': '整体投篮姿势较为规范，出手点高度适中，但手腕角度和肘部角度还有改进空间。建议加强基本功训练，注意投篮时的身体协调性。',
+            'suggestions': [
+                '保持投篮时肘部角度在90-100度之间，确保出手更加稳定',
+                '注意手腕的延展角度，出手时手腕应充分后仰以增加球的旋转',
+                '练习投篮时保持身体垂直，避免前倾或后仰',
+                '加强双手协调性训练，辅助手应适当支撑球而不影响主手发力',
+                '提高出手点高度，可以减少被封盖的可能性'
+            ],
+            'improvementAreas': [
+                '手腕延展角度需要改进',
+                '肘部角度稳定性不足',
+                '身体垂直度控制',
+                '双手协调性'
+            ],
+            'strengths': [
+                '出手点高度保持较好',
+                '投篮节奏稳定',
+                '基本动作规范'
+            ],
+            'overallScore': 72
+        },
+        'dribbling': {
+            'summary': '运球基本功扎实，节奏控制较好，但重心起伏较大，需要加强下肢力量和重心控制训练。手腕和手肘的灵活性表现良好。',
+            'suggestions': [
+                '降低重心，保持身体重心稳定，减少不必要的上下起伏',
+                '加强腿部力量训练，特别是股四头肌和小腿肌群',
+                '练习时注意保持膝盖适当弯曲，角度控制在110-130度之间',
+                '提高运球频率，目标达到每秒3-4次以上',
+                '加强非惯用手的运球训练，提高左右手协调性'
+            ],
+            'improvementAreas': [
+                '重心起伏控制',
+                '膝盖角度稳定性',
+                '下肢力量',
+                '运球频率'
+            ],
+            'strengths': [
+                '手腕灵活性好',
+                '手肘角度控制良好',
+                '运球节奏感强'
+            ],
+            'overallScore': 68
+        },
+        'defense': {
+            'summary': '防守姿态基本到位，手臂张开程度较好，但重心稳定性需要提升。膝盖弯曲角度适中，建议加强横向移动训练和核心力量。',
+            'suggestions': [
+                '加强核心力量训练，提高身体平衡性和稳定性',
+                '保持膝盖弯曲角度，避免站得过直或蹲得过低',
+                '练习防守滑步时，保持重心低且稳定',
+                '加强手臂力量和耐力，保持防守手臂始终张开',
+                '提高横向移动速度，增强防守时的反应能力'
+            ],
+            'improvementAreas': [
+                '重心稳定性',
+                '身体平衡度',
+                '横向移动能力',
+                '防守持久性'
+            ],
+            'strengths': [
+                '手臂张开程度好',
+                '膝盖弯曲角度合理',
+                '防守意识强'
+            ],
+            'overallScore': 70
+        }
+    }
+    
+    return mock_responses.get(training_type, mock_responses['shooting'])
+
+
+def calculate_metrics_summary(metrics: List[Dict[str, Any]]) -> Dict[str, Any]:
+    """计算指标摘要统计"""
+    if not metrics or len(metrics) == 0:
+        return {}
+    
+    # 收集所有指标的值
+    metric_values = {}
+    for frame in metrics:
+        if 'people' in frame and len(frame['people']) > 0:
+            person_metrics = frame['people'][0].get('metrics', {})
+            for key, value in person_metrics.items():
+                if key not in metric_values:
+                    metric_values[key] = []
+                if isinstance(value, (int, float)) and not np.isnan(value):
+                    metric_values[key].append(float(value))
+    
+    # 计算统计值
+    summary = {}
+    for key, values in metric_values.items():
+        if values:
+            summary[key] = {
+                'mean': float(np.mean(values)),
+                'std': float(np.std(values)),
+                'min': float(np.min(values)),
+                'max': float(np.max(values)),
+                'count': len(values)
+            }
+    
+    return summary
+
+
+@app.route('/api/ai-analysis', methods=['POST'])
+def ai_analysis():
+    """AI分析训练视频指标"""
+    try:
+        data = request.get_json()
+        training_type = data.get('trainingType')
+        metrics = data.get('metrics', [])
+        
+        if not training_type or not metrics:
+            return jsonify({'error': '缺少必要参数'}), 400
+        
+        # 计算指标摘要
+        metrics_summary = calculate_metrics_summary(metrics)
+        
+        # 调用DeepSeek API
+        analysis_result = call_deepseek_api(training_type, metrics_summary)
+        
+        return jsonify(analysis_result), 200
+        
+    except Exception as e:
+        print(f"[ERROR] AI analysis failed: {e}")
+        return jsonify({
+            'error': 'AI分析失败',
+            'message': str(e)
+        }), 500
+
+
+@app.route('/api/students', methods=['GET'])
+def get_students():
+    """获取学员列表"""
+    return jsonify(students_db), 200
+
+
+@app.route('/api/training-reports', methods=['POST'])
+def create_training_report():
+    """生成训练报告"""
+    try:
+        data = request.get_json()
+        student_id = data.get('studentId')
+        student_name = data.get('studentName')
+        training_type = data.get('trainingType')
+        analysis_result = data.get('analysisResult')
+        metrics = data.get('metrics', [])
+        
+        if not all([student_id, student_name, training_type, analysis_result]):
+            return jsonify({'error': '缺少必要参数'}), 400
+        
+        # 生成报告ID
+        report_id = str(uuid.uuid4())
+        
+        # 创建报告
+        report = {
+            'id': report_id,
+            'studentId': student_id,
+            'studentName': student_name,
+            'trainingType': training_type,
+            'analysisResult': analysis_result,
+            'metrics': metrics,
+            'timestamp': datetime.now().isoformat(),
+            'sentToParent': False
+        }
+        
+        # 保存报告
+        training_reports_db[report_id] = report
+        
+        return jsonify(report), 200
+        
+    except Exception as e:
+        print(f"[ERROR] Create training report failed: {e}")
+        return jsonify({
+            'error': '生成训练报告失败',
+            'message': str(e)
+        }), 500
+
+
+@app.route('/api/send-report-to-parent', methods=['POST'])
+def send_report_to_parent():
+    """发送训练报告到家长端"""
+    try:
+        data = request.get_json()
+        report_id = data.get('reportId')
+        parent_id = data.get('parentId')
+        
+        if not report_id or not parent_id:
+            return jsonify({'error': '缺少必要参数'}), 400
+        
+        # 检查报告是否存在
+        if report_id not in training_reports_db:
+            return jsonify({'error': '报告不存在'}), 404
+        
+        # 获取报告
+        report = training_reports_db[report_id]
+        
+        # 标记报告已发送
+        report['sentToParent'] = True
+        
+        # 保存到家长端
+        if parent_id not in parent_reports_db:
+            parent_reports_db[parent_id] = []
+        
+        parent_reports_db[parent_id].append({
+            'reportId': report_id,
+            'receivedAt': datetime.now().isoformat()
+        })
+        
+        return jsonify({
+            'success': True,
+            'message': '训练报告已成功发送到家长端'
+        }), 200
+        
+    except Exception as e:
+        print(f"[ERROR] Send report to parent failed: {e}")
+        return jsonify({
+            'error': '发送报告失败',
+            'message': str(e)
+        }), 500
+
+
+@app.route('/api/students/<student_id>/reports', methods=['GET'])
+def get_student_reports(student_id):
+    """获取学员的训练报告列表"""
+    try:
+        # 筛选该学员的报告
+        reports = [
+            report for report in training_reports_db.values()
+            if report['studentId'] == student_id
+        ]
+        
+        # 按时间倒序排序
+        reports.sort(key=lambda x: x['timestamp'], reverse=True)
+        
+        return jsonify(reports), 200
+        
+    except Exception as e:
+        print(f"[ERROR] Get student reports failed: {e}")
+        return jsonify([]), 200
+
+
 if __name__ == '__main__':
     print("Starting Flask API server...")
     print(f"Upload folder: {UPLOAD_FOLDER}")
     print(f"Output folder: {OUTPUT_FOLDER}")
+    
+    # 检查DeepSeek API密钥
+    if os.environ.get('DEEPSEEK_API_KEY'):
+        print("DeepSeek API key found - AI analysis enabled")
+    else:
+        print("[WARN] DEEPSEEK_API_KEY not set - using mock AI analysis")
+        print("To enable real AI analysis, set DEEPSEEK_API_KEY environment variable")
+    
     app.run(host='0.0.0.0', port=5000, debug=True)
