@@ -1,0 +1,17 @@
+Attempted to install packages from requirement.txt:
+
+1. Initial run (2025-10-04):
+   - Command: conda run -n tiaobei pip install -r multi_scene_monitoring/requirement.txt
+   - Failed on `alphapose==0.5.0+29ace8c` because the version is not published on PyPI.
+
+2. After updating requirement entry to use Git commit 29ace8c:
+   - Command: conda run -n tiaobei pip install -r multi_scene_monitoring/requirement.txt
+   - Installation terminated later when pip attempted to resolve `detectron2==0.6` which has no prebuilt wheels for Windows; source build is not provided by upstream.
+
+3. Manual install attempts:
+   - `conda run -n tiaobei pip install detectron2==0.6` -> no matching distribution available on Windows.
+   - `conda run -n tiaobei pip install git+https://github.com/MVIG-SJTU/AlphaPose.git@29ace8c` -> git clone aborted (network reset).
+
+Summary:
+- Core runtime packages (torch, ultralytics, opencv-python, numpy, matplotlib, Pillow, scipy, etc.) are present in the `tiaobei` environment.
+- Upstream packages `detectron2` and `AlphaPose` require manual installation from source or a Linux environment; Windows wheels are not provided by maintainers.

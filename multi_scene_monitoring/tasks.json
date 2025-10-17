@@ -1,0 +1,10 @@
+{
+  "191ec8ac-68ff-47e1-b9fe-9822e262cf9e": {
+    "status": "completed",
+    "progress": 100,
+    "video_path": "uploads/191ec8ac-68ff-47e1-b9fe-9822e262cf9e_mp4",
+    "training_type": "dribbling",
+    "output_video": "outputs/coach_dribbling.mp4",
+    "metrics_file": "outputs/191ec8ac-68ff-47e1-b9fe-9822e262cf9e_metrics.json"
+  }
+}

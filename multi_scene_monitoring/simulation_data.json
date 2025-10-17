@@ -1,0 +1,2650 @@
+[
+  {
+    "frame": 0,
+    "timestamp": "2025-10-18T02:44:18.540591",
+    "people": [
+      {
+        "person_id": 0,
+        "metrics": {
+          "left_wrist_angle": 61.55324963197146,
+          "right_wrist_angle": 62.952480763589186,
+          "left_elbow_angle": 92.0883218791197,
+          "right_elbow_angle": 91.47848198218217,
+          "left_shoulder_angle": 104.62015558798215,
+          "right_shoulder_angle": 106.25999545343306,
+          "left_knee_angle": 137.52330149176154,
+          "right_knee_angle": 116.77910224871151,
+          "left_hip_angle": 112.05403538968439,
+          "right_hip_angle": 106.4288941610195,
+          "dribble_frequency": 2.3555358274096534,
+          "center_of_mass": 91.68476297294067,
+          "ball_height": 165.1045221706775,
+          "vertical_velocity": 32.514293391696626,
+          "shooting_accuracy": 70.31744045235718
+        }
+      }
+    ]
+  },
+  {
+    "frame": 1,
+    "timestamp": "2025-10-18T02:44:17.540591",
+    "people": [
+      {
+        "person_id": 0,
+        "metrics": {
+          "left_wrist_angle": 45.67771036611011,
+          "right_wrist_angle": 50.22318633648055,
+          "left_elbow_angle": 91.48149346432507,
+          "right_elbow_angle": 96.98986492565902,
+          "left_shoulder_angle": 123.17747634161587,
+          "right_shoulder_angle": 134.30018892139765,
+          "left_knee_angle": 111.88850509426413,
+          "right_knee_angle": 125.98555229522259,
+          "left_hip_angle": 108.79462094078534,
+          "right_hip_angle": 133.28961190910633,
+          "dribble_frequency": 2.6683726354943924,
+          "center_of_mass": 93.78865689110926,
+          "ball_height": 184.48131246550275,
+          "vertical_velocity": 32.88802293608259,
+          "shooting_accuracy": 60.535081365449145
+        }
+      }
+    ]
+  },
+  {
+    "frame": 2,
+    "timestamp": "2025-10-18T02:44:16.540591",
+    "people": [
+      {
+        "person_id": 0,
+        "metrics": {
+          "left_wrist_angle": 71.2556809640174,
+          "right_wrist_angle": 73.55870236944513,
+          "left_elbow_angle": 107.50203262298392,
+          "right_elbow_angle": 103.47152047423704,
+          "left_shoulder_angle": 106.49847236651793,
+          "right_shoulder_angle": 100.91050684783576,
+          "left_knee_angle": 109.63033866539412,
+          "right_knee_angle": 124.08114745834588,
+          "left_hip_angle": 91.9029134031031,
+          "right_hip_angle": 88.00057327663964,
+          "dribble_frequency": 1.9686172028946782,
+          "center_of_mass": 91.67709744036617,
+          "ball_height": 171.32307040134373,
+          "vertical_velocity": 30.257173663218285,
+          "shooting_accuracy": 72.11302365771986
+        }
+      }
+    ]
+  },
+  {
+    "frame": 3,
+    "timestamp": "2025-10-18T02:44:15.540591",
+    "people": [
+      {
+        "person_id": 0,
+        "metrics": {
+          "left_wrist_angle": 44.10786298520762,
+          "right_wrist_angle": 49.15974165670351,
+          "left_elbow_angle": 101.58829436723262,
+          "right_elbow_angle": 98.86536328088405,
+          "left_shoulder_angle": 117.60294190574974,
+          "right_shoulder_angle": 113.07939919071111,
+          "left_knee_angle": 143.7420332218141,
+          "right_knee_angle": 136.35529169468305,
+          "left_hip_angle": 89.2968604975925,
+          "right_hip_angle": 92.11097727010959,
+          "dribble_frequency": 2.966703381903287,
+          "center_of_mass": 100.46161027695027,
+          "ball_height": 188.55822690108434,
+          "vertical_velocity": 23.876294501909868,
+          "shooting_accuracy": 70.78778148732727
+        }
+      }
+    ]
+  },
+  {
+    "frame": 4,
+    "timestamp": "2025-10-18T02:44:14.540591",
+    "people": [
+      {
+        "person_id": 0,
+        "metrics": {
+          "left_wrist_angle": 51.942963495479944,
+          "right_wrist_angle": 51.96350055672818,
+          "left_elbow_angle": 97.81219931930818,
+          "right_elbow_angle": 110.57552690121244,
+          "left_shoulder_angle": 143.20933745569198,
+          "right_shoulder_angle": 126.27613636859957,
+          "left_knee_angle": 141.48429437534494,
+          "right_knee_angle": 156.01020249738826,
+          "left_hip_angle": 117.02179906015186,
+          "right_hip_angle": 11.218903744638883,
+          "dribble_frequency": 1.62307300483157,
+          "center_of_mass": 91.1253624181266,
+          "ball_height": 159.85208901993266,
+          "vertical_velocity": 28.425522274322248,
+          "shooting_accuracy": 70.73560665472836
+        }
+      }
+    ],
+    "anomaly_type": "extreme_angles",
+    "anomaly_description": "关节角度极端异常"
+  },
+  {
+    "frame": 5,
+    "timestamp": "2025-10-18T02:44:13.540591",
+    "people": [
+      {
+        "person_id": 0,
+        "metrics": {
+          "left_wrist_angle": 73.66259785691754,
+          "right_wrist_angle": 79.78608802418194,
+          "left_elbow_angle": 85.17163394485767,
+          "right_elbow_angle": 95.5925794399098,
+          "left_shoulder_angle": 109.76418125613473,
+          "right_shoulder_angle": 117.01951545254232,
+          "left_knee_angle": 112.69034022766637,
+          "right_knee_angle": 117.81579739222113,
+          "left_hip_angle": 121.1023904137935,
+          "right_hip_angle": 96.76705198586453,
+          "dribble_frequency": 4.1396187049170345,
+          "center_of_mass": 89.73329212407204,
+          "ball_height": 178.76331160644847,
+          "vertical_velocity": 21.515420703208278,
+          "shooting_accuracy": 69.15415557593718
+        }
+      }
+    ]
+  },
+  {
+    "frame": 6,
+    "timestamp": "2025-10-18T02:44:12.540591",
+    "people": [
+      {
+        "person_id": 0,
+        "metrics": {
+          "left_wrist_angle": 51.66904060282066,
+          "right_wrist_angle": 50.235184221744355,
+          "left_elbow_angle": 108.75439902445918,
+          "right_elbow_angle": 108.67160813075499,
+          "left_shoulder_angle": 122.66894075602762,
+          "right_shoulder_angle": 126.49758712141752,
+          "left_knee_angle": 125.91459897159963,
+          "right_knee_angle": 122.87050906850297,
+          "left_hip_angle": 107.26358034410273,
+          "right_hip_angle": 98.08327796712527,
+          "dribble_frequency": 3.383859699643663,
+          "center_of_mass": 98.99604607139025,
+          "ball_height": 168.06744598429194,
+          "vertical_velocity": 31.143376400907762,
+          "shooting_accuracy": 73.71384128869579
+        }
+      }
+    ]
+  },
+  {
+    "frame": 7,
+    "timestamp": "2025-10-18T02:44:11.540591",
+    "people": [
+      {
+        "person_id": 0,
+        "metrics": {
+          "left_wrist_angle": 80.1471735159648,
+          "right_wrist_angle": 71.01544832641768,
+          "left_elbow_angle": 114.2987331949767,
+          "right_elbow_angle": 121.34039237261403,
+          "left_shoulder_angle": 102.25180842066507,
+          "right_shoulder_angle": 108.63660037695666,
+          "left_knee_angle": 126.83898372929278,
+          "right_knee_angle": 116.8349988695233,
+          "left_hip_angle": 97.04698143177396,
+          "right_hip_angle": 104.19727455049359,
+          "dribble_frequency": 1.9943880430840952,
+          "center_of_mass": 93.99004173710483,
+          "ball_height": 168.72041177918962,
+          "vertical_velocity": 33.97197924089808,
+          "shooting_accuracy": 70.20151656388242
+        }
+      }
+    ]
+  },
+  {
+    "frame": 8,
+    "timestamp": "2025-10-18T02:44:10.540591",
+    "people": [
+      {
+        "person_id": 0,
+        "metrics": {
+          "left_wrist_angle": 47.19398112365275,
+          "right_wrist_angle": 48.258092961262875,
+          "left_elbow_angle": 107.4591077149402,
+          "right_elbow_angle": 108.42105242203107,
+          "left_shoulder_angle": 96.99271846078635,
+          "right_shoulder_angle": 100.74775600231965,
+          "left_knee_angle": 118.43905290026755,
+          "right_knee_angle": 130.49350201885272,
+          "left_hip_angle": 106.9388630987987,
+          "right_hip_angle": 104.32771764424764,
+          "dribble_frequency": 3.474223883067213,
+          "center_of_mass": 97.04567503272924,
+          "ball_height": 168.22618918014976,
+          "vertical_velocity": 34.1009396323483,
+          "shooting_accuracy": 55.46710414113127
+        }
+      }
+    ]
+  },
+  {
+    "frame": 9,
+    "timestamp": "2025-10-18T02:44:09.540591",
+    "people": [
+      {
+        "person_id": 0,
+        "metrics": {
+          "left_wrist_angle": 64.25440135712788,
+          "right_wrist_angle": 67.32169302649429,
+          "left_elbow_angle": 76.95297617964161,
+          "right_elbow_angle": 81.36549875629244,
+          "left_shoulder_angle": 137.27050881425126,
+          "right_shoulder_angle": 144.8404219659225,
+          "left_knee_angle": 152.67469727860396,
+          "right_knee_angle": 133.53190137004515,
+          "left_hip_angle": 130.49864459700518,
+          "right_hip_angle": 126.20368923495269,
+          "dribble_frequency": 0.09961572908558886,
+          "center_of_mass": 78.85356169300083,
+          "ball_height": 183.21594247512863,
+          "vertical_velocity": 12.926600806018751,
+          "shooting_accuracy": 67.9811517097845
+        }
+      }
+    ],
+    "anomaly_type": "fatigue_indicators",
+    "anomaly_description": "疲劳指标异常"
+  },
+  {
+    "frame": 10,
+    "timestamp": "2025-10-18T02:44:08.540591",
+    "people": [
+      {
+        "person_id": 0,
+        "metrics": {
+          "left_wrist_angle": 63.84195190099703,
+          "right_wrist_angle": 60.28688042548631,
+          "left_elbow_angle": 109.69074216365054,
+          "right_elbow_angle": 112.9082882840096,
+          "left_shoulder_angle": 122.26254196296854,
+          "right_shoulder_angle": 124.44663074636279,
+          "left_knee_angle": 117.61794837258009,
+          "right_knee_angle": 134.56802585749801,
+          "left_hip_angle": 114.94637301592407,
+          "right_hip_angle": 115.22129982132402,
+          "dribble_frequency": 4.637021697330692,
+          "center_of_mass": 96.72904333575903,
+          "ball_height": 186.65890330433353,
+          "vertical_velocity": 30.786687173460024,
+          "shooting_accuracy": 79.3967215212785
+        }
+      }
+    ]
+  },
+  {
+    "frame": 11,
+    "timestamp": "2025-10-18T02:44:07.540591",
+    "people": [
+      {
+        "person_id": 0,
+        "metrics": {
+          "left_wrist_angle": 63.18487231057266,
+          "right_wrist_angle": 58.76171949513811,
+          "left_elbow_angle": 95.20821569391357,
+          "right_elbow_angle": 102.04944356145357,
+          "left_shoulder_angle": 119.38264489488216,
+          "right_shoulder_angle": 111.61136762904266,
+          "left_knee_angle": 125.25028184301416,
+          "right_knee_angle": 127.68150407941826,
+          "left_hip_angle": 99.36128848243337,
+          "right_hip_angle": 93.61409841280289,
+          "dribble_frequency": 2.3601731068874363,
+          "center_of_mass": 93.19618384914561,
+          "ball_height": 166.94137756785454,
+          "vertical_velocity": 27.92774870763371,
+          "shooting_accuracy": 78.38934736306858
+        }
+      }
+    ]
+  },
+  {
+    "frame": 12,
+    "timestamp": "2025-10-18T02:44:06.540591",
+    "people": [
+      {
+        "person_id": 0,
+        "metrics": {
+          "left_wrist_angle": 60.75548250531968,
+          "right_wrist_angle": 63.22236105781464,
+          "left_elbow_angle": 106.27456565031501,
+          "right_elbow_angle": 113.66645141190988,
+          "left_shoulder_angle": 135.3903587314214,
+          "right_shoulder_angle": 141.29884662974334,
+          "left_knee_angle": 156.05085194100852,
+          "right_knee_angle": 140.24807258376933,
+          "left_hip_angle": 120.57344110419479,
+          "right_hip_angle": 126.0370271131307,
+          "dribble_frequency": 3.928859200217633,
+          "center_of_mass": 94.53224894861123,
+          "ball_height": 184.7376141265303,
+          "vertical_velocity": 34.280377651314105,
+          "shooting_accuracy": 58.48724186391498
+        }
+      }
+    ]
+  },
+  {
+    "frame": 13,
+    "timestamp": "2025-10-18T02:44:05.540591",
+    "people": [
+      {
+        "person_id": 0,
+        "metrics": {
+          "left_wrist_angle": 72.04034253855403,
+          "right_wrist_angle": 68.27712984462457,
+          "left_elbow_angle": 87.12579331659701,
+          "right_elbow_angle": 85.83164799374975,
+          "left_shoulder_angle": 129.85618876216253,
+          "right_shoulder_angle": 135.5465872751509,
+          "left_knee_angle": 125.95449200880894,
+          "right_knee_angle": 124.98794131234997,
+          "left_hip_angle": 117.6606161601676,
+          "right_hip_angle": 100.41634342003914,
+          "dribble_frequency": 4.189480346441143,
+          "center_of_mass": 89.91058560349117,
+          "ball_height": 169.86417954530518,
+          "vertical_velocity": 34.264022385771725,
+          "shooting_accuracy": 58.23986486081672
+        }
+      }
+    ]
+  },
+  {
+    "frame": 14,
+    "timestamp": "2025-10-18T02:44:04.541593",
+    "people": [
+      {
+        "person_id": 0,
+        "metrics": {
+          "left_wrist_angle": 50.220633498454845,
+          "right_wrist_angle": 48.70112635464188,
+          "left_elbow_angle": 87.68823005396027,
+          "right_elbow_angle": 84.15121762472909,
+          "left_shoulder_angle": 141.33125360532452,
+          "right_shoulder_angle": 135.12307086554355,
+          "left_knee_angle": 115.97145852074364,
+          "right_knee_angle": 130.65373259401733,
+          "left_hip_angle": 141.29112213003896,
+          "right_hip_angle": 135.43614471446543,
+          "dribble_frequency": 2.6076884389140194,
+          "center_of_mass": 99.39797815767692,
+          "ball_height": 177.83037618226155,
+          "vertical_velocity": 24.474576183825274,
+          "shooting_accuracy": 77.84331609999401
+        }
+      }
+    ]
+  },
+  {
+    "frame": 15,
+    "timestamp": "2025-10-18T02:44:03.541593",
+    "people": [
+      {
+        "person_id": 0,
+        "metrics": {
+          "left_wrist_angle": 50.52015435723327,
+          "right_wrist_angle": 48.896456989333416,
+          "left_elbow_angle": 89.04450473326287,
+          "right_elbow_angle": 87.67234025436107,
+          "left_shoulder_angle": 109.667481278266,
+          "right_shoulder_angle": 116.84014637148206,
+          "left_knee_angle": 133.9858623244235,
+          "right_knee_angle": 117.97434142545947,
+          "left_hip_angle": 133.55281069782825,
+          "right_hip_angle": 125.37611097062319,
+          "dribble_frequency": 2.965903152868402,
+          "center_of_mass": 89.24283984305313,
+          "ball_height": 185.97172951272316,
+          "vertical_velocity": 22.90972515034861,
+          "shooting_accuracy": 59.10427696118397
+        }
+      }
+    ]
+  },
+  {
+    "frame": 16,
+    "timestamp": "2025-10-18T02:44:02.541593",
+    "people": [
+      {
+        "person_id": 0,
+        "metrics": {
+          "left_wrist_angle": 85.76555786786227,
+          "right_wrist_angle": 83.56547978321788,
+          "left_elbow_angle": 95.02851657891536,
+          "right_elbow_angle": 106.07397101573432,
+          "left_shoulder_angle": 115.6449426663101,
+          "right_shoulder_angle": 126.8353833288724,
+          "left_knee_angle": 123.65198364240828,
+          "right_knee_angle": 110.06819613916971,
+          "left_hip_angle": 101.94887105557453,
+          "right_hip_angle": 117.54885036539895,
+          "dribble_frequency": 0.44300322008233645,
+          "center_of_mass": 75.40703708432494,
+          "ball_height": 186.14189450834684,
+          "vertical_velocity": 10.227514133609512,
+          "shooting_accuracy": 74.48893841640138
+        }
+      }
+    ],
+    "anomaly_type": "fatigue_indicators",
+    "anomaly_description": "疲劳指标异常"
+  },
+  {
+    "frame": 17,
+    "timestamp": "2025-10-18T02:44:01.541593",
+    "people": [
+      {
+        "person_id": 0,
+        "metrics": {
+          "left_wrist_angle": 70.34025597114058,
+          "right_wrist_angle": 63.311457020374654,
+          "left_elbow_angle": 88.29727288135966,
+          "right_elbow_angle": 85.90351474854269,
+          "left_shoulder_angle": 109.69308638363944,
+          "right_shoulder_angle": 99.16425223718372,
+          "left_knee_angle": 139.83825169165456,
+          "right_knee_angle": 139.98813153430322,
+          "left_hip_angle": 92.05419135327247,
+          "right_hip_angle": 115.66007317094974,
+          "dribble_frequency": 3.8645780206217246,
+          "center_of_mass": 93.53348250778025,
+          "ball_height": 185.76342905495784,
+          "vertical_velocity": 25.053769198121234,
+          "shooting_accuracy": 78.89879186838064
+        }
+      }
+    ]
+  },
+  {
+    "frame": 18,
+    "timestamp": "2025-10-18T02:44:00.541593",
+    "people": [
+      {
+        "person_id": 0,
+        "metrics": {
+          "left_wrist_angle": 70.05134545557398,
+          "right_wrist_angle": 63.08333562425764,
+          "left_elbow_angle": 93.01320501360726,
+          "right_elbow_angle": 85.45137456969293,
+          "left_shoulder_angle": 113.31070973313834,
+          "right_shoulder_angle": 111.78863152458236,
+          "left_knee_angle": 132.97998386067795,
+          "right_knee_angle": 144.9718111342374,
+          "left_hip_angle": 93.50988207403488,
+          "right_hip_angle": 90.75146575613437,
+          "dribble_frequency": 3.683803415118536,
+          "center_of_mass": 97.33451074222614,
+          "ball_height": 182.45243302713916,
+          "vertical_velocity": 20.276932802256354,
+          "shooting_accuracy": 50.69962455220051
+        }
+      }
+    ]
+  },
+  {
+    "frame": 19,
+    "timestamp": "2025-10-18T02:43:59.541593",
+    "people": [
+      {
+        "person_id": 0,
+        "metrics": {
+          "left_wrist_angle": 56.97446857821706,
+          "right_wrist_angle": 59.54478474007341,
+          "left_elbow_angle": 83.41237544885298,
+          "right_elbow_angle": 91.44196172885113,
+          "left_shoulder_angle": 146.42666350485774,
+          "right_shoulder_angle": 141.83268357205083,
+          "left_knee_angle": 140.73486226724495,
+          "right_knee_angle": 149.59280080491234,
+          "left_hip_angle": 124.9688902712288,
+          "right_hip_angle": 124.3584554824428,
+          "dribble_frequency": 1.4155151062445015,
+          "center_of_mass": 95.6086136241755,
+          "ball_height": 185.26538346329644,
+          "vertical_velocity": 20.176637918265353,
+          "shooting_accuracy": 55.86866926758477
+        }
+      }
+    ]
+  },
+  {
+    "frame": 20,
+    "timestamp": "2025-10-18T02:43:58.541593",
+    "people": [
+      {
+        "person_id": 0,
+        "metrics": {
+          "left_wrist_angle": 65.1450511933945,
+          "right_wrist_angle": 72.22399751037892,
+          "left_elbow_angle": 100.15396403142648,
+          "right_elbow_angle": 24.37246858473318,
+          "left_shoulder_angle": 114.97304606501075,
+          "right_shoulder_angle": 101.30483727087757,
+          "left_knee_angle": 107.78251187744976,
+          "right_knee_angle": 37.34492401607224,
+          "left_hip_angle": 79.75385025137015,
+          "right_hip_angle": 97.41015652876969,
+          "dribble_frequency": 2.0725215974970546,
+          "center_of_mass": 92.99870648086518,
+          "ball_height": 179.0899121693584,
+          "vertical_velocity": 23.7227651849516,
+          "shooting_accuracy": 55.627108467883026
+        }
+      }
+    ],
+    "anomaly_type": "technique_breakdown",
+    "anomaly_description": "技术动作崩坏"
+  },
+  {
+    "frame": 21,
+    "timestamp": "2025-10-18T02:43:57.541593",
+    "people": [
+      {
+        "person_id": 0,
+        "metrics": {
+          "left_wrist_angle": 72.52404659685699,
+          "right_wrist_angle": 74.54940711709476,
+          "left_elbow_angle": 81.35632882656861,
+          "right_elbow_angle": 88.62151565213418,
+          "left_shoulder_angle": 136.26861945248243,
+          "right_shoulder_angle": 120.76744336459039,
+          "left_knee_angle": 151.02700712686965,
+          "right_knee_angle": 158.11475787291877,
+          "left_hip_angle": 109.62663073712197,
+          "right_hip_angle": 117.20496883230912,
+          "dribble_frequency": 4.286821032890659,
+          "center_of_mass": 91.6188572393062,
+          "ball_height": 162.71704819154124,
+          "vertical_velocity": 24.793157379741906,
+          "shooting_accuracy": 57.75870431253422
+        }
+      }
+    ],
+    "anomaly_type": "inconsistent_patterns",
+    "anomaly_description": "动作模式不一致"
+  },
+  {
+    "frame": 22,
+    "timestamp": "2025-10-18T02:43:56.541593",
+    "people": [
+      {
+        "person_id": 0,
+        "metrics": {
+          "left_wrist_angle": 75.51181134210262,
+          "right_wrist_angle": 72.07381229329474,
+          "left_elbow_angle": 97.86481952165641,
+          "right_elbow_angle": 94.23581972340965,
+          "left_shoulder_angle": 138.56786435064106,
+          "right_shoulder_angle": 125.22469331225032,
+          "left_knee_angle": 139.66011638264288,
+          "right_knee_angle": 131.79667488558258,
+          "left_hip_angle": 97.96476474358649,
+          "right_hip_angle": 96.90365659661748,
+          "dribble_frequency": 2.8809768905950492,
+          "center_of_mass": 93.94997637226521,
+          "ball_height": 177.70292769603935,
+          "vertical_velocity": 30.93674255622846,
+          "shooting_accuracy": 62.13464712476869
+        }
+      }
+    ]
+  },
+  {
+    "frame": 23,
+    "timestamp": "2025-10-18T02:43:55.541593",
+    "people": [
+      {
+        "person_id": 0,
+        "metrics": {
+          "left_wrist_angle": 50.03460575668451,
+          "right_wrist_angle": 49.84512765523865,
+          "left_elbow_angle": 98.4802380230135,
+          "right_elbow_angle": 96.57981896232984,
+          "left_shoulder_angle": 109.68710617440398,
+          "right_shoulder_angle": 105.64111294239979,
+          "left_knee_angle": 144.36051625396948,
+          "right_knee_angle": 136.68768690436653,
+          "left_hip_angle": 127.88030638256461,
+          "right_hip_angle": 125.40779579955213,
+          "dribble_frequency": 3.7982298692959793,
+          "center_of_mass": 88.85850445389438,
+          "ball_height": 192.07905593158057,
+          "vertical_velocity": 21.45218095326173,
+          "shooting_accuracy": 63.7963367034554
+        }
+      }
+    ]
+  },
+  {
+    "frame": 24,
+    "timestamp": "2025-10-18T02:43:54.541593",
+    "people": [
+      {
+        "person_id": 0,
+        "metrics": {
+          "left_wrist_angle": 74.68001752408986,
+          "right_wrist_angle": 74.04617560300015,
+          "left_elbow_angle": 107.72759790601677,
+          "right_elbow_angle": 113.4829522878939,
+          "left_shoulder_angle": 129.1481975352308,
+          "right_shoulder_angle": 115.16928334125143,
+          "left_knee_angle": 150.80919787446174,
+          "right_knee_angle": 149.82135187293633,
+          "left_hip_angle": 116.41096335551677,
+          "right_hip_angle": 126.69186668794833,
+          "dribble_frequency": 4.35238658906123,
+          "center_of_mass": 94.26953463141115,
+          "ball_height": 177.88107889438183,
+          "vertical_velocity": 20.004665031736106,
+          "shooting_accuracy": 59.7353275332571
+        }
+      }
+    ]
+  },
+  {
+    "frame": 25,
+    "timestamp": "2025-10-18T02:43:53.541593",
+    "people": [
+      {
+        "person_id": 0,
+        "metrics": {
+          "left_wrist_angle": 82.71349574527261,
+          "right_wrist_angle": 75.39000146289277,
+          "left_elbow_angle": 91.94432113048622,
+          "right_elbow_angle": 85.5316916457152,
+          "left_shoulder_angle": 112.99549425581723,
+          "right_shoulder_angle": 103.29661604444046,
+          "left_knee_angle": 152.28606678924535,
+          "right_knee_angle": 157.99784048375523,
+          "left_hip_angle": 94.78829813721964,
+          "right_hip_angle": 101.09992626369376,
+          "dribble_frequency": 4.13547627418927,
+          "center_of_mass": 99.20187371512301,
+          "ball_height": 190.16665160741107,
+          "vertical_velocity": 23.767184123798604,
+          "shooting_accuracy": 66.42528789559526
+        }
+      }
+    ]
+  },
+  {
+    "frame": 26,
+    "timestamp": "2025-10-18T02:43:52.541593",
+    "people": [
+      {
+        "person_id": 0,
+        "metrics": {
+          "left_wrist_angle": 46.75365407373296,
+          "right_wrist_angle": 50.92612267247448,
+          "left_elbow_angle": 109.28262750865234,
+          "right_elbow_angle": 105.20654382233829,
+          "left_shoulder_angle": 142.57452993049543,
+          "right_shoulder_angle": 138.1946511982726,
+          "left_knee_angle": 133.58152820777184,
+          "right_knee_angle": 149.80483123851096,
+          "left_hip_angle": 106.38961517257893,
+          "right_hip_angle": 103.6899551627059,
+          "dribble_frequency": 12.083213436640124,
+          "center_of_mass": 91.34268268107894,
+          "ball_height": 170.29113521257457,
+          "vertical_velocity": 24.70266249177714,
+          "shooting_accuracy": 62.361380950017534
+        }
+      }
+    ],
+    "anomaly_type": "rapid_changes",
+    "anomaly_description": "指标变化过快"
+  },
+  {
+    "frame": 27,
+    "timestamp": "2025-10-18T02:43:51.541593",
+    "people": [
+      {
+        "person_id": 0,
+        "metrics": {
+          "left_wrist_angle": 71.14427217764803,
+          "right_wrist_angle": 66.65626813252112,
+          "left_elbow_angle": 83.51463910655642,
+          "right_elbow_angle": 85.21259601390484,
+          "left_shoulder_angle": 107.53616724743344,
+          "right_shoulder_angle": 109.46983262501938,
+          "left_knee_angle": 121.52240633603539,
+          "right_knee_angle": 108.72943371972244,
+          "left_hip_angle": 108.44755677375863,
+          "right_hip_angle": 105.78491284409714,
+          "dribble_frequency": 3.9082415487615223,
+          "center_of_mass": 91.45850314955683,
+          "ball_height": 179.1688198271737,
+          "vertical_velocity": 33.57649197387907,
+          "shooting_accuracy": 56.21414665766945
+        }
+      }
+    ]
+  },
+  {
+    "frame": 28,
+    "timestamp": "2025-10-18T02:43:50.541593",
+    "people": [
+      {
+        "person_id": 0,
+        "metrics": {
+          "left_wrist_angle": 52.54352821781396,
+          "right_wrist_angle": 49.90410983651945,
+          "left_elbow_angle": 101.18186917022685,
+          "right_elbow_angle": 96.47268833956772,
+          "left_shoulder_angle": 139.34300655851538,
+          "right_shoulder_angle": 138.15791757934645,
+          "left_knee_angle": 119.2825241301289,
+          "right_knee_angle": 108.68030636788164,
+          "left_hip_angle": 81.22382154640994,
+          "right_hip_angle": 100.6396542170985,
+          "dribble_frequency": 4.2775306776543305,
+          "center_of_mass": 100.4352884040025,
+          "ball_height": 162.5314825036665,
+          "vertical_velocity": 20.957869382257723,
+          "shooting_accuracy": 61.29655590947405
+        }
+      }
+    ]
+  },
+  {
+    "frame": 29,
+    "timestamp": "2025-10-18T02:43:49.541593",
+    "people": [
+      {
+        "person_id": 0,
+        "metrics": {
+          "left_wrist_angle": 76.16412629013622,
+          "right_wrist_angle": 71.44025838164077,
+          "left_elbow_angle": 91.88969350564045,
+          "right_elbow_angle": 189.46776567916703,
+          "left_shoulder_angle": 119.50263912036218,
+          "right_shoulder_angle": 119.32014155742398,
+          "left_knee_angle": 147.70666815899185,
+          "right_knee_angle": 124.08717691860592,
+          "left_hip_angle": 139.04158586479772,
+          "right_hip_angle": 126.43948872732855,
+          "dribble_frequency": 1.7067318660545958,
+          "center_of_mass": 98.35925746301284,
+          "ball_height": 183.6649549804333,
+          "vertical_velocity": 34.093737712357566,
+          "shooting_accuracy": 73.34686409494401
+        }
+      }
+    ],
+    "anomaly_type": "extreme_angles",
+    "anomaly_description": "关节角度极端异常"
+  },
+  {
+    "frame": 30,
+    "timestamp": "2025-10-18T02:43:48.541593",
+    "people": [
+      {
+        "person_id": 0,
+        "metrics": {
+          "left_wrist_angle": 50.25871068089923,
+          "right_wrist_angle": 46.39015974522304,
+          "left_elbow_angle": 109.3311126905148,
+          "right_elbow_angle": 110.14225443224024,
+          "left_shoulder_angle": 141.49967125546192,
+          "right_shoulder_angle": 143.20774934205292,
+          "left_knee_angle": 122.3663564024425,
+          "right_knee_angle": 20.05045702775938,
+          "left_hip_angle": 141.59311150156248,
+          "right_hip_angle": 115.62857370009466,
+          "dribble_frequency": 2.4239434595802365,
+          "center_of_mass": 101.09748061135802,
+          "ball_height": 169.37241302981647,
+          "vertical_velocity": 34.20284862755458,
+          "shooting_accuracy": 62.2634384686955
+        }
+      }
+    ],
+    "anomaly_type": "extreme_angles",
+    "anomaly_description": "关节角度极端异常"
+  },
+  {
+    "frame": 31,
+    "timestamp": "2025-10-18T02:43:47.541593",
+    "people": [
+      {
+        "person_id": 0,
+        "metrics": {
+          "left_wrist_angle": 57.311751252090154,
+          "right_wrist_angle": 62.816475326263514,
+          "left_elbow_angle": 105.98353019065705,
+          "right_elbow_angle": 92.7606447551287,
+          "left_shoulder_angle": 117.12180209080383,
+          "right_shoulder_angle": 125.61905398354853,
+          "left_knee_angle": 111.86759777171952,
+          "right_knee_angle": 102.85837460869101,
+          "left_hip_angle": 98.20587294710668,
+          "right_hip_angle": 100.7069570181335,
+          "dribble_frequency": 1.9063845217112148,
+          "center_of_mass": 91.0264750067014,
+          "ball_height": 173.5223110865446,
+          "vertical_velocity": 30.19555843755125,
+          "shooting_accuracy": 55.8663063904269
+        }
+      }
+    ]
+  },
+  {
+    "frame": 32,
+    "timestamp": "2025-10-18T02:43:46.541593",
+    "people": [
+      {
+        "person_id": 0,
+        "metrics": {
+          "left_wrist_angle": 68.55774878988416,
+          "right_wrist_angle": 68.20028324063382,
+          "left_elbow_angle": 110.06503862697788,
+          "right_elbow_angle": 100.81841100527434,
+          "left_shoulder_angle": 127.07803223279953,
+          "right_shoulder_angle": 113.72880789440171,
+          "left_knee_angle": 137.96141304822703,
+          "right_knee_angle": 133.58705665483927,
+          "left_hip_angle": 104.90016066309023,
+          "right_hip_angle": 97.30451878902835,
+          "dribble_frequency": 2.4036653644604464,
+          "center_of_mass": 99.09685868874911,
+          "ball_height": 178.64303418208087,
+          "vertical_velocity": 26.507141943554064,
+          "shooting_accuracy": 76.77326678757949
+        }
+      }
+    ]
+  },
+  {
+    "frame": 33,
+    "timestamp": "2025-10-18T02:43:45.541593",
+    "people": [
+      {
+        "person_id": 0,
+        "metrics": {
+          "left_wrist_angle": 76.98307898518563,
+          "right_wrist_angle": 76.46766653073648,
+          "left_elbow_angle": 86.51661513606894,
+          "right_elbow_angle": 79.82585598034122,
+          "left_shoulder_angle": 143.71560262440835,
+          "right_shoulder_angle": 148.59312385944418,
+          "left_knee_angle": 140.1205295072268,
+          "right_knee_angle": 153.84416145047595,
+          "left_hip_angle": 92.81662476375747,
+          "right_hip_angle": 104.37871617431453,
+          "dribble_frequency": 4.496192941728057,
+          "center_of_mass": 96.23298660877592,
+          "ball_height": 189.3514383416986,
+          "vertical_velocity": 23.681656567380983,
+          "shooting_accuracy": 57.68774781819484
+        }
+      }
+    ]
+  },
+  {
+    "frame": 34,
+    "timestamp": "2025-10-18T02:43:44.541593",
+    "people": [
+      {
+        "person_id": 0,
+        "metrics": {
+          "left_wrist_angle": 66.3903175463043,
+          "right_wrist_angle": 69.07952730595487,
+          "left_elbow_angle": 96.8417314457929,
+          "right_elbow_angle": 95.50928057979539,
+          "left_shoulder_angle": 133.7412464089186,
+          "right_shoulder_angle": 135.74401136928887,
+          "left_knee_angle": 131.1271912154588,
+          "right_knee_angle": 110.89854217564908,
+          "left_hip_angle": 113.8079783999631,
+          "right_hip_angle": 113.01779407596956,
+          "dribble_frequency": 1.7802152870146104,
+          "center_of_mass": 91.53497435979851,
+          "ball_height": 191.18984279679987,
+          "vertical_velocity": 24.345255405158312,
+          "shooting_accuracy": 57.40467098714635
+        }
+      }
+    ],
+    "anomaly_type": "inconsistent_patterns",
+    "anomaly_description": "动作模式不一致"
+  },
+  {
+    "frame": 35,
+    "timestamp": "2025-10-18T02:43:43.541593",
+    "people": [
+      {
+        "person_id": 0,
+        "metrics": {
+          "left_wrist_angle": 68.18293427760048,
+          "right_wrist_angle": 66.36497945679798,
+          "left_elbow_angle": 112.05407090359668,
+          "right_elbow_angle": 119.03432052134274,
+          "left_shoulder_angle": 122.45669060048934,
+          "right_shoulder_angle": 115.98949848306505,
+          "left_knee_angle": 110.79346471963788,
+          "right_knee_angle": 120.88456906400157,
+          "left_hip_angle": 140.61827929307566,
+          "right_hip_angle": 122.43155411415287,
+          "dribble_frequency": 4.566282193527244,
+          "center_of_mass": 99.11788737620618,
+          "ball_height": 165.8186468731711,
+          "vertical_velocity": 22.1197688160079,
+          "shooting_accuracy": 69.51560007141914
+        }
+      }
+    ]
+  },
+  {
+    "frame": 36,
+    "timestamp": "2025-10-18T02:43:42.541593",
+    "people": [
+      {
+        "person_id": 0,
+        "metrics": {
+          "left_wrist_angle": 48.6742790073008,
+          "right_wrist_angle": 43.264515713422504,
+          "left_elbow_angle": 90.31845194269172,
+          "right_elbow_angle": 97.54321747672127,
+          "left_shoulder_angle": 112.6720306746644,
+          "right_shoulder_angle": 111.19028606325053,
+          "left_knee_angle": 106.7109860025258,
+          "right_knee_angle": 122.99580638685333,
+          "left_hip_angle": 101.50287326084094,
+          "right_hip_angle": 114.9703150254493,
+          "dribble_frequency": 3.178223084384862,
+          "center_of_mass": 96.58650491014198,
+          "ball_height": 173.4276004825835,
+          "vertical_velocity": 33.08145052863487,
+          "shooting_accuracy": 79.71065421780749
+        }
+      }
+    ]
+  },
+  {
+    "frame": 37,
+    "timestamp": "2025-10-18T02:43:41.541593",
+    "people": [
+      {
+        "person_id": 0,
+        "metrics": {
+          "left_wrist_angle": 56.68567228775204,
+          "right_wrist_angle": 62.20675390107585,
+          "left_elbow_angle": 93.61922004915742,
+          "right_elbow_angle": 93.65610664277061,
+          "left_shoulder_angle": 127.0079453382298,
+          "right_shoulder_angle": 124.6431922740414,
+          "left_knee_angle": 143.34203017202867,
+          "right_knee_angle": 141.12829479321863,
+          "left_hip_angle": 108.29769101416936,
+          "right_hip_angle": 102.57570752689676,
+          "dribble_frequency": 3.9023244992615673,
+          "center_of_mass": 191.33329725087,
+          "ball_height": 173.60102354831105,
+          "vertical_velocity": 32.09068064401313,
+          "shooting_accuracy": 56.03120574078491
+        }
+      }
+    ],
+    "anomaly_type": "rapid_changes",
+    "anomaly_description": "指标变化过快"
+  },
+  {
+    "frame": 38,
+    "timestamp": "2025-10-18T02:43:40.541593",
+    "people": [
+      {
+        "person_id": 0,
+        "metrics": {
+          "left_wrist_angle": 61.21439039595623,
+          "right_wrist_angle": 60.98299312592464,
+          "left_elbow_angle": 94.80359675921333,
+          "right_elbow_angle": 85.91773554326355,
+          "left_shoulder_angle": 109.75764945661018,
+          "right_shoulder_angle": 96.40039557124317,
+          "left_knee_angle": 144.89630043340796,
+          "right_knee_angle": 127.73025972590017,
+          "left_hip_angle": 86.54545745926029,
+          "right_hip_angle": 98.47855376969393,
+          "dribble_frequency": 3.5704454637496483,
+          "center_of_mass": 90.98844166056526,
+          "ball_height": 161.02597149172226,
+          "vertical_velocity": 25.47895191945818,
+          "shooting_accuracy": 64.75396162188784
+        }
+      }
+    ]
+  },
+  {
+    "frame": 39,
+    "timestamp": "2025-10-18T02:43:39.541593",
+    "people": [
+      {
+        "person_id": 0,
+        "metrics": {
+          "left_wrist_angle": 56.883416453584786,
+          "right_wrist_angle": 57.96141365002938,
+          "left_elbow_angle": 23.756746113590502,
+          "right_elbow_angle": 37.112027866128436,
+          "left_shoulder_angle": 102.70176579904786,
+          "right_shoulder_angle": 93.08210259953583,
+          "left_knee_angle": 129.86569298202159,
+          "right_knee_angle": 35.87759830915718,
+          "left_hip_angle": 99.42201692689262,
+          "right_hip_angle": 91.87745148592032,
+          "dribble_frequency": 4.632588678498287,
+          "center_of_mass": 90.47489960010485,
+          "ball_height": 160.64657056446885,
+          "vertical_velocity": 34.862862218631825,
+          "shooting_accuracy": 67.87050139665337
+        }
+      }
+    ],
+    "anomaly_type": "technique_breakdown",
+    "anomaly_description": "技术动作崩坏"
+  },
+  {
+    "frame": 40,
+    "timestamp": "2025-10-18T02:43:38.541593",
+    "people": [
+      {
+        "person_id": 0,
+        "metrics": {
+          "left_wrist_angle": 73.82305492711585,
+          "right_wrist_angle": 69.02516606732974,
+          "left_elbow_angle": 97.68889753806653,
+          "right_elbow_angle": 101.32453306372201,
+          "left_shoulder_angle": 130.72226421865395,
+          "right_shoulder_angle": 146.72160848188565,
+          "left_knee_angle": 108.30029952301336,
+          "right_knee_angle": 120.02389129049061,
+          "left_hip_angle": 110.16653602782833,
+          "right_hip_angle": 106.21297502663754,
+          "dribble_frequency": 3.2193651068436386,
+          "center_of_mass": 90.05847495547448,
+          "ball_height": 167.43043489925117,
+          "vertical_velocity": 31.052205801964902,
+          "shooting_accuracy": 74.39093281934295
+        }
+      }
+    ]
+  },
+  {
+    "frame": 41,
+    "timestamp": "2025-10-18T02:43:37.541593",
+    "people": [
+      {
+        "person_id": 0,
+        "metrics": {
+          "left_wrist_angle": 55.14105856718443,
+          "right_wrist_angle": 63.54611353624085,
+          "left_elbow_angle": 85.25067107151386,
+          "right_elbow_angle": 90.67458889589679,
+          "left_shoulder_angle": 102.88299253894044,
+          "right_shoulder_angle": 107.26851974928701,
+          "left_knee_angle": 125.28417423028829,
+          "right_knee_angle": 120.75608545033643,
+          "left_hip_angle": 99.72052796992122,
+          "right_hip_angle": 113.41321505855218,
+          "dribble_frequency": 11.801277878831783,
+          "center_of_mass": 97.78713944298465,
+          "ball_height": 180.58081375886422,
+          "vertical_velocity": 26.347205502800875,
+          "shooting_accuracy": 66.50152064088843
+        }
+      }
+    ],
+    "anomaly_type": "rapid_changes",
+    "anomaly_description": "指标变化过快"
+  },
+  {
+    "frame": 42,
+    "timestamp": "2025-10-18T02:43:36.541593",
+    "people": [
+      {
+        "person_id": 0,
+        "metrics": {
+          "left_wrist_angle": 54.953112586926004,
+          "right_wrist_angle": 60.62430255952246,
+          "left_elbow_angle": 92.12268718366482,
+          "right_elbow_angle": 93.00988774755365,
+          "left_shoulder_angle": 126.57006320864163,
+          "right_shoulder_angle": 127.0161637540499,
+          "left_knee_angle": 146.1149850015437,
+          "right_knee_angle": 142.7823815505525,
+          "left_hip_angle": 127.9441900488606,
+          "right_hip_angle": 128.32493376170657,
+          "dribble_frequency": 2.2754668318438953,
+          "center_of_mass": 93.85179887310653,
+          "ball_height": 180.61342703556082,
+          "vertical_velocity": 34.023519434718644,
+          "shooting_accuracy": 51.63841137978605
+        }
+      }
+    ]
+  },
+  {
+    "frame": 43,
+    "timestamp": "2025-10-18T02:43:35.541593",
+    "people": [
+      {
+        "person_id": 0,
+        "metrics": {
+          "left_wrist_angle": 57.13277298083952,
+          "right_wrist_angle": 59.03002669520472,
+          "left_elbow_angle": 105.47062421951159,
+          "right_elbow_angle": 109.8176776015509,
+          "left_shoulder_angle": 98.14085852612361,
+          "right_shoulder_angle": 105.05801023693259,
+          "left_knee_angle": 134.95672492470615,
+          "right_knee_angle": 130.55955915943014,
+          "left_hip_angle": 102.34632654251307,
+          "right_hip_angle": 115.6733537448404,
+          "dribble_frequency": 4.050230254014655,
+          "center_of_mass": 93.52368158728419,
+          "ball_height": 168.6084638504239,
+          "vertical_velocity": 30.28502336056681,
+          "shooting_accuracy": 63.900593722376605
+        }
+      }
+    ]
+  },
+  {
+    "frame": 44,
+    "timestamp": "2025-10-18T02:43:34.541593",
+    "people": [
+      {
+        "person_id": 0,
+        "metrics": {
+          "left_wrist_angle": 60.741421857952346,
+          "right_wrist_angle": 62.281287312043375,
+          "left_elbow_angle": 121.05431063864684,
+          "right_elbow_angle": 114.9524083839907,
+          "left_shoulder_angle": 109.1077526331374,
+          "right_shoulder_angle": 127.85781918610287,
+          "left_knee_angle": 106.6242822367906,
+          "right_knee_angle": 115.04074004146159,
+          "left_hip_angle": 117.02875662835591,
+          "right_hip_angle": 109.81009559133018,
+          "dribble_frequency": 2.980345656798969,
+          "center_of_mass": 95.17603987412042,
+          "ball_height": 170.3080842277374,
+          "vertical_velocity": 33.97023414891376,
+          "shooting_accuracy": 55.22071974376739
+        }
+      }
+    ]
+  },
+  {
+    "frame": 45,
+    "timestamp": "2025-10-18T02:43:33.541593",
+    "people": [
+      {
+        "person_id": 0,
+        "metrics": {
+          "left_wrist_angle": 74.005175527434,
+          "right_wrist_angle": 74.38997679141727,
+          "left_elbow_angle": 105.04416271361784,
+          "right_elbow_angle": 91.98516507176411,
+          "left_shoulder_angle": 133.4222407617407,
+          "right_shoulder_angle": 131.48974922325465,
+          "left_knee_angle": 151.27670674914765,
+          "right_knee_angle": 133.5141431704231,
+          "left_hip_angle": 102.73337317070911,
+          "right_hip_angle": 81.56693620279279,
+          "dribble_frequency": 2.759137770834437,
+          "center_of_mass": 95.22560495088878,
+          "ball_height": 158.0147439511755,
+          "vertical_velocity": 28.161490885093862,
+          "shooting_accuracy": 61.7014347506598
+        }
+      }
+    ]
+  },
+  {
+    "frame": 46,
+    "timestamp": "2025-10-18T02:43:32.541593",
+    "people": [
+      {
+        "person_id": 0,
+        "metrics": {
+          "left_wrist_angle": 65.89036453596525,
+          "right_wrist_angle": 65.39834395453178,
+          "left_elbow_angle": 112.92134720454479,
+          "right_elbow_angle": 109.97551592654825,
+          "left_shoulder_angle": 140.61805029293063,
+          "right_shoulder_angle": 129.00936188039464,
+          "left_knee_angle": 134.3739149417206,
+          "right_knee_angle": 146.46717519127867,
+          "left_hip_angle": 129.26559748415556,
+          "right_hip_angle": 111.44037624144913,
+          "dribble_frequency": 0.47527633379494,
+          "center_of_mass": 81.7953174213287,
+          "ball_height": 164.31316149274562,
+          "vertical_velocity": 16.96155797594555,
+          "shooting_accuracy": 57.41807154036598
+        }
+      }
+    ],
+    "anomaly_type": "fatigue_indicators",
+    "anomaly_description": "疲劳指标异常"
+  },
+  {
+    "frame": 47,
+    "timestamp": "2025-10-18T02:43:31.541593",
+    "people": [
+      {
+        "person_id": 0,
+        "metrics": {
+          "left_wrist_angle": 69.94125155659069,
+          "right_wrist_angle": 71.06551960206748,
+          "left_elbow_angle": 108.2670628679912,
+          "right_elbow_angle": 109.98864687938345,
+          "left_shoulder_angle": 115.68997291647953,
+          "right_shoulder_angle": 120.67233558080677,
+          "left_knee_angle": 128.55397378890572,
+          "right_knee_angle": 133.44541034851304,
+          "left_hip_angle": 103.39951085830145,
+          "right_hip_angle": 86.5976748759306,
+          "dribble_frequency": 3.884144659491134,
+          "center_of_mass": 92.53585610332927,
+          "ball_height": 165.49426704614132,
+          "vertical_velocity": 20.623315284782066,
+          "shooting_accuracy": 77.70238679490946
+        }
+      }
+    ],
+    "anomaly_type": "inconsistent_patterns",
+    "anomaly_description": "动作模式不一致"
+  },
+  {
+    "frame": 48,
+    "timestamp": "2025-10-18T02:43:30.541593",
+    "people": [
+      {
+        "person_id": 0,
+        "metrics": {
+          "left_wrist_angle": 65.7602552042298,
+          "right_wrist_angle": 67.19187986739327,
+          "left_elbow_angle": 85.76774243784921,
+          "right_elbow_angle": 89.41709574137768,
+          "left_shoulder_angle": 126.06015208223478,
+          "right_shoulder_angle": 114.33716424339637,
+          "left_knee_angle": 133.27326698714995,
+          "right_knee_angle": 124.68995769420353,
+          "left_hip_angle": 111.06571399388423,
+          "right_hip_angle": 117.45600922235292,
+          "dribble_frequency": 2.060408901227284,
+          "center_of_mass": 95.43384137585807,
+          "ball_height": 182.52543501066185,
+          "vertical_velocity": 20.2626950944776,
+          "shooting_accuracy": 61.859465832955976
+        }
+      }
+    ]
+  },
+  {
+    "frame": 49,
+    "timestamp": "2025-10-18T02:43:29.541593",
+    "people": [
+      {
+        "person_id": 0,
+        "metrics": {
+          "left_wrist_angle": 80.22800498594822,
+          "right_wrist_angle": 81.30658891180867,
+          "left_elbow_angle": 100.85049294997256,
+          "right_elbow_angle": 96.024300255508,
+          "left_shoulder_angle": 131.85458831560385,
+          "right_shoulder_angle": 131.62322814588967,
+          "left_knee_angle": 132.40163685450224,
+          "right_knee_angle": 132.2386221037437,
+          "left_hip_angle": 96.87435481384351,
+          "right_hip_angle": 91.32072889727864,
+          "dribble_frequency": 2.1675862647536808,
+          "center_of_mass": 91.16189464101758,
+          "ball_height": 176.01700468923823,
+          "vertical_velocity": 29.362303370356152,
+          "shooting_accuracy": 55.67754561736216
+        }
+      }
+    ]
+  },
+  {
+    "frame": 50,
+    "timestamp": "2025-10-18T02:43:28.541593",
+    "people": [
+      {
+        "person_id": 0,
+        "metrics": {
+          "left_wrist_angle": 59.786526740376395,
+          "right_wrist_angle": 57.85575357960714,
+          "left_elbow_angle": 108.80315357545719,
+          "right_elbow_angle": 112.55522629115909,
+          "left_shoulder_angle": 130.12690556015474,
+          "right_shoulder_angle": 130.39046360572067,
+          "left_knee_angle": 151.20379375857388,
+          "right_knee_angle": 132.98971631694508,
+          "left_hip_angle": 108.40122723438111,
+          "right_hip_angle": 100.78652805491637,
+          "dribble_frequency": 3.029271327234731,
+          "center_of_mass": 95.1689072116588,
+          "ball_height": 180.10107814063116,
+          "vertical_velocity": 33.04597347364045,
+          "shooting_accuracy": 52.948558712128104
+        }
+      }
+    ]
+  },
+  {
+    "frame": 51,
+    "timestamp": "2025-10-18T02:43:27.541593",
+    "people": [
+      {
+        "person_id": 0,
+        "metrics": {
+          "left_wrist_angle": 67.04030460463866,
+          "right_wrist_angle": 67.10506537013329,
+          "left_elbow_angle": 88.27283476384447,
+          "right_elbow_angle": 88.16968713819118,
+          "left_shoulder_angle": 137.1465513560428,
+          "right_shoulder_angle": 138.9718917761252,
+          "left_knee_angle": 123.3040306255677,
+          "right_knee_angle": 124.04742024680513,
+          "left_hip_angle": 119.60466662301224,
+          "right_hip_angle": 119.41817674017572,
+          "dribble_frequency": 2.1436504604476863,
+          "center_of_mass": 219.2098805445004,
+          "ball_height": 402.8164598862132,
+          "vertical_velocity": 25.847659273139506,
+          "shooting_accuracy": 58.52239587720966
+        }
+      }
+    ],
+    "anomaly_type": "rapid_changes",
+    "anomaly_description": "指标变化过快"
+  },
+  {
+    "frame": 52,
+    "timestamp": "2025-10-18T02:43:26.541593",
+    "people": [
+      {
+        "person_id": 0,
+        "metrics": {
+          "left_wrist_angle": 59.74936223057831,
+          "right_wrist_angle": 58.820007229624395,
+          "left_elbow_angle": 105.21380559762892,
+          "right_elbow_angle": 106.04832031216598,
+          "left_shoulder_angle": 121.34791029738156,
+          "right_shoulder_angle": 110.02285214847632,
+          "left_knee_angle": 120.48371021230152,
+          "right_knee_angle": 128.82722108758958,
+          "left_hip_angle": 128.17022414901186,
+          "right_hip_angle": 117.39186969423362,
+          "dribble_frequency": 0.1656045780585515,
+          "center_of_mass": 84.82860609432015,
+          "ball_height": 184.55359821266663,
+          "vertical_velocity": 10.286309157321543,
+          "shooting_accuracy": 70.44321538724357
+        }
+      }
+    ],
+    "anomaly_type": "fatigue_indicators",
+    "anomaly_description": "疲劳指标异常"
+  },
+  {
+    "frame": 53,
+    "timestamp": "2025-10-18T02:43:25.542592",
+    "people": [
+      {
+        "person_id": 0,
+        "metrics": {
+          "left_wrist_angle": 70.03381549064575,
+          "right_wrist_angle": 67.47034313130483,
+          "left_elbow_angle": 92.27225105745676,
+          "right_elbow_angle": 91.1133600297799,
+          "left_shoulder_angle": 131.96117256519364,
+          "right_shoulder_angle": 131.57169906146413,
+          "left_knee_angle": 135.94848247130395,
+          "right_knee_angle": 135.8903710954279,
+          "left_hip_angle": 110.772140209065,
+          "right_hip_angle": 98.40923868479611,
+          "dribble_frequency": 2.8580615898831923,
+          "center_of_mass": 93.27836566512732,
+          "ball_height": 183.71494447485696,
+          "vertical_velocity": 33.15340000775976,
+          "shooting_accuracy": 51.5797326097467
+        }
+      }
+    ]
+  },
+  {
+    "frame": 54,
+    "timestamp": "2025-10-18T02:43:24.542592",
+    "people": [
+      {
+        "person_id": 0,
+        "metrics": {
+          "left_wrist_angle": 54.82689366927004,
+          "right_wrist_angle": 54.39496169196106,
+          "left_elbow_angle": 86.06721667367303,
+          "right_elbow_angle": 76.2678869330714,
+          "left_shoulder_angle": 129.42345188196757,
+          "right_shoulder_angle": 112.0449825812944,
+          "left_knee_angle": 23.007237597604032,
+          "right_knee_angle": 35.28520273205093,
+          "left_hip_angle": 85.86080656109183,
+          "right_hip_angle": 104.54761023867184,
+          "dribble_frequency": 1.9046217170823878,
+          "center_of_mass": 99.62968532444683,
+          "ball_height": 164.01977409217844,
+          "vertical_velocity": 25.50282539788399,
+          "shooting_accuracy": 72.71599409181576
+        }
+      }
+    ],
+    "anomaly_type": "technique_breakdown",
+    "anomaly_description": "技术动作崩坏"
+  },
+  {
+    "frame": 55,
+    "timestamp": "2025-10-18T02:43:23.542592",
+    "people": [
+      {
+        "person_id": 0,
+        "metrics": {
+          "left_wrist_angle": 57.796621305825624,
+          "right_wrist_angle": 49.306931435191956,
+          "left_elbow_angle": 87.762416450334,
+          "right_elbow_angle": 88.70414449645716,
+          "left_shoulder_angle": 100.71105775948045,
+          "right_shoulder_angle": 95.72069664119216,
+          "left_knee_angle": 106.57663662833554,
+          "right_knee_angle": 114.34663496372912,
+          "left_hip_angle": 117.37530975510488,
+          "right_hip_angle": 118.36619207227652,
+          "dribble_frequency": 3.31527885689128,
+          "center_of_mass": 93.87150651159632,
+          "ball_height": 188.85881055176654,
+          "vertical_velocity": 32.371004361806364,
+          "shooting_accuracy": 62.59599877725179
+        }
+      }
+    ]
+  },
+  {
+    "frame": 56,
+    "timestamp": "2025-10-18T02:43:22.542592",
+    "people": [
+      {
+        "person_id": 0,
+        "metrics": {
+          "left_wrist_angle": 51.52805294893473,
+          "right_wrist_angle": 53.54254488110747,
+          "left_elbow_angle": 103.82622454040228,
+          "right_elbow_angle": 110.24003312109205,
+          "left_shoulder_angle": 130.84639693831937,
+          "right_shoulder_angle": 138.58214664779084,
+          "left_knee_angle": 140.5801594074544,
+          "right_knee_angle": 151.94722730411158,
+          "left_hip_angle": 110.28741651859285,
+          "right_hip_angle": 116.95592397730755,
+          "dribble_frequency": 3.3633556218940437,
+          "center_of_mass": 92.37356991854126,
+          "ball_height": 165.78789224379858,
+          "vertical_velocity": 25.905460128260437,
+          "shooting_accuracy": 54.46816740484529
+        }
+      }
+    ]
+  },
+  {
+    "frame": 57,
+    "timestamp": "2025-10-18T02:43:21.542592",
+    "people": [
+      {
+        "person_id": 0,
+        "metrics": {
+          "left_wrist_angle": 49.839722539922334,
+          "right_wrist_angle": 41.864162279594616,
+          "left_elbow_angle": 93.44002356814673,
+          "right_elbow_angle": 85.44250283149532,
+          "left_shoulder_angle": 124.98919201483199,
+          "right_shoulder_angle": 129.1326623442812,
+          "left_knee_angle": 149.48311033510547,
+          "right_knee_angle": 141.85432856758035,
+          "left_hip_angle": 101.38828618780292,
+          "right_hip_angle": 105.50077376857078,
+          "dribble_frequency": 3.036159534203521,
+          "center_of_mass": 91.68919516872484,
+          "ball_height": 174.10598843321674,
+          "vertical_velocity": 25.826599658208153,
+          "shooting_accuracy": 57.366950919192924
+        }
+      }
+    ]
+  },
+  {
+    "frame": 58,
+    "timestamp": "2025-10-18T02:43:20.542592",
+    "people": [
+      {
+        "person_id": 0,
+        "metrics": {
+          "left_wrist_angle": 50.25370927122095,
+          "right_wrist_angle": 57.11256173880741,
+          "left_elbow_angle": 106.21382931876101,
+          "right_elbow_angle": 97.69871939577251,
+          "left_shoulder_angle": 137.73802986411505,
+          "right_shoulder_angle": 135.24853107096064,
+          "left_knee_angle": 157.42440803499912,
+          "right_knee_angle": 155.0270524703666,
+          "left_hip_angle": 104.78843999690326,
+          "right_hip_angle": 96.27875239273651,
+          "dribble_frequency": 3.750899039146364,
+          "center_of_mass": 97.92411186117526,
+          "ball_height": 187.08106482930384,
+          "vertical_velocity": 34.42965332372134,
+          "shooting_accuracy": 72.08652867303552
+        }
+      }
+    ]
+  },
+  {
+    "frame": 59,
+    "timestamp": "2025-10-18T02:43:19.542592",
+    "people": [
+      {
+        "person_id": 0,
+        "metrics": {
+          "left_wrist_angle": 65.89308110167228,
+          "right_wrist_angle": 66.50229708817858,
+          "left_elbow_angle": 87.55712736068976,
+          "right_elbow_angle": 91.09289776329996,
+          "left_shoulder_angle": 117.71767091844842,
+          "right_shoulder_angle": 124.9991115720502,
+          "left_knee_angle": 150.24973716431933,
+          "right_knee_angle": 156.96654660598966,
+          "left_hip_angle": 128.07506611478817,
+          "right_hip_angle": 137.02283651121869,
+          "dribble_frequency": 2.317921648882989,
+          "center_of_mass": 239.93744367165473,
+          "ball_height": 160.2734142334762,
+          "vertical_velocity": 30.119098468014105,
+          "shooting_accuracy": 78.16642486771717
+        }
+      }
+    ],
+    "anomaly_type": "rapid_changes",
+    "anomaly_description": "指标变化过快"
+  },
+  {
+    "frame": 60,
+    "timestamp": "2025-10-18T02:43:18.542592",
+    "people": [
+      {
+        "person_id": 0,
+        "metrics": {
+          "left_wrist_angle": 68.6383868984734,
+          "right_wrist_angle": 68.08719898564351,
+          "left_elbow_angle": 117.13829458792367,
+          "right_elbow_angle": 118.17214567126489,
+          "left_shoulder_angle": 135.23315582283766,
+          "right_shoulder_angle": 131.7040917022035,
+          "left_knee_angle": 115.57042793856365,
+          "right_knee_angle": 109.78161682563957,
+          "left_hip_angle": 114.4883752967002,
+          "right_hip_angle": 88.18349374913271,
+          "dribble_frequency": 2.7439339066654718,
+          "center_of_mass": 93.60707072689168,
+          "ball_height": 177.54025975085676,
+          "vertical_velocity": 20.32609659247807,
+          "shooting_accuracy": 53.861910048599164
+        }
+      }
+    ]
+  },
+  {
+    "frame": 61,
+    "timestamp": "2025-10-18T02:43:17.542592",
+    "people": [
+      {
+        "person_id": 0,
+        "metrics": {
+          "left_wrist_angle": 82.49900701646075,
+          "right_wrist_angle": 84.04975695168781,
+          "left_elbow_angle": 98.40498460401923,
+          "right_elbow_angle": 100.07235301740164,
+          "left_shoulder_angle": 101.64838948300448,
+          "right_shoulder_angle": 96.460642381091,
+          "left_knee_angle": 140.14018295143686,
+          "right_knee_angle": 130.49719449273738,
+          "left_hip_angle": 91.55349726579085,
+          "right_hip_angle": 86.17907556449751,
+          "dribble_frequency": 2.7508536854677903,
+          "center_of_mass": 94.4202585920714,
+          "ball_height": 180.98831811206608,
+          "vertical_velocity": 21.973145112072814,
+          "shooting_accuracy": 52.398224170196684
+        }
+      }
+    ]
+  },
+  {
+    "frame": 62,
+    "timestamp": "2025-10-18T02:43:16.542592",
+    "people": [
+      {
+        "person_id": 0,
+        "metrics": {
+          "left_wrist_angle": 84.6589664717592,
+          "right_wrist_angle": 81.6700707173083,
+          "left_elbow_angle": 109.0818952072163,
+          "right_elbow_angle": 112.8782363259475,
+          "left_shoulder_angle": 109.08565595653337,
+          "right_shoulder_angle": 105.87888956144388,
+          "left_knee_angle": 123.82614949332451,
+          "right_knee_angle": 135.70262549878458,
+          "left_hip_angle": 120.90017639655238,
+          "right_hip_angle": 112.8568148244102,
+          "dribble_frequency": 2.6403449123377407,
+          "center_of_mass": 96.82392604172072,
+          "ball_height": 175.4816117096761,
+          "vertical_velocity": 25.930237684488553,
+          "shooting_accuracy": 70.87606806684606
+        }
+      }
+    ]
+  },
+  {
+    "frame": 63,
+    "timestamp": "2025-10-18T02:43:15.542592",
+    "people": [
+      {
+        "person_id": 0,
+        "metrics": {
+          "left_wrist_angle": 65.44069308230713,
+          "right_wrist_angle": 69.27091154078389,
+          "left_elbow_angle": 121.14844374651358,
+          "right_elbow_angle": 111.17258567457564,
+          "left_shoulder_angle": 130.09913697729706,
+          "right_shoulder_angle": 142.46993994041011,
+          "left_knee_angle": 115.4417671886582,
+          "right_knee_angle": 117.0958654064183,
+          "left_hip_angle": 80.51540817237186,
+          "right_hip_angle": 89.44433604293235,
+          "dribble_frequency": 3.158040327135011,
+          "center_of_mass": 97.3548167666135,
+          "ball_height": 166.14327845158354,
+          "vertical_velocity": 26.005831622330202,
+          "shooting_accuracy": 73.3160873800135
+        }
+      }
+    ]
+  },
+  {
+    "frame": 64,
+    "timestamp": "2025-10-18T02:43:14.542592",
+    "people": [
+      {
+        "person_id": 0,
+        "metrics": {
+          "left_wrist_angle": 65.26619252584922,
+          "right_wrist_angle": 63.21430372179786,
+          "left_elbow_angle": 116.86578271876057,
+          "right_elbow_angle": 109.17520231335963,
+          "left_shoulder_angle": 132.10684931082903,
+          "right_shoulder_angle": 122.88025954480563,
+          "left_knee_angle": 108.7838773576158,
+          "right_knee_angle": 121.96022517718046,
+          "left_hip_angle": 104.17021547799932,
+          "right_hip_angle": 108.49515569004758,
+          "dribble_frequency": 0.17465005992404292,
+          "center_of_mass": 78.60948358875888,
+          "ball_height": 184.07043625444481,
+          "vertical_velocity": 13.05908093996956,
+          "shooting_accuracy": 52.76232889114813
+        }
+      }
+    ],
+    "anomaly_type": "fatigue_indicators",
+    "anomaly_description": "疲劳指标异常"
+  },
+  {
+    "frame": 65,
+    "timestamp": "2025-10-18T02:43:13.542592",
+    "people": [
+      {
+        "person_id": 0,
+        "metrics": {
+          "left_wrist_angle": 62.77871463059937,
+          "right_wrist_angle": 67.26457445916854,
+          "left_elbow_angle": 114.52854526446562,
+          "right_elbow_angle": 117.85190957088464,
+          "left_shoulder_angle": 110.4088527944177,
+          "right_shoulder_angle": 108.67158227408106,
+          "left_knee_angle": 140.2702925436348,
+          "right_knee_angle": 127.08251420971754,
+          "left_hip_angle": 96.01802839364053,
+          "right_hip_angle": 100.23197076575201,
+          "dribble_frequency": 2.3925088923160733,
+          "center_of_mass": 94.11668303959232,
+          "ball_height": 179.59743706058111,
+          "vertical_velocity": 28.775331091338934,
+          "shooting_accuracy": 76.11659182437006
+        }
+      }
+    ],
+    "anomaly_type": "inconsistent_patterns",
+    "anomaly_description": "动作模式不一致"
+  },
+  {
+    "frame": 66,
+    "timestamp": "2025-10-18T02:43:12.542592",
+    "people": [
+      {
+        "person_id": 0,
+        "metrics": {
+          "left_wrist_angle": 59.07477870673242,
+          "right_wrist_angle": 60.90723486381306,
+          "left_elbow_angle": 79.25399855509019,
+          "right_elbow_angle": 79.0011440400071,
+          "left_shoulder_angle": 125.44667333230646,
+          "right_shoulder_angle": 116.6010208729873,
+          "left_knee_angle": 141.4513705572764,
+          "right_knee_angle": 152.4572232736942,
+          "left_hip_angle": 120.18529555185305,
+          "right_hip_angle": 126.46979526399355,
+          "dribble_frequency": 1.7531326649820667,
+          "center_of_mass": 91.79043315913374,
+          "ball_height": 167.03946742453604,
+          "vertical_velocity": 20.56452353480591,
+          "shooting_accuracy": 54.999356479739305
+        }
+      }
+    ]
+  },
+  {
+    "frame": 67,
+    "timestamp": "2025-10-18T02:43:11.542592",
+    "people": [
+      {
+        "person_id": 0,
+        "metrics": {
+          "left_wrist_angle": 66.4476732820579,
+          "right_wrist_angle": 69.50109675049704,
+          "left_elbow_angle": 121.50369841478258,
+          "right_elbow_angle": 116.91345898779478,
+          "left_shoulder_angle": 131.33816076911245,
+          "right_shoulder_angle": 119.01822128070236,
+          "left_knee_angle": 124.93430729903504,
+          "right_knee_angle": 116.7232772517918,
+          "left_hip_angle": 86.02812466846153,
+          "right_hip_angle": 84.50542190805251,
+          "dribble_frequency": 3.8222854414875256,
+          "center_of_mass": 96.50348027432544,
+          "ball_height": 169.35263883598606,
+          "vertical_velocity": 27.297568990671195,
+          "shooting_accuracy": 63.72525670872159
+        }
+      }
+    ]
+  },
+  {
+    "frame": 68,
+    "timestamp": "2025-10-18T02:43:10.542592",
+    "people": [
+      {
+        "person_id": 0,
+        "metrics": {
+          "left_wrist_angle": 51.17964973549559,
+          "right_wrist_angle": 51.75488983097449,
+          "left_elbow_angle": 83.22613500748318,
+          "right_elbow_angle": 83.6610726883731,
+          "left_shoulder_angle": 131.50213919067068,
+          "right_shoulder_angle": 140.48445179746741,
+          "left_knee_angle": 137.63744380720743,
+          "right_knee_angle": 151.46475803439097,
+          "left_hip_angle": 91.10203076282326,
+          "right_hip_angle": 82.43863589851382,
+          "dribble_frequency": 3.174125421404536,
+          "center_of_mass": 98.03112578800506,
+          "ball_height": 186.47889217108025,
+          "vertical_velocity": 22.024649669454,
+          "shooting_accuracy": 79.21527751784282
+        }
+      }
+    ]
+  },
+  {
+    "frame": 69,
+    "timestamp": "2025-10-18T02:43:09.542592",
+    "people": [
+      {
+        "person_id": 0,
+        "metrics": {
+          "left_wrist_angle": 67.93323784953658,
+          "right_wrist_angle": 62.47358823552273,
+          "left_elbow_angle": 111.25601809443111,
+          "right_elbow_angle": 25.788604772918475,
+          "left_shoulder_angle": 95.59072167755252,
+          "right_shoulder_angle": 96.65223122818999,
+          "left_knee_angle": 144.90981888945558,
+          "right_knee_angle": 32.251070769869266,
+          "left_hip_angle": 121.15105973008298,
+          "right_hip_angle": 112.32895904541522,
+          "dribble_frequency": 3.598500804672833,
+          "center_of_mass": 93.02518654558678,
+          "ball_height": 184.91680320258638,
+          "vertical_velocity": 20.88077340557147,
+          "shooting_accuracy": 59.78285862217726
+        }
+      }
+    ],
+    "anomaly_type": "technique_breakdown",
+    "anomaly_description": "技术动作崩坏"
+  },
+  {
+    "frame": 70,
+    "timestamp": "2025-10-18T02:43:08.542592",
+    "people": [
+      {
+        "person_id": 0,
+        "metrics": {
+          "left_wrist_angle": 58.478047079020385,
+          "right_wrist_angle": 24.220049208909636,
+          "left_elbow_angle": 102.64453621904386,
+          "right_elbow_angle": 105.07749327688472,
+          "left_shoulder_angle": 111.72108266541854,
+          "right_shoulder_angle": 115.92484374639194,
+          "left_knee_angle": 127.4325946333545,
+          "right_knee_angle": 145.26386138060278,
+          "left_hip_angle": 116.69081321968129,
+          "right_hip_angle": 132.0709077761517,
+          "dribble_frequency": 2.6738367608815286,
+          "center_of_mass": 95.56167055779754,
+          "ball_height": 184.77180985939745,
+          "vertical_velocity": 20.510488239459875,
+          "shooting_accuracy": 73.59032327461483
+        }
+      }
+    ],
+    "anomaly_type": "extreme_angles",
+    "anomaly_description": "关节角度极端异常"
+  },
+  {
+    "frame": 71,
+    "timestamp": "2025-10-18T02:43:07.542592",
+    "people": [
+      {
+        "person_id": 0,
+        "metrics": {
+          "left_wrist_angle": 66.90941943464632,
+          "right_wrist_angle": 68.84537593943477,
+          "left_elbow_angle": 119.19916466331239,
+          "right_elbow_angle": 114.97186875861678,
+          "left_shoulder_angle": 113.63435524702928,
+          "right_shoulder_angle": 119.83783081778309,
+          "left_knee_angle": 122.17452853355721,
+          "right_knee_angle": 124.02862327934687,
+          "left_hip_angle": 109.45890529171415,
+          "right_hip_angle": 105.77847598987356,
+          "dribble_frequency": 1.6325116986476806,
+          "center_of_mass": 93.53920363773793,
+          "ball_height": 179.70194606356773,
+          "vertical_velocity": 34.14008556834979,
+          "shooting_accuracy": 67.44501196093381
+        }
+      }
+    ]
+  },
+  {
+    "frame": 72,
+    "timestamp": "2025-10-18T02:43:06.542592",
+    "people": [
+      {
+        "person_id": 0,
+        "metrics": {
+          "left_wrist_angle": 69.11872988492448,
+          "right_wrist_angle": 63.86404311988294,
+          "left_elbow_angle": 112.51212312739095,
+          "right_elbow_angle": 103.82306039109446,
+          "left_shoulder_angle": 117.91935957512332,
+          "right_shoulder_angle": 108.02918914937642,
+          "left_knee_angle": 141.24648058500262,
+          "right_knee_angle": 151.3330953868955,
+          "left_hip_angle": 135.14801048237595,
+          "right_hip_angle": 129.38707317689443,
+          "dribble_frequency": 1.8078997853123404,
+          "center_of_mass": 98.57626527155853,
+          "ball_height": 185.6158072353026,
+          "vertical_velocity": 23.811226981111776,
+          "shooting_accuracy": 61.52835185408421
+        }
+      }
+    ]
+  },
+  {
+    "frame": 73,
+    "timestamp": "2025-10-18T02:43:05.542592",
+    "people": [
+      {
+        "person_id": 0,
+        "metrics": {
+          "left_wrist_angle": 48.85558228886741,
+          "right_wrist_angle": 44.73054940189718,
+          "left_elbow_angle": 90.84799563153896,
+          "right_elbow_angle": 98.37356664480716,
+          "left_shoulder_angle": 105.01986372394748,
+          "right_shoulder_angle": 94.07511194212309,
+          "left_knee_angle": 114.54568286575471,
+          "right_knee_angle": 119.97374325087081,
+          "left_hip_angle": 91.4064852849632,
+          "right_hip_angle": 92.35217123758059,
+          "dribble_frequency": 2.685718382362955,
+          "center_of_mass": 91.2350766614743,
+          "ball_height": 167.11932244759203,
+          "vertical_velocity": 32.77931086811143,
+          "shooting_accuracy": 68.5382508275756
+        }
+      }
+    ]
+  },
+  {
+    "frame": 74,
+    "timestamp": "2025-10-18T02:43:04.542592",
+    "people": [
+      {
+        "person_id": 0,
+        "metrics": {
+          "left_wrist_angle": 68.24380156619384,
+          "right_wrist_angle": 63.5336587782094,
+          "left_elbow_angle": 88.498552487305,
+          "right_elbow_angle": 102.05650138889155,
+          "left_shoulder_angle": 131.82700472692107,
+          "right_shoulder_angle": 144.88911516663407,
+          "left_knee_angle": 144.48858480078732,
+          "right_knee_angle": 131.96570198303957,
+          "left_hip_angle": 133.14598910201855,
+          "right_hip_angle": 118.0702088500879,
+          "dribble_frequency": 2.0030660624559564,
+          "center_of_mass": 96.76879286908142,
+          "ball_height": 184.27874263307592,
+          "vertical_velocity": 30.27936928331554,
+          "shooting_accuracy": 63.58462758506906
+        }
+      }
+    ]
+  },
+  {
+    "frame": 75,
+    "timestamp": "2025-10-18T02:43:03.542592",
+    "people": [
+      {
+        "person_id": 0,
+        "metrics": {
+          "left_wrist_angle": 70.68827602431827,
+          "right_wrist_angle": 64.20492080545384,
+          "left_elbow_angle": 88.84710485976709,
+          "right_elbow_angle": 93.22312558641809,
+          "left_shoulder_angle": 139.23751233378894,
+          "right_shoulder_angle": 132.70921789407953,
+          "left_knee_angle": 130.100818073492,
+          "right_knee_angle": 140.85120169805845,
+          "left_hip_angle": 109.6150730576586,
+          "right_hip_angle": 109.82324572692002,
+          "dribble_frequency": 4.490192777995342,
+          "center_of_mass": 94.46181800559818,
+          "ball_height": 164.9033521851989,
+          "vertical_velocity": 30.310548511324498,
+          "shooting_accuracy": 54.94520577096735
+        }
+      }
+    ]
+  },
+  {
+    "frame": 76,
+    "timestamp": "2025-10-18T02:43:02.542592",
+    "people": [
+      {
+        "person_id": 0,
+        "metrics": {
+          "left_wrist_angle": 54.76492987129506,
+          "right_wrist_angle": 59.81025655389522,
+          "left_elbow_angle": 87.05134632532679,
+          "right_elbow_angle": 87.24757755692596,
+          "left_shoulder_angle": 112.7422676634006,
+          "right_shoulder_angle": 115.23858599555892,
+          "left_knee_angle": 134.19570379644705,
+          "right_knee_angle": 114.61148231683975,
+          "left_hip_angle": 113.23588531710094,
+          "right_hip_angle": 95.5806455466298,
+          "dribble_frequency": 4.503930039768877,
+          "center_of_mass": 96.07365171456696,
+          "ball_height": 172.69602382379804,
+          "vertical_velocity": 29.192356536353294,
+          "shooting_accuracy": 71.40754841965534
+        }
+      }
+    ]
+  },
+  {
+    "frame": 77,
+    "timestamp": "2025-10-18T02:43:01.542592",
+    "people": [
+      {
+        "person_id": 0,
+        "metrics": {
+          "left_wrist_angle": 84.15346198884521,
+          "right_wrist_angle": 84.70247680637105,
+          "left_elbow_angle": 95.26885885007142,
+          "right_elbow_angle": 93.36740230512153,
+          "left_shoulder_angle": 116.99390590413597,
+          "right_shoulder_angle": 115.28178535586453,
+          "left_knee_angle": 112.83142006576779,
+          "right_knee_angle": 102.69410596856598,
+          "left_hip_angle": 101.02498501649207,
+          "right_hip_angle": 107.71795027248262,
+          "dribble_frequency": 2.6007328170220845,
+          "center_of_mass": 97.64860695873948,
+          "ball_height": 187.62461311073102,
+          "vertical_velocity": 24.777927050112254,
+          "shooting_accuracy": 62.10300816594553
+        }
+      }
+    ]
+  },
+  {
+    "frame": 78,
+    "timestamp": "2025-10-18T02:43:00.542592",
+    "people": [
+      {
+        "person_id": 0,
+        "metrics": {
+          "left_wrist_angle": 69.15741857702918,
+          "right_wrist_angle": 68.8130580329795,
+          "left_elbow_angle": 122.33717845227478,
+          "right_elbow_angle": 123.08528427340207,
+          "left_shoulder_angle": 105.97430842376698,
+          "right_shoulder_angle": 113.09831028476815,
+          "left_knee_angle": 106.13432121284858,
+          "right_knee_angle": 115.90651412257658,
+          "left_hip_angle": 107.09811596527297,
+          "right_hip_angle": 97.69113367584472,
+          "dribble_frequency": 3.617068551178624,
+          "center_of_mass": 92.89110623027824,
+          "ball_height": 157.22065760003815,
+          "vertical_velocity": 33.02044890357609,
+          "shooting_accuracy": 58.59009061872351
+        }
+      }
+    ]
+  },
+  {
+    "frame": 79,
+    "timestamp": "2025-10-18T02:42:59.542592",
+    "people": [
+      {
+        "person_id": 0,
+        "metrics": {
+          "left_wrist_angle": 60.57891146987458,
+          "right_wrist_angle": 61.51520392388751,
+          "left_elbow_angle": 96.11891114910182,
+          "right_elbow_angle": 96.44591495412378,
+          "left_shoulder_angle": 113.87196509480373,
+          "right_shoulder_angle": 112.36558703490105,
+          "left_knee_angle": 111.52558009783577,
+          "right_knee_angle": 113.67250250060081,
+          "left_hip_angle": 129.85734569072136,
+          "right_hip_angle": 128.0787753584366,
+          "dribble_frequency": 2.8760426327957562,
+          "center_of_mass": 99.66621856449022,
+          "ball_height": 183.38352776983874,
+          "vertical_velocity": 23.7596820416621,
+          "shooting_accuracy": 69.86078020014287
+        }
+      }
+    ]
+  },
+  {
+    "frame": 80,
+    "timestamp": "2025-10-18T02:42:58.542592",
+    "people": [
+      {
+        "person_id": 0,
+        "metrics": {
+          "left_wrist_angle": 56.01022454781588,
+          "right_wrist_angle": 59.09133614687187,
+          "left_elbow_angle": 89.18336683805259,
+          "right_elbow_angle": 77.5514423130219,
+          "left_shoulder_angle": 142.2899088677434,
+          "right_shoulder_angle": 132.41236342216843,
+          "left_knee_angle": 106.40532343390696,
+          "right_knee_angle": 107.3040270480459,
+          "left_hip_angle": 111.56080001364955,
+          "right_hip_angle": 118.17491489596208,
+          "dribble_frequency": 2.397021276841517,
+          "center_of_mass": 95.76895249466939,
+          "ball_height": 169.50550787817892,
+          "vertical_velocity": 31.80077991277365,
+          "shooting_accuracy": 66.42983310517711
+        }
+      }
+    ]
+  },
+  {
+    "frame": 81,
+    "timestamp": "2025-10-18T02:42:57.542592",
+    "people": [
+      {
+        "person_id": 0,
+        "metrics": {
+          "left_wrist_angle": 80.92637241992135,
+          "right_wrist_angle": 86.75339274364718,
+          "left_elbow_angle": 81.5205415730164,
+          "right_elbow_angle": 80.97864986117776,
+          "left_shoulder_angle": 116.0093321482826,
+          "right_shoulder_angle": 110.91020026774082,
+          "left_knee_angle": 122.83079132187764,
+          "right_knee_angle": 103.41929985096237,
+          "left_hip_angle": 107.08407948176381,
+          "right_hip_angle": 87.1036267156027,
+          "dribble_frequency": 3.3526435236208636,
+          "center_of_mass": 92.09127551702632,
+          "ball_height": 178.60691770289773,
+          "vertical_velocity": 34.716050905449784,
+          "shooting_accuracy": 64.1693913349313
+        }
+      }
+    ]
+  },
+  {
+    "frame": 82,
+    "timestamp": "2025-10-18T02:42:56.542592",
+    "people": [
+      {
+        "person_id": 0,
+        "metrics": {
+          "left_wrist_angle": 68.26156008060222,
+          "right_wrist_angle": 67.8166926046711,
+          "left_elbow_angle": 103.66116058688445,
+          "right_elbow_angle": 107.59889595145023,
+          "left_shoulder_angle": 113.86390359770888,
+          "right_shoulder_angle": 105.85458168656933,
+          "left_knee_angle": 123.95691647867298,
+          "right_knee_angle": 126.47238969014606,
+          "left_hip_angle": 103.9699861487474,
+          "right_hip_angle": 91.31856061100909,
+          "dribble_frequency": 3.053607369048745,
+          "center_of_mass": 95.26978237666928,
+          "ball_height": 163.58811817730586,
+          "vertical_velocity": 33.98196104187389,
+          "shooting_accuracy": 78.8959925651137
+        }
+      }
+    ]
+  },
+  {
+    "frame": 83,
+    "timestamp": "2025-10-18T02:42:55.542592",
+    "people": [
+      {
+        "person_id": 0,
+        "metrics": {
+          "left_wrist_angle": 81.58458566266616,
+          "right_wrist_angle": 72.30432213688456,
+          "left_elbow_angle": 100.67569205268097,
+          "right_elbow_angle": 107.76426772371076,
+          "left_shoulder_angle": 91.69634491295673,
+          "right_shoulder_angle": 95.19652468098413,
+          "left_knee_angle": 133.40524167745136,
+          "right_knee_angle": 129.34975771143894,
+          "left_hip_angle": 120.23294924256574,
+          "right_hip_angle": 109.88669327516556,
+          "dribble_frequency": 2.909978051820989,
+          "center_of_mass": 92.57538554319478,
+          "ball_height": 172.68025966820588,
+          "vertical_velocity": 24.40620567401176,
+          "shooting_accuracy": 74.61475898800379
+        }
+      }
+    ]
+  },
+  {
+    "frame": 84,
+    "timestamp": "2025-10-18T02:42:54.542592",
+    "people": [
+      {
+        "person_id": 0,
+        "metrics": {
+          "left_wrist_angle": 81.97901194239759,
+          "right_wrist_angle": 82.90253161003504,
+          "left_elbow_angle": 88.08428222312115,
+          "right_elbow_angle": 95.01015701259254,
+          "left_shoulder_angle": 116.25785675210919,
+          "right_shoulder_angle": 112.51853199407617,
+          "left_knee_angle": 134.37785367576564,
+          "right_knee_angle": 132.85153312443217,
+          "left_hip_angle": 103.93110262563339,
+          "right_hip_angle": 98.40317657200023,
+          "dribble_frequency": 3.0017433266412947,
+          "center_of_mass": 90.13115733835654,
+          "ball_height": 163.65251810078246,
+          "vertical_velocity": 29.38678606040761,
+          "shooting_accuracy": 59.66925176069323
+        }
+      }
+    ]
+  },
+  {
+    "frame": 85,
+    "timestamp": "2025-10-18T02:42:53.542592",
+    "people": [
+      {
+        "person_id": 0,
+        "metrics": {
+          "left_wrist_angle": 56.674990860998506,
+          "right_wrist_angle": 56.57351582910176,
+          "left_elbow_angle": 84.1198555162739,
+          "right_elbow_angle": 95.27078858995924,
+          "left_shoulder_angle": 108.06203618021995,
+          "right_shoulder_angle": 99.63551510647072,
+          "left_knee_angle": 124.7514228694476,
+          "right_knee_angle": 116.8025756250066,
+          "left_hip_angle": 90.18248057964794,
+          "right_hip_angle": 97.63073693998098,
+          "dribble_frequency": 0.2679552112601053,
+          "center_of_mass": 76.49624218160413,
+          "ball_height": 166.92021394632965,
+          "vertical_velocity": 13.873135602995706,
+          "shooting_accuracy": 66.52111077625771
+        }
+      }
+    ],
+    "anomaly_type": "fatigue_indicators",
+    "anomaly_description": "疲劳指标异常"
+  },
+  {
+    "frame": 86,
+    "timestamp": "2025-10-18T02:42:52.542592",
+    "people": [
+      {
+        "person_id": 0,
+        "metrics": {
+          "left_wrist_angle": 81.20183332812289,
+          "right_wrist_angle": 83.6255624583636,
+          "left_elbow_angle": 112.75471062077753,
+          "right_elbow_angle": 106.87523850561219,
+          "left_shoulder_angle": 135.96181714629157,
+          "right_shoulder_angle": 134.3290414761923,
+          "left_knee_angle": 119.53678854474177,
+          "right_knee_angle": 109.61054139675007,
+          "left_hip_angle": 110.88753886515912,
+          "right_hip_angle": 126.31007561711172,
+          "dribble_frequency": 3.545004125006606,
+          "center_of_mass": 91.51496929348629,
+          "ball_height": 172.00908558057847,
+          "vertical_velocity": 27.091984959287913,
+          "shooting_accuracy": 61.039046178682085
+        }
+      }
+    ]
+  },
+  {
+    "frame": 87,
+    "timestamp": "2025-10-18T02:42:51.542592",
+    "people": [
+      {
+        "person_id": 0,
+        "metrics": {
+          "left_wrist_angle": 50.89272600353182,
+          "right_wrist_angle": 59.99888022185576,
+          "left_elbow_angle": 108.25104599542378,
+          "right_elbow_angle": 113.74592886395584,
+          "left_shoulder_angle": 113.5099893696335,
+          "right_shoulder_angle": 112.88379922249874,
+          "left_knee_angle": 129.29370504943816,
+          "right_knee_angle": 127.25890458202626,
+          "left_hip_angle": 121.87154730477548,
+          "right_hip_angle": 138.68070504243232,
+          "dribble_frequency": 2.010483330134748,
+          "center_of_mass": 97.68811050153232,
+          "ball_height": 169.39151569042386,
+          "vertical_velocity": 31.277119059220453,
+          "shooting_accuracy": 62.491102662023096
+        }
+      }
+    ]
+  },
+  {
+    "frame": 88,
+    "timestamp": "2025-10-18T02:42:50.542592",
+    "people": [
+      {
+        "person_id": 0,
+        "metrics": {
+          "left_wrist_angle": 50.960838807257446,
+          "right_wrist_angle": 49.26227418732229,
+          "left_elbow_angle": 99.49736103215761,
+          "right_elbow_angle": 99.44934395847952,
+          "left_shoulder_angle": 106.45227894120103,
+          "right_shoulder_angle": 92.68946408309714,
+          "left_knee_angle": 124.35996657623535,
+          "right_knee_angle": 107.20801273888138,
+          "left_hip_angle": 119.5830847942318,
+          "right_hip_angle": 115.07793575562587,
+          "dribble_frequency": 3.3912540888218894,
+          "center_of_mass": 91.98764862283676,
+          "ball_height": 174.19596351233693,
+          "vertical_velocity": 22.30606108227293,
+          "shooting_accuracy": 50.53609932356504
+        }
+      }
+    ]
+  },
+  {
+    "frame": 89,
+    "timestamp": "2025-10-18T02:42:49.542592",
+    "people": [
+      {
+        "person_id": 0,
+        "metrics": {
+          "left_wrist_angle": 54.93457071067044,
+          "right_wrist_angle": 59.98877965355948,
+          "left_elbow_angle": 92.62685391094088,
+          "right_elbow_angle": 86.63294869167946,
+          "left_shoulder_angle": 120.36076117921422,
+          "right_shoulder_angle": 124.34457470189595,
+          "left_knee_angle": 115.26723134310404,
+          "right_knee_angle": 108.5225930793959,
+          "left_hip_angle": 133.40078511308369,
+          "right_hip_angle": 112.44760581066643,
+          "dribble_frequency": 1.509323198220381,
+          "center_of_mass": 91.15811728630578,
+          "ball_height": 171.31061937392295,
+          "vertical_velocity": 34.287730565226845,
+          "shooting_accuracy": 53.971779448064694
+        }
+      }
+    ]
+  },
+  {
+    "frame": 90,
+    "timestamp": "2025-10-18T02:42:48.542592",
+    "people": [
+      {
+        "person_id": 0,
+        "metrics": {
+          "left_wrist_angle": 53.19275580795549,
+          "right_wrist_angle": 54.07034680445662,
+          "left_elbow_angle": 92.03815769922852,
+          "right_elbow_angle": 89.9441251789922,
+          "left_shoulder_angle": 113.11838248107595,
+          "right_shoulder_angle": 123.99628464760445,
+          "left_knee_angle": 152.61993638511854,
+          "right_knee_angle": 140.5049823645621,
+          "left_hip_angle": 128.94955910937188,
+          "right_hip_angle": 134.21577902873088,
+          "dribble_frequency": 3.0592681638925057,
+          "center_of_mass": 90.6202061890368,
+          "ball_height": 171.3098858851763,
+          "vertical_velocity": 27.50245252619601,
+          "shooting_accuracy": 54.84594749745469
+        }
+      }
+    ]
+  },
+  {
+    "frame": 91,
+    "timestamp": "2025-10-18T02:42:47.542592",
+    "people": [
+      {
+        "person_id": 0,
+        "metrics": {
+          "left_wrist_angle": 77.46031076867375,
+          "right_wrist_angle": 82.73714075652775,
+          "left_elbow_angle": 81.82326580699217,
+          "right_elbow_angle": 93.44985925269413,
+          "left_shoulder_angle": 97.18317744092687,
+          "right_shoulder_angle": 112.2033677386493,
+          "left_knee_angle": 112.83778662036603,
+          "right_knee_angle": 113.84218255628359,
+          "left_hip_angle": 108.84660202830678,
+          "right_hip_angle": 101.00130331720871,
+          "dribble_frequency": 2.004510861922701,
+          "center_of_mass": 93.4046719277878,
+          "ball_height": 160.76867915187762,
+          "vertical_velocity": 20.60670004942981,
+          "shooting_accuracy": 55.590582221388594
+        }
+      }
+    ]
+  },
+  {
+    "frame": 92,
+    "timestamp": "2025-10-18T02:42:46.542592",
+    "people": [
+      {
+        "person_id": 0,
+        "metrics": {
+          "left_wrist_angle": 69.2440487869617,
+          "right_wrist_angle": 65.16130693964264,
+          "left_elbow_angle": 102.47141897305798,
+          "right_elbow_angle": 98.87498587286717,
+          "left_shoulder_angle": 130.19415759129376,
+          "right_shoulder_angle": 116.65399724078196,
+          "left_knee_angle": 124.24343625803239,
+          "right_knee_angle": 110.79727311611953,
+          "left_hip_angle": 133.327256561042,
+          "right_hip_angle": 124.05841633446249,
+          "dribble_frequency": 2.01919530232673,
+          "center_of_mass": 92.04918379791239,
+          "ball_height": 169.32532086038788,
+          "vertical_velocity": 27.21247105529557,
+          "shooting_accuracy": 63.41734229315354
+        }
+      }
+    ]
+  },
+  {
+    "frame": 93,
+    "timestamp": "2025-10-18T02:42:45.542592",
+    "people": [
+      {
+        "person_id": 0,
+        "metrics": {
+          "left_wrist_angle": 63.05536133393846,
+          "right_wrist_angle": 61.11703775096622,
+          "left_elbow_angle": 102.15257103384899,
+          "right_elbow_angle": 88.43762246280576,
+          "left_shoulder_angle": 105.57856892912318,
+          "right_shoulder_angle": 113.37661008315587,
+          "left_knee_angle": 135.93335575344705,
+          "right_knee_angle": 124.21420353016751,
+          "left_hip_angle": 82.4730877450238,
+          "right_hip_angle": 97.3707365824687,
+          "dribble_frequency": 1.7139572260590157,
+          "center_of_mass": 93.92483158619488,
+          "ball_height": 168.22075513817109,
+          "vertical_velocity": 28.145434534526323,
+          "shooting_accuracy": 74.0517877549306
+        }
+      }
+    ]
+  },
+  {
+    "frame": 94,
+    "timestamp": "2025-10-18T02:42:44.542592",
+    "people": [
+      {
+        "person_id": 0,
+        "metrics": {
+          "left_wrist_angle": 77.22689929777947,
+          "right_wrist_angle": 81.92655664791239,
+          "left_elbow_angle": 96.39269704477147,
+          "right_elbow_angle": 106.99915267030416,
+          "left_shoulder_angle": 108.86823272695558,
+          "right_shoulder_angle": 127.13642472879651,
+          "left_knee_angle": 122.41092710475135,
+          "right_knee_angle": 127.68623108668243,
+          "left_hip_angle": 97.65900616713189,
+          "right_hip_angle": 100.41693560556173,
+          "dribble_frequency": 3.062062696532628,
+          "center_of_mass": 93.90859426950122,
+          "ball_height": 160.9698624587807,
+          "vertical_velocity": 30.63860842459117,
+          "shooting_accuracy": 66.31520147353915
+        }
+      }
+    ]
+  },
+  {
+    "frame": 95,
+    "timestamp": "2025-10-18T02:42:43.542592",
+    "people": [
+      {
+        "person_id": 0,
+        "metrics": {
+          "left_wrist_angle": 69.48933020059229,
+          "right_wrist_angle": 72.25940644537549,
+          "left_elbow_angle": 107.07712719707065,
+          "right_elbow_angle": 118.84544444518332,
+          "left_shoulder_angle": 117.14469325695384,
+          "right_shoulder_angle": 113.3415124569449,
+          "left_knee_angle": 125.67096877619636,
+          "right_knee_angle": 130.6491737215596,
+          "left_hip_angle": 133.91900162207398,
+          "right_hip_angle": 136.35554946602065,
+          "dribble_frequency": 2.4881708009827523,
+          "center_of_mass": 94.25130132333797,
+          "ball_height": 171.89655915628174,
+          "vertical_velocity": 27.280374721766673,
+          "shooting_accuracy": 58.368405011625576
+        }
+      }
+    ]
+  },
+  {
+    "frame": 96,
+    "timestamp": "2025-10-18T02:42:42.542592",
+    "people": [
+      {
+        "person_id": 0,
+        "metrics": {
+          "left_wrist_angle": 57.773502752223095,
+          "right_wrist_angle": 59.4967113550582,
+          "left_elbow_angle": 94.82503402334115,
+          "right_elbow_angle": 91.28137273813505,
+          "left_shoulder_angle": 130.5461501091505,
+          "right_shoulder_angle": 112.55835566387272,
+          "left_knee_angle": 146.61179531349626,
+          "right_knee_angle": 142.39620646492753,
+          "left_hip_angle": 103.4263614398372,
+          "right_hip_angle": 92.27249121645615,
+          "dribble_frequency": 3.7182478617125234,
+          "center_of_mass": 98.80091125221558,
+          "ball_height": 186.83273163264883,
+          "vertical_velocity": 33.12608276671496,
+          "shooting_accuracy": 53.137128508084636
+        }
+      }
+    ]
+  },
+  {
+    "frame": 97,
+    "timestamp": "2025-10-18T02:42:41.542592",
+    "people": [
+      {
+        "person_id": 0,
+        "metrics": {
+          "left_wrist_angle": 80.38698081486245,
+          "right_wrist_angle": 81.81264602190099,
+          "left_elbow_angle": 74.79256404025953,
+          "right_elbow_angle": 84.57774785302868,
+          "left_shoulder_angle": 113.74359299982164,
+          "right_shoulder_angle": 113.55152063151007,
+          "left_knee_angle": 125.07946900610717,
+          "right_knee_angle": 127.48727118493167,
+          "left_hip_angle": 129.10172491346526,
+          "right_hip_angle": 132.56046343752368,
+          "dribble_frequency": 3.3673672809224664,
+          "center_of_mass": 96.2703182665312,
+          "ball_height": 166.9406437583519,
+          "vertical_velocity": 32.70588636578649,
+          "shooting_accuracy": 78.74404628077414
+        }
+      }
+    ]
+  },
+  {
+    "frame": 98,
+    "timestamp": "2025-10-18T02:42:40.542592",
+    "people": [
+      {
+        "person_id": 0,
+        "metrics": {
+          "left_wrist_angle": 62.48476237491178,
+          "right_wrist_angle": 58.64413672613422,
+          "left_elbow_angle": 85.89673900965789,
+          "right_elbow_angle": 87.72352307373839,
+          "left_shoulder_angle": 127.8032759510998,
+          "right_shoulder_angle": 122.90864648174403,
+          "left_knee_angle": 123.08464805809578,
+          "right_knee_angle": 123.79440401718172,
+          "left_hip_angle": 130.18012583116527,
+          "right_hip_angle": 119.1801285474397,
+          "dribble_frequency": 2.2493804390592143,
+          "center_of_mass": 97.40187439753825,
+          "ball_height": 178.81022242020555,
+          "vertical_velocity": 33.52525604857142,
+          "shooting_accuracy": 75.68438515120629
+        }
+      }
+    ]
+  },
+  {
+    "frame": 99,
+    "timestamp": "2025-10-18T02:42:39.542592",
+    "people": [
+      {
+        "person_id": 0,
+        "metrics": {
+          "left_wrist_angle": 52.11943048053909,
+          "right_wrist_angle": 48.923248679388585,
+          "left_elbow_angle": 118.1994350348276,
+          "right_elbow_angle": 112.67978846242333,
+          "left_shoulder_angle": 113.5768085538916,
+          "right_shoulder_angle": 115.27972202991947,
+          "left_knee_angle": 143.2424199822574,
+          "right_knee_angle": 152.0514134163483,
+          "left_hip_angle": 114.99653952213112,
+          "right_hip_angle": 124.86577066091002,
+          "dribble_frequency": 0.2836126358339167,
+          "center_of_mass": 75.56549083688589,
+          "ball_height": 186.1674640727684,
+          "vertical_velocity": 16.3280642438947,
+          "shooting_accuracy": 76.08420076251562
+        }
+      }
+    ],
+    "anomaly_type": "fatigue_indicators",
+    "anomaly_description": "疲劳指标异常"
+  }
+]
