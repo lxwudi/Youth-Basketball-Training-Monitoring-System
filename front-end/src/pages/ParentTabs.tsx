@@ -22,20 +22,23 @@ const POSE_SEQUENCE_URL = '/poses/dribble_sequence.json';
 function ParentBasketballTab() {
   const sessionsQuery = useAsyncData(() => getTrainingSessions(), []);
   const focus: TrainingSession | undefined = sessionsQuery.data?.[0];
-  const { keypoints: poseKeypoints, videoRef, videoUrl, sourceSize, isLoading: poseLoading, error: poseError, currentMetrics } = usePoseSequence(POSE_SEQUENCE_URL);
+  const { videoRef, sourceSize, isLoading: poseLoading, error: poseError, currentMetrics } = usePoseSequence(POSE_SEQUENCE_URL);
   const overlayStatus = poseError
     ? `姿态数据加载失败 · ${poseError}`
     : poseLoading
       ? '姿态数据加载中...'
       : '示例回放中 · 可逐帧查看骨架与角度';
 
+  // 强制使用指定的输出视频
+  const forcedVideoUrl = '/videos/c62c073f-57f4-401b-be54-986fcd22a7c8_output.mp4';
+
   return (
     <div className="space-y-6" id="parent-basketball-report">
       <div className="grid gap-4 lg:grid-cols-[1.7fr,1fr]">
         <VideoPlayerWithOverlay
-          keypoints={poseKeypoints}
+          keypoints={[]}
           className="bg-slate-900"
-          videoUrl={videoUrl}
+          videoUrl={forcedVideoUrl}
           videoRef={videoRef}
           sourceSize={sourceSize}
           overlayFooter={<span className="text-xs text-slate-200">{overlayStatus}</span>}
@@ -68,8 +71,7 @@ function ParentBasketballTab() {
 
       <MetricsBar
         items={[
-          { id: 'frequency', label: '运球频率', value: currentMetrics.dribble_frequency ?? 2.4, unit: '次/秒', trend: 'stable' },
-          { id: 'center', label: '重心高度', value: (currentMetrics.center_of_mass ?? 42) * 100, unit: 'cm', trend: 'down', highlight: true },
+          { id: 'frequency', label: '运球频率', value: 2, unit: '次/秒', trend: 'stable' },
           { id: 'lean', label: '身体前倾', value: (currentMetrics.body_lean ?? 0) * 100, unit: 'cm', trend: 'stable' },
           { id: 'knee', label: '膝盖弯曲', value: currentMetrics.knee_flexion ?? 120, unit: '°', trend: 'stable' },
         ]}
