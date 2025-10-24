@@ -1,4 +1,4 @@
-﻿import type { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import { ArrowBigDown, ArrowUp, CircleDot } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -26,7 +26,7 @@ const ICONS: Record<MetricTrend, ReactNode> = {
 
 export function MetricsBar({ items, className }: MetricsBarProps) {
   return (
-    <div className={cn('grid gap-3 rounded-3xl bg-white/90 p-4 shadow-brand backdrop-blur dark:bg-slate-900/90 md:grid-cols-3', className)}>
+    <div className={cn('u-card-glass grid gap-3 p-4 md:grid-cols-3', className)}>
       {items.map((item) => {
         const trend: MetricTrend = item.trend ?? 'stable';
         const trendLabel = trend === 'up' ? '上升' : trend === 'down' ? '下降' : '稳定';

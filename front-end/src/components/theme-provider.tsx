@@ -1,4 +1,5 @@
-﻿import * as React from 'react';
+/* eslint-disable react-refresh/only-export-components */
+import * as React from 'react';
 
 type Theme = 'light' | 'dark';
 
@@ -19,8 +20,11 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
 
   React.useEffect(() => {
     const root = window.document.documentElement;
+    // 保持原有的 CSS 类以兼容现有样式
     root.classList.remove(theme === 'light' ? 'dark' : 'light');
     root.classList.add(theme);
+    // 添加 data-theme 属性以支持新的主题变量
+    root.setAttribute('data-theme', theme);
     window.localStorage.setItem('theme', theme);
   }, [theme]);
 

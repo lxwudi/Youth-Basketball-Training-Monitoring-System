@@ -1,41 +1,37 @@
-﻿import { cn } from '@/lib/utils';
+import { ArrowDownRight, ArrowUpRight } from 'lucide-react';
+import { Card, CardContent, CardHeader } from '@/components/ui/card';
 
-type TrendInfo = { direction: 'up' | 'down' | 'flat'; value: number; hint?: string } | undefined;
-
-type StatisticCardProps = {
+interface Props {
   label: string;
-  value: string | number;
+  value?: number | string;
   unit?: string;
-  trend?: TrendInfo;
+  trend?: { direction: 'up' | 'down'; value: number };
   caption?: string;
   className?: string;
-};
+}
 
-export function StatisticCard({ label, value, unit, trend, caption, className }: StatisticCardProps) {
-  const trendText = trend
-    ? trend.direction === 'up'
-      ? `↑ ${trend.value.toFixed(1)}%`
-      : trend.direction === 'down'
-        ? `↓ ${trend.value.toFixed(1)}%`
-        : `≈ ${trend.value.toFixed(1)}%`
-    : null;
+export function StatisticCard({ label, value, unit, trend, caption, className }: Props) {
+  const TrendIcon = trend?.direction === 'up' ? ArrowUpRight : ArrowDownRight;
 
   return (
-    <div
-      className={cn(
-        'rounded-3xl border border-slate-200/70 bg-white/90 p-4 shadow-sm shadow-slate-200/40 dark:border-slate-800 dark:bg-slate-900/70',
-        className,
-      )}
-    >
-      <p className="text-xs text-slate-500 dark:text-slate-300">{label}</p>
-      <div className="mt-2 flex items-end gap-2">
-        <p className="text-3xl font-semibold text-slate-900 dark:text-slate-100">{value}</p>
-        {unit ? <span className="pb-1 text-xs text-slate-400">{unit}</span> : null}
-      </div>
-      <div className="mt-2 flex items-center justify-between text-xs text-slate-400">
-        {trendText ? <span>{trendText}</span> : <span />}
-        {caption ? <span>{caption}</span> : null}
-      </div>
-    </div>
+    <Card className={`u-card-glass u-kpi-card ${className ?? ''}`}>
+      {/* 角标徽章 */}
+      <div className="u-kpi-badge"></div>
+      
+      <CardHeader className="flex flex-row items-center justify-between">
+        <p className="text-sm text-slate-600 dark:text-slate-300">{label}</p>
+        {trend ? (
+          <span className={`inline-flex items-center gap-1 rounded-md px-1.5 py-0.5 text-xs ${trend.direction === 'up' ? 'bg-emerald-100 text-emerald-600 dark:bg-emerald-900/40 dark:text-emerald-300' : 'bg-rose-100 text-rose-600 dark:bg-rose-900/40 dark:text-rose-300'}`}>
+            <TrendIcon className="h-3.5 w-3.5" />
+            {trend.value}%
+          </span>
+        ) : null}
+      </CardHeader>
+      <CardContent className="flex items-baseline gap-2">
+        <p className="kpi-rolling u-kpi-value text-2xl font-semibold tracking-tight">{value ?? '-'}</p>
+        {unit ? <span className="badge-kpi rounded-md bg-slate-100 px-1.5 py-0.5 text-xs text-slate-600 dark:bg-slate-800 dark:text-slate-300">{unit}</span> : null}
+        {caption ? <span className="ml-auto text-xs text-slate-500 dark:text-slate-400">{caption}</span> : null}
+      </CardContent>
+    </Card>
   );
 }

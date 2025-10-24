@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Navigate, Route, Routes, useLocation } from 'react-router-dom';
 import { CalendarRange, ClipboardCheck, Megaphone, Users2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -15,11 +15,36 @@ import { TrendCharts } from '@/components/TrendCharts';
 import { useAsyncData } from '@/hooks/useAsyncData';
 import { getTeamOverview } from '@/lib/api';
 import { formatPercent } from '@/utils/format';
-import type { TeamMemberSnapshot } from '@/types';
+import type { TeamMemberSnapshot, TrendPoint } from '@/types';
 import { TrainingSelection } from './coach/TrainingSelection';
 import { Dribbling } from './coach/Dribbling';
 import { Defense } from './coach/Defense';
 import { Shooting } from './coach/Shooting';
+
+const sanitizePointValue = (value: number | string): number => Number(Number(value).toFixed(2));
+
+const normalizeTrendPoints = (points: TrendPoint[]): TrendPoint[] =>
+  points.map((point) => ({ label: point.label, value: sanitizePointValue(point.value) }));
+
+const buildMonthlyBaseline = (points: TrendPoint[]): TrendPoint[] => {
+  const normalized = normalizeTrendPoints(points);
+  return normalized.map((point, index) => {
+    if (index === 0) {
+      const baseline = point.value > 1 ? Math.max(point.value - Math.max(point.value * 0.08, 3.2), 0) : point.value * 0.92;
+      return { label: point.label, value: sanitizePointValue(baseline) };
+    }
+    const prev = normalized[index - 1];
+    const baseline = (point.value + prev.value) / 2;
+    return { label: point.label, value: sanitizePointValue(baseline) };
+  });
+};
+
+const FALLBACK_MONTHLY_PROGRESS: TrendPoint[] = normalizeTrendPoints([
+  { label: '1月', value: 62.00 },
+  { label: '2月', value: 68.00 },
+  { label: '3月', value: 74.00 },
+  { label: '4月', value: 81.00 },
+]);
 
 // 训练监测改为训练选择页面
 function CoachTrainingTab() {
@@ -47,6 +72,16 @@ function CoachTeamTab() {
       setMembers(teamQuery.data.members);
     }
   }, [teamQuery.data]);
+
+  const monthlyProgressLine = useMemo(
+    () => normalizeTrendPoints(teamQuery.data?.monthlyProgress ?? FALLBACK_MONTHLY_PROGRESS),
+    [teamQuery.data?.monthlyProgress]
+  );
+
+  const monthlyProgressBaseline = useMemo(
+    () => buildMonthlyBaseline(teamQuery.data?.monthlyProgress ?? FALLBACK_MONTHLY_PROGRESS),
+    [teamQuery.data?.monthlyProgress]
+  );
 
 
 
@@ -77,7 +112,7 @@ function CoachTeamTab() {
         />
       ) : null}
 
-      <Card className="border-none bg-white/90 shadow-brand dark:bg-slate-900/80">
+      <Card className="u-card-glass">
         <CardHeader>
           <CardTitle className="text-base">队员档案管理</CardTitle>
         </CardHeader>
@@ -123,19 +158,23 @@ function CoachTeamTab() {
       </Card>
 
       <TrendCharts
+        lineCardSubtitle="团队动作规范度随月度变化曲线"
+        barCardSubtitle="与上月平均值的柱状对比"
         tabs={[
           {
             key: 'progress',
             label: '月度规范度',
             unit: '%',
-            line: teamQuery.data?.monthlyProgress ?? [],
+            line: monthlyProgressLine,
+            bar: monthlyProgressBaseline,
             metricLabel: '动作规范度',
             summary: '规范度逐月上升，防守协同和投篮节奏持续改善。',
+            accentColor: 'var(--c-dribble)',
           },
         ]}
       />
 
-      <div className="flex justify-end">
+      <div className="flex justify-end p-5 rounded-2xl glass-card border-2 border-neon-purple/20">
         <ReportBuilder targetId="coach-team-report" fileName="球队档案报告.pdf" title="球队动作规范度对比报告" />
       </div>
     </div>
@@ -168,7 +207,7 @@ function CoachPlanTab() {
 
   return (
     <div className="space-y-6" id="coach-plan-report">
-      <Card className="border-none bg-white/90 shadow-brand dark:bg-slate-900/80">
+      <Card className="u-card-glass">
         <CardHeader className="flex flex-row items-center justify-between">
           <CardTitle className="text-base">训练日程安排</CardTitle>
           <Button variant="outline" size="sm" onClick={handleAddPlan}>
@@ -191,14 +230,14 @@ function CoachPlanTab() {
           <Switch checked={enableReminder} onCheckedChange={setEnableReminder} aria-label="开启训练提醒" />
         </CardHeader>
         <CardContent className="space-y-3 text-sm text-slate-600 dark:text-slate-300">
-          <div className="rounded-2xl bg-white/90 p-4 dark:bg-slate-900/80">
+          <div className="u-card-glass p-4">
             <p className="text-xs text-slate-500">推送内容</p>
             <Textarea value={message} onChange={(event) => setMessage(event.target.value)} rows={3} />
             <Button variant="ghost" size="sm" className="mt-2 self-end">
               <Megaphone className="mr-2 h-4 w-4" /> 发送到队员端
             </Button>
           </div>
-          <div className="rounded-2xl bg-white/90 p-4 dark:bg-slate-900/80">
+          <div className="u-card-glass p-4">
             <p className="text-xs text-slate-500">最新反馈</p>
             <ul className="mt-2 space-y-1">
               {latestFeedback.length > 0 ? (
@@ -214,24 +253,33 @@ function CoachPlanTab() {
       </Card>
 
       <TrendCharts
+        lineCardSubtitle="每周提醒响应率变化趋势"
+        barCardSubtitle="与平均响应率的柱状对比"
         tabs={[
           {
             key: 'reminder',
             label: '提醒响应率',
             unit: '%',
             line: [
-              { label: '第1周', value: 72 },
-              { label: '第2周', value: 78 },
-              { label: '第3周', value: 85 },
-              { label: '第4周', value: 91 },
+              { label: '第1周', value: 72.00 },
+              { label: '第2周', value: 78.00 },
+              { label: '第3周', value: 85.00 },
+              { label: '第4周', value: 91.00 },
+            ],
+            bar: [
+              { label: '第1周', value: 68.00 },
+              { label: '第2周', value: 74.00 },
+              { label: '第3周', value: 80.00 },
+              { label: '第4周', value: 86.00 },
             ],
             metricLabel: '响应率',
             summary: '提醒响应率持续提升，可继续推送针对性训练目标。',
+            accentColor: 'var(--c-shoot)',
           },
         ]}
       />
 
-      <div className="flex justify-end">
+      <div className="flex justify-end p-5 rounded-2xl glass-card border-2 border-neon-cyan/20">
         <ReportBuilder targetId="coach-plan-report" fileName="训练计划与提醒.pdf" title="训练计划与提醒执行报告" />
       </div>
     </div>

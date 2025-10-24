@@ -17,7 +17,15 @@ import tempfile
 import uuid
 from datetime import datetime
 
-from modules.inference_engine_pytorch import InferenceEnginePyTorch
+# 根据环境与依赖情况决定是否进入模拟模式
+SIMULATION_MODE = False
+try:
+    from modules.inference_engine_pytorch import InferenceEnginePyTorch
+except Exception as _e:
+    print(f"[WARN] 无法加载PyTorch推理引擎，进入模拟模式: {_e}")
+    InferenceEnginePyTorch = None
+    SIMULATION_MODE = True
+
 from modules.parse_poses import parse_poses
 from modules.draw import draw_poses
 from scenes.basketball.metrics_calculator import BasketballMetricsCalculator
@@ -46,9 +54,19 @@ app.config['MAX_CONTENT_LENGTH'] = 500 * 1024 * 1024  # 最大500MB
 
 ALLOWED_EXTENSIONS = {'mp4', 'avi', 'mov', 'mkv'}
 
-# 加载模型
+# 加载模型（若缺失或初始化失败则进入模拟模式）
 model_path = str(PROJECT_ROOT / 'human-pose-estimation-3d.pth')
-pose_net = InferenceEnginePyTorch(model_path, 'GPU', use_tensorrt=False)
+pose_net = None
+if not SIMULATION_MODE:
+    if not Path(model_path).exists():
+        print(f"[WARN] 模型文件缺失：{model_path}，将使用模拟模式")
+        SIMULATION_MODE = True
+    else:
+        try:
+            pose_net = InferenceEnginePyTorch(model_path, 'GPU', use_tensorrt=False)
+        except Exception as _e:
+            print(f"[WARN] 初始化推理引擎失败，进入模拟模式: {_e}")
+            SIMULATION_MODE = True
 
 # 存储处理任务状态
 processing_tasks = {}
@@ -153,6 +171,53 @@ def canonicalize_poses(poses_3d, R, t):
     return pose
 
 
+def generate_mock_poses(frame, frame_idx):
+    """在模拟模式下生成简化的2D/3D关键点，保持与真实管线一致的数据结构"""
+    h, w = frame.shape[:2]
+    cx, cy = w // 2, int(h * 0.45)
+
+    # 生成19个关键点的2D坐标（panoptic顺序）与置信度
+    pts2d = [
+        (cx, cy, 1.0),            # 0 颈部
+        (cx, cy - 40, 1.0),       # 1 鼻尖
+        (cx, cy + 40, 1.0),       # 2 骨盆
+        (cx - 50, cy, 1.0),       # 3 左肩
+        (cx - 85, cy + 5, 1.0),   # 4 左肘
+        (cx - 115, cy + 10, 1.0), # 5 左腕
+        (cx - 30, cy + 60, 1.0),  # 6 左髋
+        (cx - 35, cy + 110, 1.0), # 7 左膝
+        (cx - 40, cy + 160, 1.0), # 8 左踝
+        (cx + 50, cy, 1.0),       # 9 右肩
+        (cx + 85, cy + 5, 1.0),   # 10 右肘
+        (cx + 115, cy + 10, 1.0), # 11 右腕
+        (cx + 30, cy + 60, 1.0),  # 12 右髋
+        (cx + 35, cy + 110, 1.0), # 13 右膝
+        (cx + 40, cy + 160, 1.0), # 14 右踝
+        (cx + 12, cy - 46, 1.0),  # 15 右眼
+        (cx - 12, cy - 46, 1.0),  # 16 左眼
+        (cx + 24, cy - 44, 1.0),  # 17 右耳
+        (cx - 24, cy - 44, 1.0),  # 18 左耳
+    ]
+
+    # 构造poses_2d: [x,y,conf]*19 + [pose_conf]
+    pose_conf = 1.0
+    pose_2d = []
+    for (x, y, conf) in pts2d:
+        pose_2d.extend([float(x), float(y), float(conf)])
+    pose_2d.append(float(pose_conf))
+
+    # 构造poses_3d: [x,y,z,conf]*19 （保持与parse_poses输出一致）
+    # 简单设定z为相对深度（单位：厘米），随帧轻微摆动
+    z_wave = (np.sin(frame_idx / 10.0) * 5.0)
+    pose_3d = []
+    for (x, y, conf) in pts2d:
+        pose_3d.extend([float(x), float(y), float(z_wave), float(conf)])
+
+    poses_2d = [np.array(pose_2d, dtype=np.float32)]
+    poses_3d = np.array(pose_3d, dtype=np.float32).reshape(1, -1)
+    return poses_3d, poses_2d
+
+
 def process_video(video_path, task_id, training_type='dribbling'):
     """处理视频并生成带骨架的输出视频和指标数据"""
     try:
@@ -160,12 +225,17 @@ def process_video(video_path, task_id, training_type='dribbling'):
         processing_tasks[task_id]['status'] = 'processing'
         processing_tasks[task_id]['progress'] = 0
         
-        # 读取摄像机外参
+        # 读取摄像机外参（缺失时使用默认值）
         extrinsics_path = PROJECT_ROOT / 'data' / 'extrinsics.json'
-        with open(extrinsics_path, 'r') as f:
-            extrinsics = json.load(f)
-        R = np.array(extrinsics['R'], dtype=np.float32)
-        t = np.array(extrinsics['t'], dtype=np.float32)
+        try:
+            with open(extrinsics_path, 'r') as f:
+                extrinsics = json.load(f)
+            R = np.array(extrinsics.get('R', np.eye(3).tolist()), dtype=np.float32)
+            t = np.array(extrinsics.get('t', [0, 0, 0]), dtype=np.float32)
+        except Exception as _e:
+            print(f"[WARN] 外参文件缺失或读取失败，使用默认值: {_e}")
+            R = np.eye(3, dtype=np.float32)
+            t = np.zeros(3, dtype=np.float32)
         
         # 打开视频
         cap = cv2.VideoCapture(str(video_path))
@@ -241,9 +311,13 @@ def process_video(video_path, task_id, training_type='dribbling'):
             scaled_img = cv2.resize(frame, dsize=None, fx=input_scale, fy=input_scale)
             scaled_img = scaled_img[:, 0:scaled_img.shape[1] - (scaled_img.shape[1] % stride)]
             fx = np.float32(0.8 * frame.shape[1])
-            
-            inference_result = pose_net.infer(scaled_img)
-            poses_3d, poses_2d = parse_poses(inference_result, input_scale, stride, fx, is_video=True)
+
+            # 推理或模拟
+            if SIMULATION_MODE or pose_net is None:
+                poses_3d, poses_2d = generate_mock_poses(frame, frame_idx)
+            else:
+                inference_result = pose_net.infer(scaled_img)
+                poses_3d, poses_2d = parse_poses(inference_result, input_scale, stride, fx, is_video=True)
             
             # 在图像上绘制骨架
             draw_poses(frame, poses_2d)

@@ -1,0 +1,615 @@
+/* Design Tokens and Theme Variables (Appearance-only) */
+
+/* Chart theme palette (applies globally via data-theme attribute) */
+:root[data-theme="light"] {
+  --chart-text: rgba(18, 20, 33, 0.92);
+  --chart-muted: rgba(18, 20, 33, 0.65);
+  --chart-grid: rgba(18, 20, 33, 0.10);
+  --chart-bg: #FFFFFF;
+  --chart-accent-1: #FF3BCD;
+  --chart-accent-2: #2FD3FF;
+  --chart-accent-3: #6C53F7;
+  --chart-accent-4: #8EDB3E;
+  --chart-accent-5: #FF7A2F;
+  --chart-accent-6: #12BDEB;
+}
+
+:root[data-theme="dark"] {
+  --chart-text: rgba(234, 242, 255, 0.92);
+  --chart-muted: rgba(234, 242, 255, 0.70);
+  --chart-grid: rgba(234, 242, 255, 0.12);
+  --chart-bg: #0A0B10;
+  --chart-accent-1: #F63AAE;
+  --chart-accent-2: #2FD3FF;
+  --chart-accent-3: #835BFF;
+  --chart-accent-4: #B8FF5E;
+  --chart-accent-5: #FF7A2F;
+  --chart-accent-6: #12BDEB;
+}
+
+/* Fallback: ensure Recharts text remains legible in dark mode */
+.recharts-text,
+.recharts-legend-item-text,
+.recharts-tooltip-label {
+  fill: var(--chart-text) !important;
+  font-family: "HarmonyOS Sans SC", "PingFang SC", "Microsoft YaHei", Inter, system-ui, sans-serif;
+}
+
+/* Motion tokens */
+:root {
+  --t-fast: 160ms;
+  --t-mid: 420ms;
+  --t-slow: 720ms;
+  --ease-snap: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --ease-smooth: cubic-bezier(.22, .61, .36, 1);
+  --ease-out: cubic-bezier(.22, .61, .36, 1);
+  --ease: cubic-bezier(.22, .61, .36, 1);
+  --r-2xl: 24px;
+
+  /* Typography (fallbacks only; do not load fonts here) */
+  --font-cn: "HarmonyOS Sans SC", "Alibaba PuHuiTi 2.0", system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, "Noto Sans", "PingFang SC", "Microsoft YaHei", sans-serif;
+  --font-en: Inter, Outfit, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, "Noto Sans", sans-serif;
+
+  /* Unified motion & appearance variables (spec 7) */
+  --hero-bloom: 0.7; /* Bloom 强度 */
+  --hover-magnet-radius: 120px;
+  --hover-magnet-force: 18;
+  --enter-y: 12px; /* 出场位移 */
+  --stagger: 120ms; /* 级联延迟基线 */
+
+  /* Fallback accents and surfaces used by effects */
+  --accent-1: var(--c-violet);
+  --accent-2: var(--c-cyan);
+  --surface-light: var(--surface-1);
+  --surface-dark: var(--surface-1);
+  --border: var(--stroke-1);
+  --cyan-400: #22d3ee;
+}
+
+/* Dark theme variables (class-based: Tailwind darkMode: 'class') */
+:root.dark {
+  /* Neutral scale - 增强亮度 */
+  --n-0: #0d0e14; --n-10: #14151f; --n-20: #1a1c2e; --n-30: #20233a; --n-40: #282c45;
+  --n-50: #323754; --n-60: #3f4563; --n-70: #505978; --n-80: #6b7491; --n-90: #d0d7ed; --n-100: #f0f4ff;
+  /* Surfaces & strokes - 更亮的表面 */
+  --surface-0: linear-gradient(135deg, #0d0e14 0%, #1a1c2e 100%); /* page background with gradient */
+  --surface-1: rgba(255, 255, 255, 0.12); /* glass layer (card) - 更亮 */
+  --surface-2: rgba(255, 255, 255, 0.18); /* elevated/modal - 更亮 */
+  --stroke-1: rgba(255, 255, 255, 0.20); /* 1px border - 更明显 */
+  /* Text - 更高对比度 */
+  --txt-1: #f0f4ff; --txt-2: #c5ceeb; --txt-dim: #9aa5c7;
+  /* Accents & gradients - 更鲜艳的霓虹色 */
+  --c-cyan: #00f5ff; --c-violet: #a78bfa; --c-pink: #f472b6; --c-lime: #d4ff5e; --c-orange: #fb923c;
+  --g-aurora1: linear-gradient(135deg, #00f5ff 0%, #a78bfa 40%, #f472b6 100%);
+  --g-ion2: linear-gradient(135deg, #d4ff5e 0%, #00f5ff 50%, #a78bfa 100%);
+  --g-cyber: linear-gradient(135deg, #0066ff 0%, #00f5ff 50%, #a78bfa 100%);
+  --glass: rgba(255, 255, 255, 0.12);
+  --blur-xl: 20px;
+  --glow: 0 8px 32px rgba(167, 139, 250, 0.6);
+  --glow-strong: 0 0 40px rgba(0, 245, 255, 0.6), 0 0 80px rgba(167, 139, 250, 0.4);
+}
+
+/* Light theme variables */
+:root.light {
+  /* Neutral (cool whites) */
+  --nl-0: #FFFFFF; --nl-5: #fdfeff; --nl-10: #f8fbff; --nl-20: #f0f6ff; --nl-30: #e7f0ff; --nl-40: #d9e9ff;
+  /* Text - 增强对比度 */
+  --txt-1: #0a0b14; --txt-2: #1f2332; --txt-dim: #4a5266;
+  /* Surfaces & strokes */
+  --surface-0: linear-gradient(135deg, #f8fbff 0%, #e7f0ff 100%); /* page base with gradient */
+  --surface-1: rgba(255, 255, 255, 0.9); /* card base */
+  --surface-2: rgba(167, 139, 250, 0.10); /* subtle violet emphasis */
+  --stroke-1: rgba(18, 20, 33, 0.20); /* 增强边框对比度 */
+  /* Accents (lighter variants) - 更鲜艳 */
+  --c-cyan: #0ea5e9; --c-violet: #8b5cf6; --c-pink: #ec4899; --c-lime: #84cc16; --c-orange: #f97316;
+  --g-aurora1: linear-gradient(135deg, #0ea5e9 0%, #8b5cf6 40%, #ec4899 100%);
+  --g-ion2: linear-gradient(135deg, #84cc16 0%, #0ea5e9 50%, #8b5cf6 100%);
+  --g-vibrant: linear-gradient(135deg, #ec4899 0%, #f97316 50%, #fbbf24 100%);
+  --glass: rgba(255, 255, 255, 0.65);
+  --blur-xl: 16px;
+  --glow: 0 8px 24px rgba(139, 92, 246, 0.35);
+  --glow-strong: 0 0 30px rgba(14, 165, 233, 0.4), 0 0 60px rgba(139, 92, 246, 0.3);
+}
+
+/* Automatic fallback for environments without JS theme class */
+@media (prefers-color-scheme: dark) {
+  :root:not(.light):not([data-theme="light"]) {
+    /* Mirror dark variables */
+    --n-0: #0A0B10; --n-10: #0F1118; --n-20: #121421; --n-30: #161927; --n-40: #1B1F2E;
+    --n-50: #222636; --n-60: #2B3044; --n-70: #39435C; --n-80: #53607C; --n-90: #C7D2E5; --n-100: #EAF2FF;
+    --surface-0: var(--n-0);
+    --surface-1: rgba(255, 255, 255, 0.06);
+    --surface-2: rgba(255, 255, 255, 0.10);
+    --stroke-1: rgba(255, 255, 255, 0.12);
+    --txt-1: var(--n-100); --txt-2: #A6B0C3; --txt-dim: #7C8597;
+    --c-cyan: #2FD3FF; --c-violet: #835BFF; --c-pink: #FF3BCD; --c-lime: #B8FF5E; --c-orange: #FF7A2F;
+    --g-aurora1: linear-gradient(135deg, #2FD3FF 0%, #835BFF 40%, #FF3BCD 100%);
+    --g-ion2: linear-gradient(135deg, #B8FF5E 0%, #2FD3FF 50%, #835BFF 100%);
+    --glass: rgba(255, 255, 255, 0.08);
+    --blur-xl: 18px;
+    --glow: 0 4px 20px rgba(131, 91, 255, 0.45);
+  }
+}
+
+/* Utility classes: purely decorative, no logic impact */
+.skin-slot {
+  position: relative;
+  /* intentionally minimal; acts as a styling slot */
+}
+
+.u-surface-dark {
+  background: var(--surface-1) !important;
+  border: 1px solid var(--stroke-1);
+  backdrop-filter: blur(var(--blur-xl));
+}
+
+.u-surface-light {
+  background: var(--surface-1) !important;
+  border: 1px solid var(--stroke-1);
+  box-shadow: 0 6px 16px rgba(18, 20, 33, 0.06);
+}
+
+/* Inputs: glassy neutral fields with safe focus ring */
+.u-input {
+  background: rgba(255, 255, 255, 0.06) !important;
+  color: var(--txt-1) !important;
+  border-color: var(--stroke-1) !important;
+  transition: box-shadow var(--t-fast) var(--ease-snap), border-color var(--t-fast) var(--ease-snap);
+}
+.u-input::placeholder {
+  color: var(--txt-dim) !important;
+}
+.u-input:focus-visible {
+  outline: none !important;
+  box-shadow: 0 0 0 3px var(--focus-ring) !important;
+  border-color: var(--focus-ring) !important;
+}
+
+/* Tables: subtle zebra and grid lines (non-invasive defaults) */
+table { border-collapse: separate; border-spacing: 0; }
+:root.dark table thead { background: linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02)); }
+:root.dark table tbody tr:nth-child(odd) { background: rgba(255, 255, 255, 0.02); }
+:root.dark table tbody tr:hover { backdrop-filter: blur(6px); }
+:root.dark table td, :root.dark table th { border-bottom: 1px solid rgba(255, 255, 255, 0.08); }
+
+:root.light table thead { background: linear-gradient(180deg, var(--nl-10), var(--nl-20)); }
+:root.light table tbody tr:hover { background: rgba(18, 20, 33, 0.03); }
+:root.light table td, :root.light table th { border-bottom: 1px solid rgba(18, 20, 33, 0.08); }
+
+/* Page base suggestions (optional usage with u-surface-*) */
+.u-page {
+  border-radius: var(--r-2xl);
+}
+
+/* Accessibility: reduce motion */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: var(--t-fast) !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: var(--t-fast) !important;
+  }
+}
+
+/* Button and chart tokens mapping */
+:root.dark {
+  --btn-bg: var(--g-ion2);
+  --btn-fg: var(--txt-1);
+  --btn-shadow: 0 8px 24px rgba(47, 211, 255, 0.25);
+  --focus-ring: rgba(47, 211, 255, 0.25);
+  --chart-bg: var(--surface-0);
+  --chart-grid: rgba(234, 242, 255, 0.10);
+  --chart-axis: rgba(234, 242, 255, 0.45);
+}
+:root.light {
+  --btn-bg: var(--g-ion2);
+  --btn-fg: var(--txt-1);
+  --btn-shadow: 0 6px 18px rgba(108, 83, 247, 0.20);
+  --focus-ring: rgba(108, 83, 247, 0.25);
+  --chart-bg: var(--surface-1);
+  --chart-grid: rgba(18, 20, 33, 0.08);
+  --chart-axis: rgba(18, 20, 33, 0.45);
+}
+
+/* Focus utility: unified focus ring via variable */
+.u-focus:focus-visible {
+  outline: none !important;
+  box-shadow: 0 0 0 3px var(--focus-ring) !important;
+}
+
+/* Button utilities */
+.u-btn-base {
+  background: var(--btn-bg) !important;
+  color: var(--btn-fg) !important;
+  box-shadow: var(--btn-shadow) !important;
+  border: 1px solid var(--stroke-1);
+  transition: transform var(--t-fast) var(--ease-snap), box-shadow var(--t-mid) var(--ease-smooth), filter var(--t-fast) var(--ease-snap);
+}
+.u-btn-base:hover { filter: saturate(1.08); transform: translateZ(0) scale(1.02); }
+.u-btn-base:active { transform: scale(0.98); }
+
+.u-btn-cta {
+  background: var(--g-ion2) !important;
+  color: var(--txt-1) !important;
+  box-shadow: var(--glow) !important;
+}
+
+/* Chart utilities: applies theme tokens to Recharts */
+.u-chart { 
+  background: var(--chart-bg); 
+  border-radius: var(--r-2xl); 
+  padding: var(--s-3);
+}
+
+/* Grid and axis styling */
+.u-chart .recharts-cartesian-grid line { stroke: var(--chart-grid) !important; }
+.u-chart .recharts-cartesian-grid.recharts-cartesian-grid line { stroke: var(--chart-grid) !important; opacity: 0.4; }
+
+.u-chart .recharts-xAxis .recharts-cartesian-axis-line,
+.u-chart .recharts-yAxis .recharts-cartesian-axis-line { stroke: var(--chart-axis) !important; }
+
+/* Text and tick styling */
+.u-chart text { fill: var(--txt-2) !important; }
+.u-chart .recharts-xAxis text,
+.u-chart .recharts-yAxis text { fill: var(--txt-2) !important; }
+
+/* Responsive chart axis styling */
+.u-chart .recharts-xAxis.recharts-xAxis text,
+.u-chart .recharts-yAxis.recharts-yAxis text { fill: var(--txt-2) !important; }
+
+/* Aurora divider */
+.u-divider-aurora { height: 1px; background: var(--g-aurora1); box-shadow: 0 1px 12px rgba(131, 91, 255, 0.25); opacity: 0.8; }
+
+/* Hero Aurora baseline and scroll indicator */
+.hero-aurora[data-keep] {
+  position: relative;
+  isolation: isolate;
+  --hero-bloom: 0.7; /* default Bloom 强度 */
+  --hero-noise: 0.02; /* 噪声扰动 */
+}
+.hero-aurora[data-keep]::before {
+  content: "";
+  position: absolute;
+  inset: -10vh -5vw;
+  pointer-events: none;
+  background:
+    radial-gradient(120% 120% at 20% 10%, color-mix(in oklab, var(--accent-1) 30%, transparent) 0%, transparent 60%),
+    conic-gradient(from 180deg at 65% 45%, color-mix(in oklab, var(--accent-2) 28%, transparent) 0%, transparent 75%),
+    linear-gradient(to bottom, color-mix(in oklab, var(--accent-1) 10%, transparent), transparent 70%);
+  filter: blur(calc(var(--hero-bloom) * 32px));
+  mix-blend-mode: screen;
+  opacity: 0.75;
+  transform: translateZ(0);
+  animation: heroFlow 24s linear infinite;
+}
+@keyframes heroFlow {
+  0%   { transform: translate3d(0, 0, 0); }
+  50%  { transform: translate3d(2%, -1%, 0); }
+  100% { transform: translate3d(0, 0, 0); }
+}
+.hero-aurora .hero-scroll-indicator {
+  position: absolute;
+  left: 50%;
+  bottom: 2.5rem;
+  width: 20px;
+  height: 32px;
+  transform: translateX(-50%);
+  display: grid;
+  place-items: center;
+  opacity: 0;
+  pointer-events: none;
+}
+.hero-aurora .hero-scroll-indicator::before {
+  content: "";
+  width: 10px;
+  height: 10px;
+  border: 2px solid color-mix(in oklab, var(--accent-1), transparent 20%);
+  border-left-color: transparent;
+  border-bottom-color: transparent;
+  transform: rotate(45deg);
+  filter: drop-shadow(0 0 6px var(--accent-1));
+}
+.hero-aurora.is-activated .hero-scroll-indicator {
+  opacity: 1;
+  animation: floatY 1.8s ease-in-out infinite;
+}
+@keyframes floatY {
+  0%, 100% { transform: translate(-50%, 0); }
+  50%      { transform: translate(-50%, 8px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-aurora[data-keep]::before { animation: none; }
+  .hero-aurora .hero-scroll-indicator { animation: none; }
+}
+
+/* Flowline stage for Challenge Insights */
+.flowline-stage[data-keep] {
+  position: relative;
+  isolation: isolate;
+  --flow-rate: 1; /* 滚动驱动速率 */
+}
+.flowline-stage[data-keep]::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(120% 80% at 0% 50%, color-mix(in oklab, var(--accent-2) 10%, transparent) 0, transparent 60%),
+    radial-gradient(100% 56% at 33% 40%, color-mix(in oklab, var(--accent-1) 12%, transparent) 0, transparent 60%);
+  mask-image: linear-gradient(to right, transparent 0, black 10%, black 90%, transparent 100%);
+  mix-blend-mode: screen;
+  opacity: 0.65;
+  animation: flowTrail calc(18s / var(--flow-rate)) linear infinite;
+}
+@keyframes flowTrail {
+  0%   { background-position: 0 0, 0 0; }
+  100% { background-position: 120% 0, -100% 0; }
+}
+
+/* Card.Glass with reveal cascade */
+.card-glass {
+  background: color-mix(in oklab, var(--surface-light) 88%, transparent);
+  backdrop-filter: blur(8px) saturate(1.15);
+  border-radius: 24px;
+  border: 1px solid color-mix(in oklab, var(--accent-1) 14%, var(--border));
+  box-shadow: 0 6px 22px color-mix(in oklab, var(--accent-1) 22%, transparent);
+  transition: transform 420ms var(--ease-out), box-shadow 420ms var(--ease-out), opacity 420ms var(--ease-out);
+}
+.dark .card-glass {
+  background: color-mix(in oklab, var(--surface-dark) 80%, transparent);
+  box-shadow: 0 6px 24px color-mix(in oklab, var(--accent-1) 24%, transparent);
+  border-color: color-mix(in oklab, var(--accent-2) 16%, var(--border));
+}
+.card-glass.is-reveal {
+  transform: translateY(12px) scale(0.96);
+  opacity: 0.85;
+}
+.is-activated .card-glass.is-reveal {
+  transform: translateY(0) scale(1);
+  opacity: 1;
+  box-shadow: 0 10px 28px color-mix(in oklab, var(--accent-1) 28%, transparent);
+}
+
+/* KPI masking and glowing unit */
+.kpi-rolling {
+  position: relative;
+  overflow: hidden;
+}
+.kpi-rolling::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top,
+    color-mix(in oklab, var(--accent-1) 14%, transparent) 0%,
+    transparent 45%,
+    transparent 55%,
+    color-mix(in oklab, var(--accent-2) 12%, transparent) 100%);
+  transform: translateY(100%);
+  pointer-events: none;
+  mix-blend-mode: overlay;
+  opacity: 0.7;
+}
+.is-activated .kpi-rolling::after {
+  animation: kpiReveal 800ms steps(10, end) forwards;
+}
+@keyframes kpiReveal { to { transform: translateY(-100%); } }
+.badge-kpi {
+  filter: drop-shadow(0 0 6px color-mix(in oklab, var(--accent-1) 40%, transparent));
+  text-shadow: 0 0 6px color-mix(in oklab, var(--accent-1) 30%, transparent);
+}
+
+/* Neon CTA (Button.Neon variants) */
+.btn-neon-primary {
+  position: relative;
+  --neon-color: var(--cyan-400);
+  --neon-ring: var(--focus-ring);
+  background: color-mix(in oklab, var(--surface-light) 75%, transparent);
+  border-radius: 16px;
+  box-shadow: 0 0 0 1px color-mix(in oklab, var(--neon-color) 24%, transparent), 0 10px 28px color-mix(in oklab, var(--neon-color) 28%, transparent);
+  transition: transform 200ms var(--ease-out), box-shadow 200ms var(--ease-out);
+}
+.dark .btn-neon-primary {
+  background: color-mix(in oklab, var(--surface-dark) 72%, transparent);
+}
+.btn-neon-primary.is-glow:hover {
+  box-shadow: 0 0 0 2px var(--neon-ring), 0 12px 36px color-mix(in oklab, var(--neon-color) 42%, transparent);
+}
+.btn-neon-primary.is-magnet:hover { transform: translateY(-1px) scale(1.02); }
+.btn-neon-glass {
+  backdrop-filter: blur(8px) saturate(1.15);
+  background: color-mix(in oklab, var(--surface-light) 66%, transparent);
+  border-radius: 16px;
+  box-shadow: 0 0 0 1px color-mix(in oklab, var(--accent-2) 20%, transparent);
+}
+
+/* Timeline curve decorative background */
+.timeline-curve[data-keep] { position: relative; }
+.timeline-curve[data-keep]::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(120% 80% at 10% 85%, color-mix(in oklab, var(--accent-1) 20%, transparent) 0, transparent 50%),
+    radial-gradient(100% 70% at 80% 25%, color-mix(in oklab, var(--accent-2) 18%, transparent) 0, transparent 60%);
+  mask-image: radial-gradient(60% 60% at 50% 50%, black, transparent);
+  opacity: 0.5;
+}
+
+/* Avatar subtle breathing and hover tilt */
+.avatar-anim {
+  position: relative;
+  outline: 1px solid color-mix(in oklab, var(--accent-1) 12%, transparent);
+  box-shadow: 0 0 0 2px color-mix(in oklab, var(--accent-1) 16%, transparent);
+  transition: transform 300ms var(--ease-out), box-shadow 300ms var(--ease-out), opacity 300ms var(--ease-out);
+  animation: breathing 6s ease-in-out infinite;
+}
+@keyframes breathing { 0%, 100% { opacity: 0.98; } 50% { opacity: 0.96; } }
+.avatar-anim:hover {
+  transform: rotateY(6deg) translateZ(0);
+  box-shadow: 0 0 0 2px var(--focus-ring), 0 10px 16px color-mix(in oklab, var(--accent-1) 24%, transparent);
+}
+.avatar-anim:is(img) { border-radius: 20px; }
+@media (prefers-reduced-motion: reduce) { .avatar-anim { animation: none; } }
+
+/* ========== NEW THEME DESIGN TOKENS ========== */
+/* Cyber Noir (暗色赛博霓虹) & Neon Frost (亮色冰晶霓虹) */
+
+/* A. 暗色主题（Cyber Noir） */
+:root[data-theme="dark"] {
+  /* 中性与表面（替代大白块） */
+  --bg: #0A0B10;
+  --surface-1: rgba(255,255,255,.06);
+  --surface-2: rgba(255,255,255,.10);
+  --stroke-1: rgba(255,255,255,.14);
+  --txt-1: #EAF2FF;
+  --txt-2: #A6B0C3;
+  --txt-dim: #7C8597;
+  
+  /* 赛博主色（与内容域绑定） */
+  --c-dribble: #2FD3FF; /* 运球 */
+  --c-shoot: #FF3BCD;   /* 投篮 */
+  --c-defense: #B8FF5E; /* 防守 */
+  --c-aux: #835BFF;
+  --c-warn: #FF7A2F;
+  
+  /* 渐变与光效 */
+  --g-aurora: linear-gradient(135deg,#2FD3FF 0%,#835BFF 45%,#FF3BCD 100%);
+  --g-ionic: linear-gradient(135deg,#B8FF5E 0%,#2FD3FF 50%,#835BFF 100%);
+  --glass: rgba(255,255,255,.08);
+  --blur-xl: 18px;
+  --glow: 0 6px 26px rgba(131,91,255,.45);
+  
+  /* 动效令牌 */
+  --t-fast: 160ms;
+  --t-mid: 420ms;
+  --t-slow: 720ms;
+  --ease: cubic-bezier(.22,.61,.36,1);
+}
+
+/* 可访问性增强 */
+/* 高对比度模式 */
+@media (prefers-contrast: high) {
+  :root {
+    --txt-1: #000000;
+    --txt-2: #1a1a1a;
+    --stroke-1: rgba(0, 0, 0, 0.3);
+    --surface-1: rgba(255, 255, 255, 0.95);
+  }
+  
+  :root.dark {
+    --txt-1: #ffffff;
+    --txt-2: #e6e6e6;
+    --stroke-1: rgba(255, 255, 255, 0.3);
+    --surface-1: rgba(0, 0, 0, 0.95);
+  }
+}
+
+/* 焦点可见性增强 */
+.focus-visible,
+*:focus-visible {
+  outline: 2px solid var(--accent, #6366F1);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* 减少动画偏好 */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --t-fast: 0ms;
+    --t-mid: 0ms;
+    --t-slow: 0ms;
+  }
+}
+
+/* 性能优化类 */
+.u-gpu-accelerated {
+  transform: translateZ(0);
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
+.u-contain-layout {
+  contain: layout;
+}
+
+.u-contain-paint {
+  contain: paint;
+}
+
+.u-contain-strict {
+  contain: strict;
+}
+
+/* 文本可读性增强 */
+.u-text-readable {
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* 色彩对比度检查 */
+@supports (color-contrast(white vs black)) {
+  .u-auto-contrast {
+    color: color-contrast(var(--surface-1) vs var(--txt-1), var(--txt-2));
+  }
+}
+
+/* ========== 通用工具类（只新增，不改已有类） ========== */
+
+/* 玻璃卡：用于替换暗色里的刺眼白块 / 亮色里的纯白大片 */
+.u-card-glass {
+  background: var(--surface-1);
+  border: 1px solid var(--stroke-1);
+  backdrop-filter: blur(var(--blur-xl));
+  border-radius: 20px;
+  transition: box-shadow var(--t-mid) var(--ease);
+}
+.u-card-glass:hover {
+  box-shadow: var(--glow);
+}
+
+/* 极光分隔线 */
+.u-sep-aurora {
+  height: 1px;
+  background: var(--g-aurora);
+  opacity: .9;
+}
+
+/* 主题色强调（按训练类型加色而不是全白） */
+.is-dribble {
+  --accent: var(--c-dribble);
+}
+.is-shoot {
+  --accent: var(--c-shoot);
+}
+.is-defense {
+  --accent: var(--c-defense);
+}
+
+/* B. 亮色主题（Neon Frost） */
+:root[data-theme="light"] {
+  --bg: #F7FAFF;
+  --surface-1: #F2F5FF;
+  --surface-2: rgba(108,83,247,.06);
+  --stroke-1: rgba(18,20,33,.12);
+  --txt-1: #121421;
+  --txt-2: #39435C;
+  --txt-dim: #5B647A;
+  
+  --c-dribble: #12BDEB;
+  --c-shoot: #F63AAE;
+  --c-defense: #8EDB3E;
+  --c-aux: #6C53F7;
+  --c-warn: #FF7A2F;
+  
+  --g-aurora: linear-gradient(135deg,#12BDEB 0%,#6C53F7 45%,#F63AAE 100%);
+  --g-ionic: linear-gradient(135deg,#8EDB3E 0%,#12BDEB 50%,#6C53F7 100%);
+  --glass: rgba(255,255,255,.55);
+  --blur-xl: 14px;
+  --glow: 0 8px 22px rgba(108,83,247,.22);
+  
+  --t-fast: 160ms;
+  --t-mid: 420ms;
+  --t-slow: 720ms;
+  --ease: cubic-bezier(.22,.61,.36,1);
+}

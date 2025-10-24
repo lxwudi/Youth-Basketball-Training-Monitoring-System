@@ -155,8 +155,8 @@ export function LiveMetricsDisplay({ videoUrl, metricsData, metricLabels, traini
   return (
     <div className="grid gap-4 xl:grid-cols-[1.5fr,1fr]">
       {/* 视频播放器 */}
-      <Card className="bg-slate-900">
-        <CardContent className="p-0">
+      <Card className="bg-slate-900 relative overflow-hidden">
+        <CardContent className="p-0 relative">
           <video
             ref={videoRef}
             src={videoUrl}
@@ -165,6 +165,79 @@ export function LiveMetricsDisplay({ videoUrl, metricsData, metricLabels, traini
           >
             您的浏览器不支持视频播放。
           </video>
+          
+          {/* 装饰叠加层 - 不拦截事件 */}
+          <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
+            {/* 骨架辉光效果 */}
+            {isPlaying && (
+              <div className="absolute inset-0 bg-gradient-to-br from-transparent via-blue-500/5 to-transparent animate-pulse" />
+            )}
+            
+            {/* 训练类型特定装饰 */}
+            {trainingType === 'shooting' && isPlaying && (
+              <>
+                {/* 投篮弧线轨迹 */}
+                <svg className="absolute inset-0 w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+                  <path
+                    d="M20,80 Q50,20 80,60"
+                    fill="none"
+                    stroke="var(--c-shoot, #f59e0b)"
+                    strokeWidth="0.5"
+                    strokeDasharray="2,2"
+                    className="opacity-30 animate-pulse"
+                  />
+                </svg>
+                
+                {/* 命中闪烁粒子 */}
+                <div className="absolute top-1/4 right-1/4 w-2 h-2 bg-yellow-400 rounded-full animate-ping opacity-60" />
+                <div className="absolute top-1/3 right-1/3 w-1 h-1 bg-orange-400 rounded-full animate-pulse opacity-40" />
+              </>
+            )}
+            
+            {trainingType === 'dribbling' && isPlaying && (
+              <>
+                {/* 节奏波纹 */}
+                <div className="absolute bottom-1/4 left-1/2 transform -translate-x-1/2">
+                  <div className="w-8 h-8 border-2 border-purple-400 rounded-full animate-ping opacity-30" />
+                  <div className="absolute inset-0 w-4 h-4 bg-purple-400 rounded-full animate-pulse opacity-20 m-2" />
+                </div>
+              </>
+            )}
+            
+            {trainingType === 'defense' && isPlaying && (
+              <>
+                {/* 防守盾牌轮廓 */}
+                <svg className="absolute inset-0 w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+                  <path
+                    d="M50,10 L70,25 L70,50 L50,70 L30,50 L30,25 Z"
+                    fill="none"
+                    stroke="var(--c-defense, #8b5cf6)"
+                    strokeWidth="0.3"
+                    strokeDasharray="1,1"
+                    className="opacity-25 animate-pulse"
+                  />
+                </svg>
+              </>
+            )}
+            
+            {/* 通用指标闪烁点 */}
+            {Object.entries(currentMetrics).map(([key, value], index) => {
+              const isStandard = isMetricStandard(key, value);
+              if (isStandard) return null;
+              
+              return (
+                <div
+                  key={key}
+                  className="absolute w-1 h-1 bg-red-400 rounded-full animate-ping"
+                  style={{
+                    top: `${20 + (index * 15) % 60}%`,
+                    left: `${10 + (index * 20) % 80}%`,
+                    animationDelay: `${index * 200}ms`
+                  }}
+                />
+              );
+            })}
+          </div>
         </CardContent>
       </Card>
 

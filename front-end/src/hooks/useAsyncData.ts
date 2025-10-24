@@ -1,6 +1,6 @@
 ﻿import * as React from 'react';
 
-export function useAsyncData<T>(factory: () => Promise<T>, deps: React.DependencyList = []) {
+export function useAsyncData<T>(factory: () => Promise<T>, deps: unknown[] = []) {
   const [data, setData] = React.useState<T | null>(null);
   const [loading, setLoading] = React.useState(true);
   const [error, setError] = React.useState<Error | null>(null);
@@ -26,7 +26,8 @@ export function useAsyncData<T>(factory: () => Promise<T>, deps: React.Dependenc
     return () => {
       mounted = false;
     };
-  }, deps);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [factory, ...deps]);
 
   return { data, loading, error } as const;
 }

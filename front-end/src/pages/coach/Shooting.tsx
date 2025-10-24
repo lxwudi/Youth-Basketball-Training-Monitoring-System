@@ -128,7 +128,12 @@ export function Shooting() {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 u-shooting-container">
+      {/* 投篮弧线装饰层 */}
+      <div className="u-shooting-arc-overlay">
+        <div className="u-shooting-sparks"></div>
+      </div>
+      
       <div className="flex items-center gap-4">
         <Button
           variant="ghost"
@@ -142,15 +147,15 @@ export function Shooting() {
         <h1 className="text-2xl font-bold text-slate-800">投篮训练分析</h1>
       </div>
 
-      <div className="bg-gradient-to-r from-orange-50 to-amber-50 p-6 rounded-xl border border-orange-200">
-        <h2 className="text-lg font-semibold text-slate-800 mb-2">分析指标</h2>
-        <p className="text-sm text-slate-600 mb-3">
+      <div className="u-card-glass is-shoot p-6 rounded-xl">
+        <h2 className="text-lg font-semibold mb-2">分析指标</h2>
+        <p className="text-sm opacity-80 mb-3">
           本页面将分析以下投篮相关指标：
         </p>
         <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
           {Object.values(METRIC_LABELS).map((label) => (
-            <div key={label} className="flex items-center gap-2 text-sm text-slate-700">
-              <div className="w-2 h-2 rounded-full bg-orange-600" />
+            <div key={label} className="flex items-center gap-2 text-sm">
+              <div className="w-2 h-2 rounded-full bg-current" />
               {label}
             </div>
           ))}
@@ -175,43 +180,144 @@ export function Shooting() {
           {/* AI分析结果和学员选择 */}
           {aiAnalysis && !showReport && (
             <div className="space-y-4">
-              <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-lg p-4">
-                <div className="flex items-center justify-between mb-3">
-                  <h3 className="font-medium text-blue-800 flex items-center gap-2">
-                    <Brain className="w-4 h-4" />
-                    AI智能分析结果
-                  </h3>
-                  <span className={`text-sm font-medium ${
-                    aiAnalysis.overallScore >= 80 ? 'text-green-600' :
-                    aiAnalysis.overallScore >= 60 ? 'text-yellow-600' : 'text-red-600'
-                  }`}>
-                    {aiAnalysis.overallScore}分
-                  </span>
+              <div className="u-card-glass is-shoot p-6 rounded-xl ai-result-enter">
+                {/* 顶部分隔线 */}
+                <div className="u-sep-aurora mb-4"></div>
+                
+                <div className="flex items-start gap-6">
+                  {/* 左侧圆形进度环 */}
+                  <div className="flex-shrink-0">
+                    <div className="u-progress-ring" style={{'--progress': `${aiAnalysis.overallScore}%`} as React.CSSProperties}>
+                      <svg className="w-20 h-20" viewBox="0 0 100 100">
+                        <circle
+                          cx="50"
+                          cy="50"
+                          r="45"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="8"
+                          className="opacity-20"
+                        />
+                        <circle
+                          cx="50"
+                          cy="50"
+                          r="45"
+                          fill="none"
+                          stroke="var(--c-shoot)"
+                          strokeWidth="8"
+                          strokeLinecap="round"
+                          className="progress-circle"
+                          style={{
+                            strokeDasharray: '283',
+                            strokeDashoffset: `${283 - (283 * aiAnalysis.overallScore) / 100}`,
+                            transform: 'rotate(-90deg)',
+                            transformOrigin: '50% 50%',
+                            filter: 'drop-shadow(0 0 8px var(--c-shoot))'
+                          }}
+                        />
+                      </svg>
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <span className="text-lg font-bold text-slate-800">{aiAnalysis.overallScore}</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* 右侧四色标签分栏 */}
+                  <div className="flex-1 grid grid-cols-2 gap-4">
+                    {/* 优势 */}
+                    <div className="tag-quadrant tag-strength">
+                      <div className="tag-header">
+                        <div className="tag-icon">💪</div>
+                        <h4 className="tag-title">优势</h4>
+                      </div>
+                      <div className="tag-content">
+                        {aiAnalysis.strengths?.slice(0, 2).map((strength, index) => (
+                          <p key={index} className="text-xs">{strength}</p>
+                        )) || <p className="text-xs opacity-60">暂无数据</p>}
+                      </div>
+                    </div>
+
+                    {/* 改进点 */}
+                    <div className="tag-quadrant tag-improvement">
+                      <div className="tag-header">
+                        <div className="tag-icon">🎯</div>
+                        <h4 className="tag-title">改进点</h4>
+                      </div>
+                      <div className="tag-content">
+                        {aiAnalysis.improvementAreas?.slice(0, 2).map((area, index) => (
+                          <p key={index} className="text-xs">{area}</p>
+                        )) || <p className="text-xs opacity-60">暂无数据</p>}
+                      </div>
+                    </div>
+
+                    {/* 建议 */}
+                    <div className="tag-quadrant tag-suggestion">
+                      <div className="tag-header">
+                        <div className="tag-icon">💡</div>
+                        <h4 className="tag-title">建议</h4>
+                      </div>
+                      <div className="tag-content">
+                        {aiAnalysis.suggestions?.slice(0, 2).map((suggestion, index) => (
+                          <p key={index} className="text-xs">{suggestion}</p>
+                        )) || <p className="text-xs opacity-60">暂无数据</p>}
+                      </div>
+                    </div>
+
+                    {/* 摘要 */}
+                    <div className="tag-quadrant tag-summary">
+                      <div className="tag-header">
+                        <div className="tag-icon">📋</div>
+                        <h4 className="tag-title">摘要</h4>
+                      </div>
+                      <div className="tag-content">
+                        <p className="text-xs">{aiAnalysis.summary}</p>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <p className="text-sm text-blue-700 mb-3">{aiAnalysis.summary}</p>
+
+                {/* 离子分隔线 */}
+                <div className="u-sep-ionic my-4"></div>
+
                 <Button
                   onClick={() => setShowReport(true)}
                   size="sm"
-                  className="w-full"
+                  className="w-full btn-neon"
                 >
                   查看详细报告
                 </Button>
               </div>
 
               {/* 学员选择和发送报告 */}
-              <div className="bg-white border border-slate-200 rounded-lg p-4">
-                <h3 className="font-medium text-slate-800 mb-3">发送训练报告到家长端</h3>
-                <div className="space-y-3">
-                  <StudentSelector
-                    value={selectedStudent?.id}
-                    onValueChange={(studentId, student) => setSelectedStudent(student)}
-                    placeholder="选择学员"
-                  />
+              <div className="u-card-glass is-shoot p-6 rounded-xl">
+                <h3 className="font-medium text-slate-800 mb-4 flex items-center gap-2">
+                  <Send className="w-5 h-5" />
+                  发送训练报告到家长端
+                </h3>
+                <div className="space-y-4">
+                  <div className="focus-ring-gradient">
+                    <StudentSelector
+                      value={selectedStudent?.id}
+                      onValueChange={(_, student) => setSelectedStudent(student)}
+                      placeholder="选择学员"
+                      className="input-glass"
+                    />
+                  </div>
+                  {selectedStudent && (
+                    <div className="flex items-center gap-3 p-3 rounded-lg bg-gradient-to-r from-orange-50 to-amber-50 border border-orange-200">
+                      <div className="w-8 h-8 rounded-full bg-gradient-to-br from-orange-400 to-amber-500 flex items-center justify-center text-white text-sm font-bold">
+                        {selectedStudent.name.charAt(0)}
+                      </div>
+                      <div>
+                        <p className="font-medium text-orange-800">{selectedStudent.name}</p>
+                        <p className="text-xs text-orange-600">已选择学员</p>
+                      </div>
+                    </div>
+                  )}
                   <Button
                     onClick={handleSendReportToParent}
                     disabled={!selectedStudent || sendingReport}
-                    className="w-full gap-2"
-                    variant="outline"
+                    className="w-full gap-2 btn-neon u-ripple"
                   >
                     <Send className="w-4 h-4" />
                     {sendingReport ? '发送中...' : '发送到家长端'}

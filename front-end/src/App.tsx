@@ -30,9 +30,31 @@ function AuthInitializer({ children }: { children: ReactElement }) {
 
   if (isLoading) {
     return (
-      <div className="flex min-h-screen flex-col items-center justify-center gap-4 bg-gradient-to-br from-slate-50 via-white to-slate-100 text-slate-600 dark:from-slate-950 dark:via-slate-950 dark:to-slate-900">
-        <div className="h-14 w-14 animate-spin rounded-full border-4 border-slate-200 border-t-brand" aria-hidden />
-        <p className="text-sm tracking-wide text-slate-500">智能加载体态监测数据...</p>
+      <div className="relative flex min-h-screen flex-col items-center justify-center gap-6 overflow-hidden">
+        {/* 动态背景 */}
+        <div className="absolute inset-0 -z-10">
+          <div className="absolute top-1/3 left-1/3 h-96 w-96 rounded-full bg-neon-purple/40 blur-3xl animate-glow-pulse" />
+          <div className="absolute bottom-1/3 right-1/3 h-96 w-96 rounded-full bg-neon-cyan/40 blur-3xl animate-glow-pulse" />
+        </div>
+
+        {/* 加载动画 */}
+        <div className="relative">
+          <div className="h-20 w-20 rounded-full border-4 border-slate-200/30 dark:border-slate-700/30" />
+          <div className="absolute inset-0 h-20 w-20 animate-spin rounded-full border-4 border-transparent border-t-neon-cyan border-r-neon-purple" />
+          <div className="absolute inset-2 h-16 w-16 rounded-full bg-gradient-to-br from-neon-purple/20 to-neon-cyan/20 animate-glow-pulse" />
+        </div>
+
+        {/* 加载文字 */}
+        <div className="text-center space-y-2">
+          <p className="text-base font-semibold gradient-text animate-glow-pulse">
+            智能加载体态监测数据
+          </p>
+          <div className="flex items-center justify-center gap-1">
+            <span className="h-2 w-2 rounded-full bg-neon-cyan animate-bounce" />
+            <span className="h-2 w-2 rounded-full bg-neon-purple animate-bounce" style={{ animationDelay: '0.1s' }} />
+            <span className="h-2 w-2 rounded-full bg-neon-pink animate-bounce" style={{ animationDelay: '0.2s' }} />
+          </div>
+        </div>
       </div>
     );
   }

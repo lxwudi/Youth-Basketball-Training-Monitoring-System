@@ -1,16 +1,42 @@
-﻿import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+﻿import type { CSSProperties } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { cn } from '@/lib/utils';
-import type { TrendPoint } from '@/types';
-import { ResponsiveContainer, LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, BarChart, Bar, PieChart, Pie, Cell } from 'recharts';
+import {
+  ResponsiveContainer,
+  LineChart,
+  Line,
+  CartesianGrid,
+  XAxis,
+  YAxis,
+  Tooltip,
+  BarChart,
+  Bar,
+  PieChart,
+  Pie,
+  Cell,
+  Area,
+  LabelList,
+} from 'recharts';
+import { chartTheme } from '@/chart/theme';
+import { animateLinePath, getBarState, toPercentNumber, useMountLineAnimation } from '@/chart/utils';
+
+type TrendDatum = {
+  label: string;
+  value: number | string | null | undefined;
+};
 
 type TrendTab = {
   key: string;
   label: string;
   unit?: string;
-  line: TrendPoint[];
-  bar?: TrendPoint[];
+  line: TrendDatum[];
+  bar?: TrendDatum[];
   summary?: string;
   metricLabel?: string;
+  accentColor?: string;
+  accentSoftColor?: string;
+  accentBackground?: string;
 };
 
 type PieSlice = {
@@ -23,7 +49,6 @@ type TrendChartsProps = {
   pie?: PieSlice[];
   className?: string;
   palette?: string[];
-  lineCardTitle?: string;
   lineCardSubtitle?: string;
   barCardTitle?: string;
   barCardSubtitle?: string;
@@ -31,7 +56,45 @@ type TrendChartsProps = {
   lineMetricLabel?: string;
 };
 
-const COLORS = ['#1f4ab8', '#ff6b6b', '#0f172a', '#94a3b8'];
+// 优化：多样化且美观的配色方案（遵循全局主题变量）
+const COLORS = [
+  'var(--chart-accent-1)',
+  'var(--chart-accent-2)',
+  'var(--chart-accent-3)',
+  'var(--chart-accent-4)',
+  'var(--chart-accent-5)',
+  'var(--chart-accent-6)',
+  'color-mix(in srgb, var(--chart-accent-1) 55%, var(--chart-accent-4))',
+  'color-mix(in srgb, var(--chart-accent-3) 55%, var(--chart-accent-6))',
+];
+
+const BAR_PALETTE = [
+  'var(--chart-accent-1)',
+  'var(--chart-accent-2)',
+  'var(--chart-accent-3)',
+  'var(--chart-accent-4)',
+  'var(--chart-accent-5)',
+  'var(--chart-accent-6)',
+  'color-mix(in srgb, var(--chart-accent-1) 60%, var(--chart-accent-2))',
+  'color-mix(in srgb, var(--chart-accent-3) 60%, var(--chart-accent-5))',
+];
+
+const WHITE_COLOR_PATTERNS = [
+  /^#f{3}$/i,
+  /^#f{6}$/i,
+  /^#ffffff$/i,
+  /^rgb\(\s*255\s*,\s*255\s*,\s*255\s*\)$/i,
+  /^rgba\(\s*255\s*,\s*255\s*,\s*255\s*,\s*(1(\.0+)?|0?\.9+)\s*\)$/i,
+  /^white$/i,
+  /^transparent$/i,
+  /^currentcolor$/i,
+];
+
+const isWhiteLikeColor = (value?: string | null) => {
+  if (!value) return false;
+  const normalized = value.trim();
+  return WHITE_COLOR_PATTERNS.some((pattern) => pattern.test(normalized));
+};
 
 const QUARTER_LABELS: Record<string, string> = {
   Q1: '第一季度',
@@ -45,194 +108,409 @@ const formatXAxisLabel = (value: string | number) => {
   return QUARTER_LABELS[normalized] ?? normalized;
 };
 
+const sanitizeValue = (raw: TrendDatum['value'], treatAsPercent: boolean): number => {
+  if (treatAsPercent) {
+    const percentValue = toPercentNumber(raw);
+    if (percentValue != null) {
+      return Number(percentValue.toFixed(2));
+    }
+  }
+  if (typeof raw === 'number' && Number.isFinite(raw)) {
+    return Number(raw.toFixed(2));
+  }
+  if (raw == null) {
+    return 0;
+  }
+  if (typeof raw === 'string') {
+    const numeric = Number.parseFloat(raw.replace(/,/g, '.').replace(/[^0-9.+-]/g, ''));
+    if (Number.isFinite(numeric)) {
+      return Number(numeric.toFixed(2));
+    }
+  }
+  const fallback = toPercentNumber(raw);
+  return fallback != null ? Number(fallback.toFixed(2)) : 0;
+};
+
+const normalizeDataset = (dataset: TrendDatum[], treatAsPercent: boolean): { label: string; value: number }[] =>
+  dataset.map((point, index) => ({
+    label: ensureLabel(point.label, index),
+    value: sanitizeValue(point.value, treatAsPercent),
+  }));
+
+const ensureLabel = (rawLabel: string | undefined, index: number) => {
+  const trimmed = rawLabel?.toString().trim();
+  return trimmed && trimmed.length > 0 ? trimmed : `数据${index + 1}`;
+};
+
 export function TrendCharts({
   tabs,
   pie,
   className,
   palette = COLORS,
-  lineCardTitle = '折线趋势',
   lineCardSubtitle,
   barCardTitle = '柱状对比',
   barCardSubtitle = '数据走势一目了然',
-  barMetricLabel = '数据值',
-  lineMetricLabel = '数据值',
+  barMetricLabel = '数据项',
+  lineMetricLabel = '数据项',
 }: TrendChartsProps) {
-  if (!tabs.length) return null;
-  const defaultValue = tabs[0].key;
+  const stableTabs = useMemo(() => tabs ?? [], [tabs]);
+  if (!stableTabs.length) return null;
+
+  const defaultValue = stableTabs[0].key;
+  const [activeTab, setActiveTab] = useState(defaultValue);
+  const chartRootRef = useRef<HTMLDivElement>(null);
+  const animate = useMountLineAnimation(1800);
+  const tabsSignature = useMemo(
+    () =>
+      JSON.stringify(
+        stableTabs.map((tabItem) => ({ key: tabItem.key, line: tabItem.line, bar: tabItem.bar })),
+      ),
+    [stableTabs],
+  );
+
+  useEffect(() => {
+    if (!stableTabs.some((tabItem) => tabItem.key === activeTab)) {
+      setActiveTab(defaultValue);
+    }
+  }, [activeTab, defaultValue, stableTabs]);
+
+  const mockEnabled = useMemo(() => {
+    if (typeof window === 'undefined') {
+      return Boolean(import.meta.env.VITE_ENABLE_CHART_MOCK);
+    }
+    const params = new URLSearchParams(window.location.search);
+    return Boolean(import.meta.env.VITE_ENABLE_CHART_MOCK) || params.get('mock') === '1';
+  }, []);
+
+  useEffect(() => {
+    if (!chartRootRef.current) return;
+    const reduceMotion =
+      typeof window !== 'undefined' && window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+    const shouldAnimate = !reduceMotion && animate;
+    const paths = chartRootRef.current.querySelectorAll('path.recharts-line-curve');
+    paths.forEach((node) => animateLinePath(shouldAnimate)(node as SVGPathElement));
+  }, [animate, tabsSignature]);
+
+  const handleTabChange = (value: string) => setActiveTab(value);
+
   return (
-    <Tabs defaultValue={defaultValue} className={cn('w-full', className)}>
-      <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
-        <TabsList>
-          {tabs.map((tab) => (
-            <TabsTrigger key={tab.key} value={tab.key}>
-              {tab.label}
-            </TabsTrigger>
-          ))}
-        </TabsList>
-      </div>
-      {tabs.map((tab) => (
-        <TabsContent key={tab.key} value={tab.key}>
-          <div className="flex flex-col gap-6">
-            <div className="rounded-3xl bg-white/90 p-4 shadow-brand backdrop-blur dark:bg-slate-900/80">
-              <div className="mb-2">
-                <h4 className="text-base font-semibold text-slate-700 dark:text-slate-100">{lineCardTitle}</h4>
-                {lineCardSubtitle ? (
-                  <p className="mt-1 text-xs text-slate-400 dark:text-slate-400">{lineCardSubtitle}</p>
-                ) : null}
-              </div>
-              <div className="h-60">
-                <ResponsiveContainer width="100%" height="100%">
-                  <LineChart data={tab.line} margin={{ top: 16, right: 24, bottom: 48, left: 8 }}>
-                    <CartesianGrid strokeDasharray="4 4" stroke="#cbd5f5" opacity={0.4} />
-                    <XAxis
-                      dataKey="label"
-                      stroke="#64748b"
-                      tickLine={false}
-                      axisLine={false}
-                      interval={0}
-                      height={60}
-                      tickMargin={12}
-                      angle={-30}
-                      textAnchor="end"
-                      tick={{ fontSize: 12 }}
-                      tickFormatter={formatXAxisLabel}
-                    />
-                    <YAxis
-                      stroke="#64748b"
-                      tickLine={false}
-                      axisLine={false}
-                      fontSize={12}
-                      unit={tab.unit}
-                      width={60}
-                    />
-                    <Tooltip
-                      contentStyle={{ borderRadius: 16, border: '1px solid #dbeafe' }}
-                      labelFormatter={formatXAxisLabel}
-                      formatter={(value: number) => [
-                        tab.unit ? `${value}${tab.unit}` : value,
-                        tab.metricLabel ?? lineMetricLabel,
-                      ]}
-                    />
-                    <Line
-                      type="monotone"
-                      dataKey="value"
-                      stroke={palette[0]}
-                      strokeWidth={3}
-                      dot={{ r: 3 }}
-                      activeDot={{ r: 6 }}
-                      name={tab.metricLabel ?? lineMetricLabel}
-                    />
-                  </LineChart>
-                </ResponsiveContainer>
-              </div>
-            </div>
-            <div className="rounded-3xl bg-gradient-to-br from-slate-100 via-slate-50 to-white p-6 shadow-xl ring-1 ring-slate-200/60 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900/70 dark:ring-slate-700/60">
-              <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
-                <div>
-                  <h4 className="text-lg font-semibold text-slate-800 dark:text-slate-100">{barCardTitle}</h4>
-                  {barCardSubtitle ? <p className="text-xs text-slate-400 dark:text-slate-400">{barCardSubtitle}</p> : null}
-                </div>
-                {tab.unit ? (
-                  <div className="rounded-full border border-slate-200 bg-white/80 px-3 py-1 text-xs font-medium text-slate-500 shadow-sm dark:border-slate-700 dark:bg-slate-800/60 dark:text-slate-200">
-                    单位：{tab.unit}
+    <div ref={chartRootRef} className={cn('w-full', className)}>
+      <Tabs value={activeTab ?? defaultValue} onValueChange={handleTabChange} className="w-full">
+        <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+          <TabsList>
+            {stableTabs.map((tabItem) => (
+              <TabsTrigger key={tabItem.key} value={tabItem.key}>
+                {tabItem.label}
+              </TabsTrigger>
+            ))}
+          </TabsList>
+        </div>
+        {stableTabs.map((tab) => {
+          const accentCandidate = tab.accentColor?.trim() ?? '';
+          const accent = accentCandidate && !isWhiteLikeColor(accentCandidate) ? accentCandidate : chartTheme.accentFallback;
+          const accentSoft = tab.accentSoftColor ?? `color-mix(in oklab, ${accent} 32%, transparent)`;
+          const accentBg = tab.accentBackground ?? `radial-gradient(120% 120% at 18% 10%, ${accentSoft} 0%, transparent 62%)`;
+          const chartVars: CSSProperties = {
+            '--chart-accent': accent,
+            '--chart-accent-soft': accentSoft,
+          } as CSSProperties;
+          const treatAsPercent = (tab.unit ?? '').includes('%');
+          const lineGradientId = `lineGradient-${tab.key}`;
+          const barGradientId = `barGradient-${tab.key}`;
+
+          const lineSource = Array.isArray(tab.line) ? tab.line : [];
+          const normalizedLine = normalizeDataset(lineSource, treatAsPercent);
+
+          const rawBarSource = (Array.isArray(tab.bar) && tab.bar.length ? tab.bar : lineSource) ?? [];
+          const { hasAnyData, data: rawBarState } = getBarState(rawBarSource, 'value', mockEnabled);
+          const normalizedBarData = rawBarState.map((item, index) => {
+            const baseLabel = (item as TrendDatum).label ?? (item as unknown as { name?: string }).name;
+            const value = sanitizeValue((item as TrendDatum).value, treatAsPercent);
+            return {
+              label: ensureLabel(baseLabel, index),
+              value,
+              __mock: (item as unknown as { __mock?: boolean }).__mock ?? false,
+            };
+          });
+
+          const showMockWatermark = !hasAnyData && mockEnabled && normalizedBarData.length > 0;
+          const lineData = normalizedLine.length
+            ? normalizedLine
+            : normalizedBarData.map(({ label, value }) => ({ label, value }));
+          const finalLineData = lineData.length ? lineData : [{ label: '暂无数据', value: 0 }];
+          const barChartData = normalizedBarData.length ? normalizedBarData : [{ label: '暂无数据', value: 0 }];
+
+          const formatYAxisTick = (value: number) => (treatAsPercent ? `${value}%` : `${value}`);
+          const formatTooltipValue = (value: number) => {
+            if (Number.isNaN(value)) return '-';
+            if (treatAsPercent) return value.toFixed(1);
+            if (tab.unit) return `${value.toFixed(1)}${tab.unit}`;
+            return value.toFixed(1);
+          };
+
+          const barDomain: [number, number | ((value: number) => number)] = [
+            0,
+            (dataMax: number) => {
+              const baseline = Math.max(1, Math.ceil((dataMax || 0) * 1.2));
+              return treatAsPercent ? Math.min(100, baseline) : baseline;
+            },
+          ];
+          const maxLineValue = Math.max(...finalLineData.map((item) => item.value));
+          const lineDomain: [number, number | ((value: number) => number)] = treatAsPercent
+            ? [0, Math.max(100, Math.ceil((Number.isFinite(maxLineValue) ? maxLineValue : 0) / 5) * 5)]
+            : [0, (dataMax: number) => Math.max(1, Math.ceil((dataMax || 0) * 1.1))];
+
+          const lineChartKey = `${tab.key}-line-${finalLineData
+            .map((item) => `${item.label}:${item.value}`)
+            .join('|')}`;
+          const barChartKey = `${tab.key}-bar-${barChartData
+            .map((item) => `${item.label}:${item.value}`)
+            .join('|')}`;
+
+          return (
+            <TabsContent key={tab.key} value={tab.key} style={chartVars}>
+              <div className="flex flex-col gap-10">
+                <div
+                  className="relative overflow-hidden rounded-3xl border border-slate-200/60 bg-white/85 p-6 shadow-xl ring-1 ring-slate-200/40 backdrop-blur dark:border-slate-800/60 dark:bg-slate-900/75 dark:ring-slate-700/50"
+                  style={{ backgroundImage: accentBg }}
+                >
+                  <div className="relative z-10 mb-4 flex items-center gap-4">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[var(--chart-accent)]/15 text-[var(--chart-accent)] shadow-inner shadow-[var(--chart-accent)]/25">
+                      <span className="text-sm font-semibold">{tab.metricLabel ?? lineMetricLabel}</span>
+                    </div>
+                    <div>
+                      <h4 className="text-lg font-semibold text-slate-800 dark:text-slate-50">{tab.label}</h4>
+                      {lineCardSubtitle ? (
+                        <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">{lineCardSubtitle}</p>
+                      ) : null}
+                    </div>
                   </div>
-                ) : null}
-              </div>
-              <div className="h-64">
-                <ResponsiveContainer width="100%" height="100%">
-                  <BarChart
-                    data={tab.bar ?? tab.line}
-                    margin={{ top: 24, right: 32, bottom: 64, left: 24 }}
-                    barSize={20}
-                  >
-                    <defs>
-                      <linearGradient id="barGradient" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="0%" stopColor={palette[1]} stopOpacity={0.95} />
-                        <stop offset="100%" stopColor={palette[1]} stopOpacity={0.55} />
-                      </linearGradient>
-                    </defs>
-                    <CartesianGrid strokeDasharray="3 3" stroke="#cbd5f5" opacity={0.25} vertical={false} />
-                    <XAxis
-                      dataKey="label"
-                      stroke="#475569"
-                      tickLine={false}
-                      axisLine={false}
-                      interval={0}
-                      height={78}
-                      tickMargin={18}
-                      angle={-26}
-                      textAnchor="end"
-                      tick={{ fontSize: 12, fill: '#475569' }}
-                      tickFormatter={formatXAxisLabel}
-                    />
-                    <YAxis
-                      stroke="#475569"
-                      tickLine={false}
-                      axisLine={false}
-                      fontSize={12}
-                      unit={tab.unit}
-                      width={72}
-                      tick={{ fill: '#475569' }}
-                    />
-                    <Tooltip
-                      contentStyle={{
-                        borderRadius: 18,
-                        border: '1px solid #dbeafe',
-                        boxShadow: '0 18px 45px rgba(43,86,226,0.1)',
-                      }}
-                      wrapperStyle={{ outline: 'none' }}
-                      labelClassName="text-xs font-medium text-slate-500"
-                      labelFormatter={formatXAxisLabel}
-                      formatter={(value: number) => [
-                        tab.unit ? `${value}${tab.unit}` : value,
-                        tab.metricLabel ?? barMetricLabel,
-                      ]}
-                    />
-                    <Bar
-                      dataKey="value"
-                      fill="url(#barGradient)"
-                      radius={[18, 18, 18, 18]}
-                      maxBarSize={42}
-                    />
-                  </BarChart>
-                </ResponsiveContainer>
-              </div>
-              {tab.summary ? (
-                <p className="mt-4 rounded-2xl bg-slate-50/90 p-3 text-sm leading-relaxed text-slate-500 shadow-inner dark:bg-slate-900/60 dark:text-slate-200">
-                  {tab.summary}
-                </p>
+                  <div className="relative h-64 rounded-2xl bg-white/75 p-4 shadow-inner dark:bg-slate-950/60">
+                    <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-[var(--chart-accent)]/14 via-transparent to-transparent" aria-hidden />
+                    <div className="relative h-full w-full" data-chart-line-root="true">
+                      <ResponsiveContainer width="100%" height="100%">
+                        <LineChart key={lineChartKey} data={finalLineData} margin={{ top: 12, right: 24, bottom: 36, left: 12 }}>
+                          <defs>
+                            <linearGradient id={lineGradientId} x1="0" y1="0" x2="0" y2="1">
+                              <stop offset="0%" stopColor="var(--chart-accent)" stopOpacity={0.36} />
+                              <stop offset="95%" stopColor="var(--chart-accent)" stopOpacity={0} />
+                            </linearGradient>
+                          </defs>
+                          <CartesianGrid strokeDasharray="3 3" stroke="var(--chart-grid)" vertical={false} />
+                          <XAxis
+                            dataKey="label"
+                            stroke="var(--chart-muted)"
+                            tickLine={false}
+                            axisLine={false}
+                            interval={0}
+                            height={48}
+                            tickMargin={12}
+                            angle={-24}
+                            textAnchor="end"
+                            tick={{ fontSize: 12, fill: 'var(--chart-muted)' }}
+                            tickFormatter={formatXAxisLabel}
+                          />
+                          <YAxis
+                            stroke="var(--chart-muted)"
+                            tickLine={false}
+                            axisLine={false}
+                            fontSize={12}
+                            width={64}
+                            tick={{ fill: 'var(--chart-muted)' }}
+                            domain={lineDomain}
+                            allowDecimals={!treatAsPercent}
+                            tickFormatter={formatYAxisTick}
+                          />
+                          <Tooltip
+                            wrapperStyle={{ outline: 'none' }}
+                            contentStyle={{
+                              borderRadius: 18,
+                              border: '1px solid var(--chart-grid)',
+                              background: 'var(--chart-bg)',
+                              color: 'var(--chart-text)',
+                              boxShadow: '0 12px 30px rgba(10, 11, 16, 0.26)',
+                            }}
+                            labelFormatter={formatXAxisLabel}
+                            formatter={(value: number) => [formatTooltipValue(Number(value)), tab.metricLabel ?? lineMetricLabel]}
+                          />
+                          <Area type="monotone" dataKey="value" stroke="none" fill={`url(#${lineGradientId})`} isAnimationActive={false} />
+                          <Line
+                            type="monotone"
+                            dataKey="value"
+                            stroke={accent}
+                            strokeWidth={chartTheme.lineWidth}
+                            dot={{
+                              r: chartTheme.dotR,
+                              fill: accent,
+                              stroke: chartTheme.dotStroke,
+                              strokeWidth: 1,
+                            }}
+                            activeDot={{
+                              r: chartTheme.activeDotR,
+                              fill: accent,
+                              stroke: chartTheme.activeDotStroke,
+                              strokeWidth: 1,
+                            }}
+                            connectNulls
+                            isAnimationActive={false}
+                          />
+                        </LineChart>
+                      </ResponsiveContainer>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  className="relative overflow-hidden rounded-3xl border border-slate-200/60 bg-gradient-to-br from-white/90 via-white/60 to-white/30 p-6 shadow-xl ring-1 ring-slate-200/50 backdrop-blur dark:border-slate-800/60 dark:from-slate-900/70 dark:via-slate-900/50 dark:to-slate-900/30 dark:ring-slate-700/50"
+                  style={{ backgroundImage: `${accentBg}, linear-gradient(130deg, transparent, transparent)` }}
+                >
+                  <div className="relative z-10 mb-4 flex flex-wrap items-center justify-between gap-3">
+                    <div>
+                      <h4 className="text-lg font-semibold text-slate-800 dark:text-slate-50">
+                        {barCardTitle}
+                        <span className="ml-2 text-sm font-semibold text-[var(--chart-accent)]">
+                          {tab.metricLabel ?? barMetricLabel}
+                        </span>
+                      </h4>
+                      {barCardSubtitle ? <p className="text-xs text-slate-500 dark:text-slate-400">{barCardSubtitle}</p> : null}
+                    </div>
+                    {tab.unit ? (
+                      <div className="rounded-full border border-white/40 bg-white/70 px-3 py-1 text-xs font-medium text-slate-600 shadow-sm shadow-[var(--chart-accent)]/20 dark:border-slate-700/60 dark:bg-slate-800/70 dark:text-slate-200">
+                        单位：{tab.unit}
+                      </div>
+                    ) : null}
+                  </div>
+                  <div className="relative h-72 rounded-2xl bg-white/75 p-5 shadow-inner dark:bg-slate-950/60">
+                    <div className="absolute inset-0 rounded-2xl bg-gradient-to-tr from-[var(--chart-accent)]/12 via-transparent to-transparent" aria-hidden />
+                    <div className="relative h-full w-full">
+                      <ResponsiveContainer width="100%" height="100%">
+                        <BarChart key={barChartKey} data={barChartData} margin={{ top: 24, right: 32, bottom: 32, left: 20 }}>
+                          <defs>
+                            <linearGradient id={barGradientId} x1="0" y1="0" x2="0" y2="1">
+                              <stop offset="5%" stopColor="var(--chart-accent)" stopOpacity={0.95} />
+                              <stop offset="95%" stopColor="var(--chart-accent)" stopOpacity={0.35} />
+                            </linearGradient>
+                          </defs>
+                          <CartesianGrid strokeDasharray="3 3" stroke="var(--chart-grid)" vertical={false} />
+                          <XAxis
+                            dataKey="label"
+                            stroke="var(--chart-muted)"
+                            tickLine={false}
+                            axisLine={false}
+                            interval={0}
+                            height={78}
+                            tickMargin={14}
+                            angle={-20}
+                            textAnchor="end"
+                            tick={{ fontSize: 12, fill: 'var(--chart-muted)' }}
+                            tickFormatter={formatXAxisLabel}
+                          />
+                          <YAxis
+                            stroke="var(--chart-muted)"
+                            tickLine={false}
+                            axisLine={false}
+                            fontSize={12}
+                            width={72}
+                            tick={{ fill: 'var(--chart-muted)' }}
+                            domain={barDomain}
+                            allowDecimals={!treatAsPercent}
+                            tickFormatter={formatYAxisTick}
+                          />
+                          <Tooltip
+                            contentStyle={{
+                              borderRadius: 18,
+                              border: '1px solid var(--chart-grid)',
+                              background: 'var(--chart-bg)',
+                              color: 'var(--chart-text)',
+                              boxShadow: '0 18px 45px rgba(10, 11, 16, 0.28)',
+                            }}
+                            wrapperStyle={{ outline: 'none' }}
+                            labelClassName="text-xs font-medium"
+                            labelFormatter={formatXAxisLabel}
+                            formatter={(value: number) => [formatTooltipValue(Number(value)), tab.metricLabel ?? barMetricLabel]}
+                          />
+                          {hasAnyData || showMockWatermark ? (
+                            <>
+                              <Bar dataKey="value" radius={chartTheme.barRadius} barSize={18} maxBarSize={48} fill="var(--chart-accent-1)">
+                                {barChartData.map((_, index) => (
+                                  <Cell key={`bar-${tab.key}-${index}`} fill={BAR_PALETTE[index % BAR_PALETTE.length]} />
+                                ))}
+                                <LabelList
+                                  dataKey="value"
+                                  position="top"
+                                  style={{ fill: 'var(--chart-text)' }}
+                                  fontSize={12}
+                                  formatter={(value: unknown) => {
+                                    const numeric = typeof value === 'number' ? value : Number(value);
+                                    if (!Number.isFinite(numeric)) return '';
+                                    if (treatAsPercent) return numeric.toFixed(0);
+                                    return tab.unit ? `${numeric.toFixed(0)}${tab.unit}` : numeric.toFixed(0);
+                                  }}
+                                />
+                              </Bar>
+                              {showMockWatermark ? (
+                                <text x="95%" y="14" textAnchor="end" opacity="0.45" fontSize="12" fill="var(--chart-muted)">
+                                  MOCK
+                                </text>
+                              ) : null}
+                            </>
+                          ) : (
+                            <foreignObject x="0" y="0" width="100%" height="100%">
+                              <div style={{ display: 'grid', placeItems: 'center', height: '100%', opacity: 0.8 }}>
+                                <div className="chart-skeleton">No data / 暂无数据</div>
+                              </div>
+                            </foreignObject>
+                          )}
+                        </BarChart>
+                      </ResponsiveContainer>
+                    </div>
+                  </div>
+                  {tab.summary ? (
+                    <p className="mt-5 rounded-2xl bg-white/80 p-4 text-sm leading-relaxed text-slate-600 shadow-inner shadow-[var(--chart-accent)]/10 dark:bg-slate-950/60 dark:text-slate-200">
+                      {tab.summary}
+                    </p>
+                  ) : null}
+                </div>
+                {pie ? (
+                  <div className="u-card-glass p-4 u-divider-aurora">
+                  <h4 className="text-sm font-semibold text-slate-700 dark:text-slate-100">比例分布</h4>
+                  <div className="h-36">
+                    <ResponsiveContainer width="100%" height="100%">
+                      <PieChart>
+                        <Pie data={pie} dataKey="value" nameKey="name" innerRadius={40} outerRadius={60} paddingAngle={3}>
+                          {pie.map((entry, index) => (
+                            <Cell key={entry.name} fill={palette[index % palette.length]} />
+                          ))}
+                        </Pie>
+                        <Tooltip
+                          contentStyle={{
+                            borderRadius: 16,
+                            border: '1px solid var(--chart-grid)',
+                            background: 'var(--chart-bg)',
+                            color: 'var(--chart-text)',
+                            boxShadow: '0 8px 24px rgba(10, 11, 16, 0.22)',
+                          }}
+                        />
+                      </PieChart>
+                    </ResponsiveContainer>
+                  </div>
+                  <ul className="mt-2 space-y-1 text-xs text-slate-500 dark:text-slate-300">
+                    {pie.map((slice, index) => (
+                      <li key={slice.name} className="flex items-center gap-2">
+                        <svg className="h-3 w-3" viewBox="0 0 8 8" aria-hidden="true">
+                          <circle cx="4" cy="4" r="4" fill={palette[index % palette.length]} />
+                        </svg>
+                        {slice.name}：{slice.value.toFixed(1)}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               ) : null}
             </div>
-            {pie ? (
-              <div className="rounded-3xl bg-white/80 p-4 shadow-sm dark:bg-slate-900/60">
-                <h4 className="text-sm font-semibold text-slate-700 dark:text-slate-100">比例分布</h4>
-                <div className="h-36">
-                  <ResponsiveContainer width="100%" height="100%">
-                    <PieChart>
-                      <Pie data={pie} dataKey="value" nameKey="name" innerRadius={40} outerRadius={60} paddingAngle={3}>
-                        {pie.map((entry, index) => (
-                          <Cell key={entry.name} fill={palette[index % palette.length]} />
-                        ))}
-                      </Pie>
-                      <Tooltip contentStyle={{ borderRadius: 16, border: '1px solid #dbeafe' }} />
-                    </PieChart>
-                  </ResponsiveContainer>
-                </div>
-                <ul className="mt-2 space-y-1 text-xs text-slate-500 dark:text-slate-300">
-                  {pie.map((slice, index) => (
-                    <li key={slice.name} className="flex items-center gap-2">
-                      <svg className="h-3 w-3" viewBox="0 0 8 8" aria-hidden="true">
-                        <circle cx="4" cy="4" r="4" fill={palette[index % palette.length]} />
-                      </svg>
-                      {slice.name}：{slice.value.toFixed(1)}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ) : null}
-          </div>
-        </TabsContent>
-      ))}
+          </TabsContent>
+        );
+      })}
     </Tabs>
+  </div>
   );
 }
+

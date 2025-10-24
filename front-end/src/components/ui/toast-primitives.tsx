@@ -1,8 +1,23 @@
-﻿'use client';
+'use client';
 
 import * as React from 'react';
 import * as ToastPrimitives from '@radix-ui/react-toast';
 import { cn } from '@/lib/utils';
+
+type ToastVariant = 'default' | 'destructive' | 'success' | 'warning' | 'info';
+
+const toastVariantStyles: Record<ToastVariant, string> = {
+  default:
+    'border-slate-200 bg-white text-slate-900 shadow-lg dark:border-slate-800 dark:bg-slate-900 dark:text-slate-100',
+  destructive:
+    'border-red-500/40 bg-red-950/80 text-red-100 shadow-[0_10px_30px_rgba(248,113,113,0.4)] dark:border-red-400/30',
+  success:
+    'border-emerald-400/40 bg-emerald-950/80 text-emerald-100 shadow-[0_10px_30px_rgba(16,185,129,0.35)] dark:border-emerald-300/30',
+  warning:
+    'border-amber-400/40 bg-amber-950/80 text-amber-100 shadow-[0_10px_30px_rgba(251,191,36,0.35)] dark:border-amber-300/30',
+  info:
+    'border-sky-400/40 bg-sky-950/80 text-sky-100 shadow-[0_10px_30px_rgba(56,189,248,0.35)] dark:border-sky-300/30',
+};
 
 const ToastProvider = ToastPrimitives.Provider;
 
@@ -20,14 +35,19 @@ const ToastViewport = React.forwardRef<React.ElementRef<typeof ToastPrimitives.V
 );
 ToastViewport.displayName = ToastPrimitives.Viewport.displayName;
 
-const Toast = React.forwardRef<React.ElementRef<typeof ToastPrimitives.Root>, React.ComponentPropsWithoutRef<typeof ToastPrimitives.Root>>(
-  ({ className, ...props }, ref) => (
+const Toast = React.forwardRef<
+  React.ElementRef<typeof ToastPrimitives.Root>,
+  React.ComponentPropsWithoutRef<typeof ToastPrimitives.Root> & { variant?: ToastVariant }
+>(
+  ({ className, variant = 'default', ...props }, ref) => (
     <ToastPrimitives.Root
       ref={ref}
       className={cn(
-        'group pointer-events-auto relative flex w-full items-center justify-between gap-3 overflow-hidden rounded-2xl border border-slate-200 bg-white p-4 pr-6 text-slate-900 shadow-lg transition-all hover:border-brand focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand dark:border-slate-800 dark:bg-slate-900 dark:text-slate-100',
+        'group pointer-events-auto relative flex w-full items-center justify-between gap-3 overflow-hidden rounded-2xl border p-4 pr-6 transition-all hover:border-brand focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand u-surface-light dark:u-surface-dark',
+        toastVariantStyles[variant],
         className,
       )}
+      data-variant={variant}
       {...props}
     />
   ),
@@ -50,4 +70,5 @@ ToastDescription.displayName = ToastPrimitives.Description.displayName;
 
 const ToastClose = ToastPrimitives.Close;
 
+export type { ToastVariant };
 export { ToastProvider, ToastViewport, Toast, ToastTitle, ToastDescription, ToastClose };

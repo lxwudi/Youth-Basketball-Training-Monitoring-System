@@ -1,4 +1,4 @@
-﻿import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import type { StudentProfile } from '@/types';
 
 export function ProfileCard({ profile, extra }: { profile: StudentProfile; extra?: React.ReactNode }) {
@@ -23,17 +23,17 @@ export function ProfileCard({ profile, extra }: { profile: StudentProfile; extra
   };
 
   return (
-    <Card className="border-none bg-white/90 shadow-brand dark:bg-slate-900/80">
+    <Card className="u-card-glass">
       <CardHeader className="flex flex-row items-center gap-4">
         {profile.avatar ? (
           <img
             src={profile.avatar}
             alt={profile.name}
-            className="h-16 w-16 rounded-2xl object-cover shadow"
+            className="avatar-anim h-16 w-16 rounded-2xl object-cover shadow"
           />
         ) : (
-          <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-brand/20 text-xl font-semibold text-brand">
-            {profile.name.at(0)}
+          <div className="avatar-anim flex h-16 w-16 items-center justify-center rounded-2xl bg-brand/20 text-xl font-semibold text-brand">
+            {profile.name?.at(0)}
           </div>
         )}
         <div className="flex-1">

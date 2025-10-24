@@ -131,7 +131,13 @@ export function Dribbling() {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 u-dribbling-container">
+      {/* 运球节奏装饰层 */}
+      <div className="u-dribbling-rhythm-board">
+        <div className="u-beat-particles"></div>
+      </div>
+      <div className="u-rhythm-pulse" />
+      
       <div className="flex items-center gap-4">
         <Button
           variant="ghost"
@@ -145,15 +151,15 @@ export function Dribbling() {
         <h1 className="text-2xl font-bold text-slate-800">运球训练分析</h1>
       </div>
 
-  <div className="bg-gradient-to-r from-brand/10 to-blue-50 p-6 rounded-xl border border-brand/20">
-        <h2 className="text-lg font-semibold text-slate-800 mb-2">分析指标</h2>
-        <p className="text-sm text-slate-600 mb-3">
+      <div className="u-card-glass is-dribble p-6 rounded-xl">
+        <h2 className="text-lg font-semibold mb-2">分析指标</h2>
+        <p className="text-sm opacity-80 mb-3">
           本页面将分析以下运球相关指标：
         </p>
         <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
           {Object.values(METRIC_LABELS).map((label) => (
-            <div key={label} className="flex items-center gap-2 text-sm text-slate-700">
-              <div className="w-2 h-2 rounded-full bg-brand" />
+            <div key={label} className="flex items-center gap-2 text-sm">
+              <div className="w-2 h-2 rounded-full bg-current" />
               {label}
             </div>
           ))}
@@ -178,43 +184,96 @@ export function Dribbling() {
           {/* AI分析结果和学员选择 */}
           {aiAnalysis && !showReport && (
             <div className="space-y-4">
-              <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-lg p-4">
-                <div className="flex items-center justify-between mb-3">
-                  <h3 className="font-medium text-blue-800 flex items-center gap-2">
-                    <Brain className="w-4 h-4" />
+              <div className="u-card-glass is-dribble u-ai-card-enter p-6 rounded-xl">
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="font-medium text-slate-800 flex items-center gap-2">
+                    <Brain className="w-5 h-5" />
                     AI智能分析结果
                   </h3>
-                  <span className={`text-sm font-medium ${
-                    aiAnalysis.overallScore >= 80 ? 'text-green-600' :
-                    aiAnalysis.overallScore >= 60 ? 'text-yellow-600' : 'text-red-600'
-                  }`}>
-                    {aiAnalysis.overallScore}分
-                  </span>
+                  <div className="u-progress-ring">
+                    <svg>
+                      <circle
+                        className="u-progress-ring-bg"
+                        cx="40"
+                        cy="40"
+                        r="40"
+                      />
+                      <circle
+                        className="u-progress-ring-progress"
+                        cx="40"
+                        cy="40"
+                        r="40"
+                        style={{
+                          strokeDashoffset: 251.2 - (251.2 * aiAnalysis.overallScore) / 100
+                        }}
+                      />
+                    </svg>
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <span className="text-sm font-bold">{aiAnalysis.overallScore}</span>
+                    </div>
+                  </div>
                 </div>
-                <p className="text-sm text-blue-700 mb-3">{aiAnalysis.summary}</p>
+                
+                <div className="u-ionic-separator" />
+                
+                <div className="u-four-color-grid mb-4">
+                  <div className="u-color-tag tag-strength">
+                    <h4 className="font-medium text-sm mb-1">优势表现</h4>
+                    <p className="text-xs opacity-80">{aiAnalysis.strengths?.[0] || '运球节奏稳定'}</p>
+                  </div>
+                  <div className="u-color-tag tag-improve">
+                    <h4 className="font-medium text-sm mb-1">改进要点</h4>
+                    <p className="text-xs opacity-80">{aiAnalysis.improvementAreas?.[0] || '重心控制'}</p>
+                  </div>
+                  <div className="u-color-tag tag-suggest">
+                    <h4 className="font-medium text-sm mb-1">训练建议</h4>
+                    <p className="text-xs opacity-80">{aiAnalysis.suggestions?.[0] || '加强基础练习'}</p>
+                  </div>
+                  <div className="u-color-tag tag-risk">
+                    <h4 className="font-medium text-sm mb-1">总结</h4>
+                    <p className="text-xs opacity-80">{aiAnalysis.summary}</p>
+                  </div>
+                </div>
+                
                 <Button
                   onClick={() => setShowReport(true)}
                   size="sm"
-                  className="w-full"
+                  className="w-full btn-neon u-ripple"
                 >
                   查看详细报告
                 </Button>
               </div>
 
               {/* 学员选择和发送报告 */}
-              <div className="bg-white border border-slate-200 rounded-lg p-4">
-                <h3 className="font-medium text-slate-800 mb-3">发送训练报告到家长端</h3>
-                <div className="space-y-3">
-                  <StudentSelector
-                    value={selectedStudent?.id}
-                    onValueChange={(studentId, student) => setSelectedStudent(student)}
-                    placeholder="选择学员"
-                  />
+              <div className="u-card-glass is-dribble p-6 rounded-xl">
+                <h3 className="font-medium text-slate-800 mb-4 flex items-center gap-2">
+                  <Send className="w-5 h-5" />
+                  发送训练报告到家长端
+                </h3>
+                <div className="space-y-4">
+                  <div className="focus-ring-gradient">
+                    <StudentSelector
+                      value={selectedStudent?.id}
+                      onValueChange={(_, student) => setSelectedStudent(student)}
+                      placeholder="选择学员"
+                      className="input-glass"
+                    />
+                  </div>
+                  {selectedStudent && (
+                    <div className="flex items-center gap-3 p-3 rounded-lg bg-gradient-to-r from-emerald-50 to-teal-50 border border-emerald-200">
+                      <div className="w-8 h-8 rounded-full bg-gradient-to-br from-emerald-400 to-teal-500 flex items-center justify-center text-white text-sm font-bold">
+                        {selectedStudent.name.charAt(0)}
+                      </div>
+                      <div>
+                        <p className="font-medium text-emerald-800">{selectedStudent.name}</p>
+                        <p className="text-xs text-emerald-600">已选择学员</p>
+                      </div>
+                    </div>
+                  )}
                   <Button
                     onClick={handleSendReportToParent}
                     disabled={!selectedStudent || sendingReport}
-                    className="w-full gap-2"
-                    variant="outline"
+                    className="w-full gap-2 btn-neon u-ripple"
                   >
                     <Send className="w-4 h-4" />
                     {sendingReport ? '发送中...' : '发送到家长端'}
