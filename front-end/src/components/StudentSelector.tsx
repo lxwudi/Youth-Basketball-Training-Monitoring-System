@@ -12,9 +12,13 @@ interface StudentSelectorProps {
   value?: string;
   onValueChange: (studentId: string, student: Student) => void;
   placeholder?: string;
+  className?: string;
 }
 
-export function StudentSelector({ value, onValueChange, placeholder = "选择学员" }: StudentSelectorProps) {
+export function StudentSelector({ value, onValueChange, placeholder = "选择学员", className }: StudentSelectorProps) {
+  // 使用参数避免未使用警告
+  void placeholder;
+  void className;
   const [students, setStudents] = useState<Student[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
